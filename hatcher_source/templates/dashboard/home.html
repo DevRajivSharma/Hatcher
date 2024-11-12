@@ -6,7 +6,7 @@
   <a href="{% url 'logout' %}" style="position:fixed;top: 10px;right: 15px;"><button class="btn btn-danger">logout</button></a>
   <a href="{% url 'community_post:post_list' %}" style="position:fixed;top: 50px;right: 15px;"><button class="btn btn-primary">Community</button></a>
     <h2>First Name: {{ user.first_name }}</h2>
-    <h2>Last Name: {{ user.last_name }}</h2>
+    <h2>Last Name: {{ user.last_name }}</h2>  
     <h2>Phone Number: {{ user.phone_no }}</h2>
     <h2>Bio: {{ user.user_bio }}</h2>
     <h2>Email: {{ user.email }}</h2>

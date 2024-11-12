@@ -7,5 +7,5 @@ urlpatterns = [
     path('login',login,name='login'),
     path('register',register,name='register'),
     path('logout',logout,name='logout'),
-     path('dashboard/', include('dashboard.urls', namespace='dashboard')),  # Set a namespace here
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')), 
 ]

@@ -1,7 +1,76 @@
-{% extends '../blocks/credentials_block.html' %}
+{% extends '../blocks/dashboard_block.html' %}
 
 {% block content %}
   <!-- Display the user's data after form submission -->
-<h1>Community Post</h1>
- 
+<h1 class="text-center" >Community Post</h1>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">
+  Add Post
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPostModalLabel">Create a New Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Post creation form -->
+        <form id="postForm" method="post" action="{% url 'community_post:add_post' %}" >
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="new_post" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success/Error message -->
+<div id="responseMessage" class="alert" style="display: none;"></div>
+
+
+<div class="container-sm">
+  {% if posts %}
+    {% for post in posts %}
+      <div class="card" style="width: 18rem; margin-bottom: 20px;">
+        <div class="card-body">
+          <!-- Display user profile image -->
+          <div class="d-flex align-items-center mb-2">
+            {% if post.user.user_profile_image %}
+              <img src="{{ post.user.user_profile_image.url }}" class="rounded-circle" width="40" height="40" alt="Profile Image">
+            {% else %}
+              <img src="https://via.placeholder.com/40" class="rounded-circle" width="40" height="40" alt="Profile Image">
+            {% endif %}
+            <div class="ms-2">
+              <h5 class="card-title">{{ post.user.first_name }} {{ post.user.last_name }}</h5>
+            </div>
+          </div>
+
+          <!-- Post content -->
+          <p class="card-text">{{ post.content }}</p>
+
+          <!-- Like and Comment buttons (if needed) -->
+          <a href="#" class="card-link like-btn" data-post-id="{{ post.id }}" data-liked="{{ user in post.likes.all }}">
+            {% if user in post.likes.all %}
+                <i class="fa-solid fa-heart" style="color: #da2f2f;"></i>
+            {% else %}
+                <i class="fa-solid fa-heart" style="color: #d5d6d8;"></i>
+            {% endif %}
+          </a>
+        
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No posts available at the moment.</p>
+  {% endif %}
+</div>
 {% endblock content %}
