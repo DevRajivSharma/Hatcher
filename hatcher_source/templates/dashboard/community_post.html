@@ -1,5 +1,10 @@
 {% extends '../blocks/dashboard_block.html' %}
 
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/community_post.css' %}">
+{% endblock css %}
+
 {% block content %}
   <!-- Display the user's data after form submission -->
 <h1 class="text-center" >Community Post</h1>
@@ -56,16 +61,14 @@
 
           <!-- Post content -->
           <p class="card-text">{{ post.content }}</p>
-
           <!-- Like and Comment buttons (if needed) -->
-          <a href="#" class="card-link like-btn" data-post-id="{{ post.id }}" data-liked="{{ user in post.likes.all }}">
-            {% if user in post.likes.all %}
-                <i class="fa-solid fa-heart" style="color: #da2f2f;"></i>
+          <section class="card-link like-btn" data-post-id="{{ post.id }}" >
+            {% if post.id in liked_post_ids %}
+              <i class="fa-solid fa-heart liked" id="heart_icon" ></i>
             {% else %}
-                <i class="fa-solid fa-heart" style="color: #d5d6d8;"></i>
+              <i class="fa-solid fa-heart not-liked" id="heart_icon"></i>
             {% endif %}
-          </a>
-        
+          </section>
         </div>
       </div>
     {% endfor %}
@@ -74,3 +77,8 @@
   {% endif %}
 </div>
 {% endblock content %}
+
+{% block javascripts %}
+{% load static %}
+<script src="{% static 'js/community_post.js' %}"></script>
+{% endblock javascripts %}

@@ -1,0 +1,7 @@
+/* Add these CSS classes to control the heart icon color */
+.liked {
+    color: #da2f2f;  /* Red color for liked */
+}
+.not-liked {
+    color: #dddfe4;  /* Gray color for not liked */
+}

@@ -20,9 +20,10 @@ class Post(models.Model):
     user = models.ForeignKey(user_table, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    total_likes = models.IntegerField(default=0)
     def __str__(self):
-        return f"Post by {self.user.email}"
+        return f"Post by {self.user.email}({self.user.first_name} {self.user.last_name})"
+    def is_liked_by_user(self, user):
+        return self.likes.filter(user=user).exists()
 
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
@@ -35,7 +36,7 @@ class Like(models.Model):
     def __str__(self):
         return f"{self.user.email} likes Post {self.post.id}"
     
-    
+
 class Job(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()

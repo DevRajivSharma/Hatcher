@@ -10,7 +10,7 @@ def home(request):
 
     if user_id:
         # Fetch user instance from the database using user_id
-        user_instance =user_table.objects.get(id=user_id)
+        user_instance = user_table.objects.get(id=user_id)
         print('user')
         # Pass the user instance to the template
         return render(request, 'dashboard/home.html', {'user': user_instance})

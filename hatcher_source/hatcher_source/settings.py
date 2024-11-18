@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'credentials',
     'dashboard',
     'community_post',
+    'employer',
 ]
 
 MIDDLEWARE = [
