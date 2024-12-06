@@ -1,0 +1,12 @@
+.job_cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cmp_img{
+    border-radius: 50%;
+}
+.width-50{
+    width: 50% !important;
+}
+

@@ -2,8 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from dashboard.models import *
+from credentials.models import *
+from community_post.models import *
 def post_list(request):
-    posts = Post.objects.select_related('user').all()
+    posts = Post.objects.select_related('user').all()        
     # Precompute whether the user has liked each post
     user_id = request.session.get('user_id')
     user = user_table.objects.get(id=user_id)
@@ -12,14 +14,13 @@ def post_list(request):
     print(f'liked post id list is :{liked_post_ids}')
     return render(request, 'dashboard/community_post.html', {'posts': posts, 'liked_post_ids': liked_post_ids})
 def add_post(request):
-    if request.method == 'POST':
+    if request.method == 'POST':    
         # Get the content from the form
         content = request.POST.get('new_post')
         user_id = request.session.get('user_id')
 
         if not user_id:
             return JsonResponse({"error": "User not logged in."}, status=400)
-
         # Fetch the user from the user_table using the session-stored user ID
         try:
             user = user_table.objects.get(id=user_id)

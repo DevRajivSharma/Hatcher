@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404 , redirect
-from .models import user_table  # Ensure correct model import
+from credentials.models import user_table  # Ensure correct model import
 from .middlewares import auth
 
 @auth

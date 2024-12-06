@@ -10,12 +10,12 @@ def register(request):
         print('inside register')
         user = request.POST
         profile_image = request.FILES.get('Profile_Image')
-        
         data = {
             'first_name': user.get('FirstName'),
             'last_name': user.get('LastName'),
             'phone_no': user.get('phone_number'),
-        'user_bio': user.get('Bio'),
+            'user_bio': user.get('Bio'),
+            'age': user.get('age'),
             'user_profile_image': profile_image,
             'email': user.get('Email'),
             'password': user.get('Password')

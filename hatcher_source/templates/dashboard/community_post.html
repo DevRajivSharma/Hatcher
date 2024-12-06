@@ -62,11 +62,11 @@
           <!-- Post content -->
           <p class="card-text">{{ post.content }}</p>
           <!-- Like and Comment buttons (if needed) -->
-          <section class="card-link like-btn" data-post-id="{{ post.id }}" >
+          <section class="card-link like-btn" data-post-id="{{ post.id }}"  style="width: fit-content;">
             {% if post.id in liked_post_ids %}
-              <i class="fa-solid fa-heart liked" id="heart_icon" ></i>
+              <i class="fa-solid fa-thumbs-up liked" id="heart_icon" ></i> {{post.total_likes}}
             {% else %}
-              <i class="fa-solid fa-heart not-liked" id="heart_icon"></i>
+              <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> {{post.total_likes}}
             {% endif %}
           </section>
         </div>

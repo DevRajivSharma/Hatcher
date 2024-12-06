@@ -1,0 +1,77 @@
+{% extends '../blocks/dashboard_block.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'start_hiring' %}">
+    {% csrf_token %}
+    
+    <!-- Job Model Fields -->
+    <div class="mb-3">
+        <label for="company" class="form-label">Company</label>
+        <select class="form-select" id="company" name="company" required>
+            <!-- Dynamically populate company choices in your backend -->
+            <option value="">Select Company</option>
+            <option value="1">Company A</option>
+            <option value="2">Company B</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Job Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Job Title" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Job Description</label>
+        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Job Description" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="salary" class="form-label">Salary</label>
+        <input type="text" class="form-control" id="salary" name="salary" placeholder="Enter Salary (optional)">
+    </div>
+
+    <!-- req_skill Model Fields -->
+    <div class="mb-3">
+        <label for="imp_skill" class="form-label">Important Skill</label>
+        <input type="text" class="form-control" id="imp_skill" name="imp_skill" placeholder="Enter Important Skill" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="skill_2" class="form-label">Skill 2</label>
+        <input type="text" class="form-control" id="skill_2" name="skill_2" placeholder="Enter Skill 2">
+    </div>
+
+    <div class="mb-3">
+        <label for="skill_3" class="form-label">Skill 3</label>
+        <input type="text" class="form-control" id="skill_3" name="skill_3" placeholder="Enter Skill 3">
+    </div>
+
+    <div class="mb-3">
+        <label for="skill_4" class="form-label">Skill 4</label>
+        <input type="text" class="form-control" id="skill_4" name="skill_4" placeholder="Enter Skill 4">
+    </div>
+
+    <div class="mb-3">
+        <label for="education" class="form-label">Education</label>
+        <input type="text" class="form-control" id="education" name="education" placeholder="Enter Required Education">
+    </div>
+
+    <div class="mb-3">
+        <label for="speak_lng_1" class="form-label">Language 1</label>
+        <input type="text" class="form-control" id="speak_lng_1" name="speak_lng_1" placeholder="Enter Language 1">
+    </div>
+
+    <div class="mb-3">
+        <label for="speak_lng_2" class="form-label">Language 2</label>
+        <input type="text" class="form-control" id="speak_lng_2" name="speak_lng_2" placeholder="Enter Language 2">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

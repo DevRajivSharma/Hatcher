@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('',include('credentials.urls')),
     path('community_post/', include('community_post.urls', namespace='community_post')),
-    path('admin/', admin.site.urls),
+    path('hatcher-admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

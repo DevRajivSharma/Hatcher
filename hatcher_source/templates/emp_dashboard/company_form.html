@@ -1,0 +1,32 @@
+{% extends '../blocks/credentials_block.html' %}
+
+{% block content %}
+<h1 class="text-center">Company Register</h1>
+<form class="container" method="post" enctype="multipart/form-data"
+ action="{% url 'company_register' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="fname" class="form-label">Company Name</label>
+        <input   name = 'name' type="text" class="form-control"  id="fname" aria-describedby="emailHelp" required>
+      </div>
+      <div class="mb-3">
+        <label for="age" class="form-label">Employees</label>
+        <input  name="employees" type="number" class="form-control" id="age" required>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+        <textarea name="bio" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div  requiredclass="mb-3">
+        <label for="formFile" class="form-label">Picture</label>
+        <input  name="image" class="form-control" type="file" id="formFile">
+      </div>
+    <div class="mb-3">
+       <label for="exampleInputEmail1" class="form-label">Address</label>
+      <input  name="address" type="text" class="form-control" id="exampleInputEmail1" required>
+    </div>
+    <div class="mb-3">
+    <button requiredon type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock content %}
+
