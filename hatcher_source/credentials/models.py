@@ -8,9 +8,12 @@ class user_table(models.Model):
     user_profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True)
     email =  models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-    username = 'email'
+    username = models.EmailField(unique=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     age = models.CharField(max_length=10,null=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def save(self, *args, **kwargs):
+        self.username = self.email
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.email

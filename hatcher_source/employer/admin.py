@@ -9,3 +9,4 @@ class JobAdmin(admin.ModelAdmin):
 admin.site.register(employer_table)
 admin.site.register(company)
 admin.site.register(Job, JobAdmin)
+admin.site.register(req_skill)

@@ -1,3 +1,48 @@
-h1{
-    color: red;
+body{
+    background-color: #fff7ed;
+    height: 100vh;
+    font-family: monospace;
+}
+.sections-heading{
+    text-align: center;
+    font-family: monospace;
+    color: rgb(213, 37, 37);
+}
+.form-div{
+    background-color: #f2b950;
+    padding:20px;
+    border: #f2b950;
+    border-radius: 20px;
+    width: 30%;
+    height: 40%;
+}
+.sub-btn{
+    background-color: #ffd4ff;
+    border-radius: 8px;
+    display: inline-block;
+}
+p{
+    display: inline;
+}
+/* Responsive */
+@media (max-width: 995px) {
+    .form-div{
+        background-color: #f2b950;
+        padding:20px;
+        border: #f2b950;
+        border-radius: 20px;
+        width: 50%;
+        height: fit-content;
+    }
+}
+
+@media (max-width: 595px) {
+    .form-div{
+        background-color: #f2b950;
+        padding:20px;
+        border: #f2b950;
+        border-radius: 20px;
+        width: 100%;
+        height: fit-content;
+    }
 }

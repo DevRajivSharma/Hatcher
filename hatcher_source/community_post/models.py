@@ -4,7 +4,7 @@ from django.db.models.signals import *
 from django.dispatch import receiver
 # Create your models here.
 class Post(models.Model):
-    user = models.ForeignKey(user_table, on_delete=models.CASCADE)
+    user = models.ForeignKey(user_table, on_delete=models.CASCADE,related_name='post')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     total_likes = models.IntegerField(default=0)

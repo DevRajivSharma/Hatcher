@@ -10,8 +10,11 @@
         <select class="form-select" id="company" name="company" required>
             <!-- Dynamically populate company choices in your backend -->
             <option value="">Select Company</option>
-            <option value="1">Company A</option>
-            <option value="2">Company B</option>
+            {% for cmp_name in emp_cmp_name %}
+            {% for cmp in cmp_name %}
+            <option >{{cmp}}</option>
+            {%endfor%}
+            {%endfor%}
         </select>
     </div>
 
@@ -32,43 +35,43 @@
 
     <div class="mb-3">
         <label for="salary" class="form-label">Salary</label>
-        <input type="text" class="form-control" id="salary" name="salary" placeholder="Enter Salary (optional)">
+        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter Salary " required>
     </div>
 
     <!-- req_skill Model Fields -->
     <div class="mb-3">
         <label for="imp_skill" class="form-label">Important Skill</label>
-        <input type="text" class="form-control" id="imp_skill" name="imp_skill" placeholder="Enter Important Skill" required>
+        <input type="text" class="form-control" id="imp_skill" name="imp_skill" placeholder="Enter Important Skill " required>
     </div>
 
     <div class="mb-3">
         <label for="skill_2" class="form-label">Skill 2</label>
-        <input type="text" class="form-control" id="skill_2" name="skill_2" placeholder="Enter Skill 2">
+        <input type="text" class="form-control" id="skill_2" name="skill_2" placeholder="Enter Skill 2 (Can be NUll)" required>
     </div>
 
     <div class="mb-3">
         <label for="skill_3" class="form-label">Skill 3</label>
-        <input type="text" class="form-control" id="skill_3" name="skill_3" placeholder="Enter Skill 3">
+        <input type="text" class="form-control" id="skill_3" name="skill_3" placeholder="Enter Skill 3 (Can be NUll)" required>
     </div>
 
     <div class="mb-3">
         <label for="skill_4" class="form-label">Skill 4</label>
-        <input type="text" class="form-control" id="skill_4" name="skill_4" placeholder="Enter Skill 4">
+        <input type="text" class="form-control" id="skill_4" name="skill_4" placeholder="Enter Skill 4 (Can be NUll)" required> 
     </div>
 
     <div class="mb-3">
         <label for="education" class="form-label">Education</label>
-        <input type="text" class="form-control" id="education" name="education" placeholder="Enter Required Education">
+        <input type="text" class="form-control" id="education" name="education" placeholder="Enter Required Education" required>
     </div>
 
     <div class="mb-3">
         <label for="speak_lng_1" class="form-label">Language 1</label>
-        <input type="text" class="form-control" id="speak_lng_1" name="speak_lng_1" placeholder="Enter Language 1">
+        <input type="text" class="form-control" id="speak_lng_1" name="speak_lng_1" placeholder="Enter Language 1 (Can be NUll)" required>
     </div>
 
     <div class="mb-3">
         <label for="speak_lng_2" class="form-label">Language 2</label>
-        <input type="text" class="form-control" id="speak_lng_2" name="speak_lng_2" placeholder="Enter Language 2">
+        <input type="text" class="form-control" id="speak_lng_2" name="speak_lng_2" placeholder="Enter Language 2 (Can be NUll)" required>
     </div>
 
     <!-- Submit Button -->

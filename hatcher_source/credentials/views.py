@@ -22,6 +22,7 @@ def register(request):
         }
         # Save the user instance
         user_instance = user_table.objects.create(**data)
+        user_instance.save()
         request.session['is_authenticated'] = True 
         request.session['user_id'] = user_instance.id 
         # Pass the user instance to the template

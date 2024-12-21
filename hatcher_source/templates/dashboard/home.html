@@ -28,21 +28,30 @@
 <br>
 <br>
 <br>
-
+{{company}}
+{% if company %}
+{%for c in company%}
   <div class="container text-centre w-50 ">
     <div class="card mb-3 ">
       <div class="card-body">
         <div class="job_cards">
           <div class="job_cards">
-          <img src="..." class="cmp_img" alt="...">
-          <h5 class="card-title">Card title</h5>
+            {{counter}}
+          <img src= "../media/{{c.1}}" class="cmp_img" width="30px" alt="image {{counter}}">
+          <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.0}}</h5>
+
         </div>
           <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268"><path d="M8.355 6.316a.985.985 0 0 0 0 1.515l4.714 4.17-4.714 4.17a.985.985 0 0 0 0 1.515c.474.419 1.24.419 1.713 0l5.577-4.933a.985.985 0 0 0 0-1.515l-5.577-4.933c-.461-.408-1.239-.408-1.713.01Z"></path></svg>
         </div>
-        <p class="card-text">Djanog Python Fullstack Developer</p>
+        <p class="card-text">Post - {{c.2}}</p>
+        <p class="card-text">Important Skill - {{c.3}}</p>
+        <p class="card-text">Graduation - {{c.4}}</p>
         <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>
-
+  {%endfor%}
+{%else%}
+<dvi class="container text-center">Will be Updated Soon!</dvi>
+{%endif%}
 {% endblock content %}
