@@ -3,55 +3,117 @@
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
-<link rel="stylesheet" href="{% static 'css/home-sm.css' %}">
 {% endblock css %}
 {% block content %}
-  <!-- Display the user's data after form submission -->
-  {% if user %}
-  <a href="{% url 'logout' %}" style="position:fixed;top: 10px;right: 15px;"><button class="btn btn-danger">logout</button></a>
-  <a href="{% url 'community_post:post_list' %}" style="position:fixed;top: 50px;right: 15px;"><button class="btn btn-primary">Community</button></a>
-    <h2>First Name: {{ user.first_name }}</h2>
-    <h2>Last Name: {{ user.last_name }}</h2>  
-    <h2>Phone Number: {{ user.phone_no }}</h2>
-    <h2>Bio: {{ user.user_bio }}</h2>
-    <h2>Email: {{ user.email }}</h2>
-    <h2>Password: {{ user.password }}</h2>
-    
-    <!-- Display the Profile Image if available -->
-    {% if user.user_profile_image %}
-      <h2>Profile Picture:</h2>
-      <img src="{{ user.user_profile_image.url }}" alt="Profile Image" style="width:200px;height:auto;">
-    {% else %}
-      <p>No profile image uploaded.</p>
-    {% endif %}
-  {% endif %}
+<!-- Display the user's data after form submission -->
 <br>
 <br>
 <br>
-{{company}}
-{% if company %}
-{%for c in company%}
-  <div class="container text-centre w-50 ">
-    <div class="card mb-3 ">
-      <div class="card-body">
-        <div class="job_cards">
-          <div class="job_cards">
-            {{counter}}
-          <img src= "../media/{{c.1}}" class="cmp_img" width="30px" alt="image {{counter}}">
-          <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.0}}</h5>
+<br>
+<br>
 
+<div class="container border  visually-hidden search_div" id="search-div">
+  <form action="" class="d-flex flex-row">
+    {{ csrftoken }}
+    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
+      <option selected>JOB TYPE</option>
+      <option value="1">Internship</option>
+      <option value="2">Full Time</option>
+      <option value="3">Part Time</option>
+      <option value="3">Hourly</option>
+    </select>
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center"/>
+    <input type="text" placeholder="Enter KeyWord [company/position]" class="form-control" required>
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"class="align-self-center"/>
+    <input class="form-control " type="text" placeholder="Location [Mumbai/Delhi/Banglore]" required >
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"class="align-self-center"/>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+<div class="main-container container d-flex flex-row">
+
+  <div class="container1 d-flex flex-column w-20 border rounded m-2 container-part">
+  <search>
+    <form>
+      <input name="fsrch" id="fsrch" placeholder="">
+    </form>
+  </search>
+  </div>
+
+  <div class="container2 d-flex flex-column w-60 m-2 container-part">
+    {% if company %}
+    {%for c in company%}
+    
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <div class="job_cards">
+            <div class="job_cards">
+              {{counter}}
+              <img src="../media/{{c.1}}" class="cmp_img" width="30px" alt="image {{counter}}">
+              <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.0}}</h5>
+
+            </div>
+            <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268">
+              <path
+                d="M8.355 6.316a.985.985 0 0 0 0 1.515l4.714 4.17-4.714 4.17a.985.985 0 0 0 0 1.515c.474.419 1.24.419 1.713 0l5.577-4.933a.985.985 0 0 0 0-1.515l-5.577-4.933c-.461-.408-1.239-.408-1.713.01Z">
+              </path>
+            </svg>
+          </div>
+          <p class="card-text">Post - {{c.2}}</p>
+          <p class="card-text">Important Skill - {{c.3}}</p>
+          <p class="card-text">Graduation - {{c.4}}</p>
+          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
         </div>
-          <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268"><path d="M8.355 6.316a.985.985 0 0 0 0 1.515l4.714 4.17-4.714 4.17a.985.985 0 0 0 0 1.515c.474.419 1.24.419 1.713 0l5.577-4.933a.985.985 0 0 0 0-1.515l-5.577-4.933c-.461-.408-1.239-.408-1.713.01Z"></path></svg>
-        </div>
-        <p class="card-text">Post - {{c.2}}</p>
-        <p class="card-text">Important Skill - {{c.3}}</p>
-        <p class="card-text">Graduation - {{c.4}}</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
       </div>
     </div>
+    {%endfor%}
+    {%else%}
+    <div class="container text-center w-20 border rounded m-2">
+      Sorry No Searched Found
+    </div>
+    {%endif%}
   </div>
-  {%endfor%}
-{%else%}
-<dvi class="container text-center">Will be Updated Soon!</dvi>
-{%endif%}
+
+  <div class="continer3 w-20 d-flex flex-column border rounded m-2 container-part">
+    <!-- Display the Profile Image if available -->
+     <div class="profile-detail d-flex flex-column m-2 border rounded p-2 text-center">
+      {% if user %}
+      {% if user.user_profile_image %}
+      <img src="{{ user.user_profile_image.url }}" alt="Profile Image" width="100px" class="m-auto">
+      {% else %}
+      <p>No profile image uploaded.</p>
+      {% endif %}
+      <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+      <h4>{{ user.phone_no }}</h4>
+      <!-- <h4>Bio: {{ user.user_bio }}</h4>
+      <h4>Email: {{ user.email }}</h4>
+      <h4>Password: {{ user.password }}</h4>
+     </div> -->
+    
+    <a href="{% url 'logout' %}"><button class="btn btn-danger">logout</button></a>
+    <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
+    {% endif %}
+    </div>
+     <div class="profile-2 d-flex flex-column m-2 border rounded p-2 text-center">
+      <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+      <h4>{{ user.phone_no }}</h4>
+      <h4>Bio: {{ user.user_bio }}</h4>
+      <h4>Email: {{ user.email }}</h4>
+      <h4>Password: {{ user.password }}</h4>
+      <a href="{% url 'logout' %}"><button class="btn btn-danger">logout</button></a>
+      <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
+     </div>
+     <div class="profile-3 m-2 ">
+      
+     </div>
+  </div>
+
+
+
+</div>
 {% endblock content %}
+{% block javascripts %} 
+{% load static %}
+<script src="{% static 'js/home.js'%}"></script>
+{% endblock javascripts %}

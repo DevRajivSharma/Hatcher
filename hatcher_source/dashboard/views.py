@@ -13,7 +13,7 @@ def home(request):
         user_instance = user_table.objects.get(id=user_id)
         print('user')
         jobs = Job.objects.all()
-        jobs_val = jobs.values_list('company__name','company__image','title','req_skill__imp_skill','req_skill__education')
+        jobs_val = jobs.values_list('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary','location')
         print('jobs is ',jobs_val)
         print(jobs_val[0][0])
         # Pass the user instance to the template

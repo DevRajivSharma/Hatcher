@@ -14,7 +14,7 @@ body{
     border: #f2b950;
     border-radius: 20px;
     width: 30%;
-    height: 40%;
+    height: fit-content;
 }
 .sub-btn{
     background-color: #ffd4ff;
@@ -42,7 +42,7 @@ p{
         padding:20px;
         border: #f2b950;
         border-radius: 20px;
-        width: 100%;
+        width: 90%;
         height: fit-content;
     }
 }

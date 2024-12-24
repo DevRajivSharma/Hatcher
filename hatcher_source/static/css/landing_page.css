@@ -74,6 +74,10 @@ button:hover{
 .contact-section>section{
     width: 50%;
 }
+.image-div {
+    background-image: url('../../media/logos/image.png'); 
+}
+
 /* Responsive */
 @media (max-width: 995px) {
     #navbarNav{

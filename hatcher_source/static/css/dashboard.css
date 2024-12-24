@@ -1,0 +1,27 @@
+body{
+    font-family: monospace;
+}
+.navbar{
+    background-color: #706ce4 ;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 1;
+}
+#navbarNav{
+    padding-right: 50px;
+    justify-content: center;
+}
+.nav-item:hover{
+    
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 3px;
+    text-decoration-color: orange ;
+}
+.nav-item{
+    margin: 0 5px;
+}
+.nav-link{
+    font-weight: 700;
+}
