@@ -12,46 +12,457 @@
 <br>
 <br>
 
-<div class="container border  visually-hidden search_div" id="search-div">
-  <form action="" class="d-flex flex-row">
+<div class="container border  visually-hidden search_div d-flex justify-content-center" id="search-div">
+  <form action="{% url 'dashboard:j_search' %}" method="get" class="d-flex flex-row " style="width: 90%;">
     {{ csrftoken }}
-    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
-      <option selected>JOB TYPE</option>
-      <option value="1">Internship</option>
-      <option value="2">Full Time</option>
-      <option value="3">Part Time</option>
-      <option value="3">Hourly</option>
+    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" >
+        <option selected>JOB TYPE</option>
+        <option value="Internship">Internship</option>
+        <option value="Full Time">Full Time</option>
+        <option value="Part Time">Part Time</option>
+        <option value="Hourly">Hourly</option>
     </select>
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center"/>
-    <input type="text" placeholder="Enter KeyWord [company/position]" class="form-control" required>
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"class="align-self-center"/>
-    <input class="form-control " type="text" placeholder="Location [Mumbai/Delhi/Banglore]" required >
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"class="align-self-center"/>
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
+      class="align-self-center" />
+    <input type="text" placeholder="Enter KeyWord [company/position]" class="form-control" >
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
+      class="align-self-center" />
+    <input class="form-control " type="text" placeholder="Location [City]" >
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
+      class="align-self-center" />
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>
 <div class="main-container container d-flex flex-row">
 
   <div class="container1 d-flex flex-column w-20 border rounded m-2 container-part">
-  <search>
-    <form>
-      <input name="fsrch" id="fsrch" placeholder="">
-    </form>
-  </search>
+    <div class="rounded-xl border border-solid border-[#E8E7EA] bg-white p-[16px] shadow-sm">
+      <div class="space-y-[16px]">
+        <div class="">
+          <div class="mb-[16px] flex items-center justify-between">
+            <div class="flex items-center space-x-[4px]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="none" viewBox="0 0 16 16">
+                <path fill="#190A28"
+                  d="M1.51 2.675c1.943 2.483 4.815 6.158 4.815 6.158V13a1.676 1.676 0 003.35 0V8.833s2.872-3.675 4.815-6.158c.427-.55.033-1.342-.67-1.342H2.172a.831.831 0 00-.661 1.342z">
+                </path>
+              </svg>
+              <div class="flex items-center">
+                <p class="m-0 text-sm font-semibold leading-[20px]">Filters&nbsp;</p>
+                <p class="m-0 text-sm font-semibold leading-[20px]">(1)</p>
+              </div>
+            </div>
+            <p class="m-0 cursor-pointer text-xs font-semibold leading-[16px] text-[#1F8268]">Clear all</p>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-[8px]">
+              <div
+                class="flex w-max cursor-pointer items-center gap-[4px] rounded-3xl border border-solid border-[#003C96] bg-[#EBF3FE] px-[8px] py-[4px]">
+                <p class="m-0 max-w-[166px] truncate text-xs leading-[16px] text-[#003C96]">Fresher</p><svg
+                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+                  <path fill="#003C96"
+                    d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z">
+                  </path>
+                </svg>
+              </div>
+            </div>
+            <div class="mt-[16px] h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+        </div>
+        <div class="space-y-[12px]">
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Experience</p>
+                <div class="flex h-[20px] w-[20px] items-center justify-center rounded-full bg-[#FFF2EB]">
+                  <p class="m-0 text-xs leading-[16px] text-[#842000]">1</p>
+                </div>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]">Your work experience</div>
+            <div class="block">
+              <div class="mb-[28px] space-y-[8px]">
+                <p class="m-0 mb-7 text-[#8C8594]"></p>
+                <div class="w-[95%]">
+                  <div class="relative w-[100%]"><span class="MuiSlider-root MuiSlider-colorPrimary"><span
+                        class="MuiSlider-rail jss12"></span><span class="MuiSlider-track jss13"
+                        style="left: 0%; width: 0%;"></span><input type="hidden" value="0"><span
+                        class="MuiSlider-thumb jss11 MuiSlider-thumbColorPrimary jss17 jss16" tabindex="0" role="slider"
+                        data-index="0" aria-orientation="horizontal" aria-valuemax="32" aria-valuemin="0"
+                        aria-valuenow="0" style="left: 0%;"><span class="jss18 MuiSlider-valueLabel jss14"><span
+                            class="jss19"><span class="jss20 jss15">Fresher</span></span></span></span></span>
+                    <div class="absolute bottom-[-12px] left-0 text-[14px] leading-[20px] text-[#827485]">0 years</div>
+                    <div class="absolute bottom-[-12px] right-[-5px] text-[14px] leading-[20px] text-[#827485]">31 years
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Date posted</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
+                    class="accent-[#1F8268]" value="-1" checked=""><label for="posted-in-radio-input"
+                    class="cursor-pointer">All</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
+                    class="accent-[#1F8268]" value="24"><label for="posted-in-radio-input" class="cursor-pointer">Last
+                    24 hours</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
+                    class="accent-[#1F8268]" value="72"><label for="posted-in-radio-input" class="cursor-pointer">Last 3
+                    days</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
+                    class="accent-[#1F8268]" value="168"><label for="posted-in-radio-input" class="cursor-pointer">Last
+                    7 days</label></div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Salary</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="mb-[28px] space-y-[8px]">
+                <p class="m-0 mb-7 text-[#8C8594]">Minimum monthly salary</p>
+                <div class="w-[95%]">
+                  <div class="relative w-[100%]"><span class="MuiSlider-root MuiSlider-colorPrimary"><span
+                        class="MuiSlider-rail jss12"></span><span class="MuiSlider-track jss13"
+                        style="left: 0%; width: 0%;"></span><input type="hidden" value="1"><span
+                        class="MuiSlider-thumb jss11 MuiSlider-thumbColorPrimary jss17 jss16" tabindex="0" role="slider"
+                        data-index="0" aria-orientation="horizontal" aria-valuemin="10000" aria-valuenow="10000"
+                        style="left: 0%;"><span class="jss18 MuiSlider-valueLabel jss14"><span class="jss19"><span
+                              class="jss20 jss15">₹0</span></span></span></span></span>
+                    <div class="absolute bottom-[-12px] left-0 text-[14px] leading-[20px] text-[#827485]">0</div>
+                    <div class="absolute bottom-[-12px] right-[-5px] text-[14px] leading-[20px] text-[#827485]">1.5
+                      Lakhs</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Highest education</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]">Select your highest education level to see all eligible
+              jobs</div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="1"><label for="education-level-radio-input"
+                    class="cursor-pointer">10 or Below 10th</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="2"><label for="education-level-radio-input"
+                    class="cursor-pointer">12th Pass</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="3"><label for="education-level-radio-input"
+                    class="cursor-pointer">Diploma</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="4"><label for="education-level-radio-input"
+                    class="cursor-pointer">ITI</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="5"><label for="education-level-radio-input"
+                    class="cursor-pointer">Graduate</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
+                    class="accent-[#1F8268]" value="6"><label for="education-level-radio-input"
+                    class="cursor-pointer">Post Graduate</label></div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Work Mode</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
+                    class="accent-[#1F8268]" value="wfh">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from home</p>
+                </div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
+                    class="accent-[#1F8268]" value="wfo">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from office</p>
+                </div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
+                    class="accent-[#1F8268]" value="wff">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from field</p>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Work Type</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="cursor-pointer space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
+                    class="accent-[#1F8268]" value="full_time">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Full time</p>
+                </div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
+                    class="accent-[#1F8268]" value="part_time">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Part time</p>
+                </div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
+                    class="accent-[#1F8268]" value="internship">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Internship</p>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Work Shift</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_shift"
+                    class="accent-[#1F8268]" value="day_shift">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Day shift</p>
+                </div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_shift"
+                    class="accent-[#1F8268]" value="night_shift">
+                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Night shift</p>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Department</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[12px]">
+                <div class="w-full rounded-[8px] border-[1px] bg-[#F4F2F6] px-[8px] py-[4px]">
+                  <div
+                    class="MuiInputBase-root MuiInput-root DesktopFilters__StyledInput-sc-8iaes-0 Ptezn  grow outline-none MuiInputBase-adornedStart">
+                    <div class="MuiInputAdornment-root MuiInputAdornment-positionStart"><svg width="14" height="14"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M16.6651 14.8978H15.7383L15.4098 14.5812C16.8176 12.9398 17.545 10.7004 17.1461 8.3203C16.5947 5.06086 13.873 2.45799 10.5882 2.05936C5.62577 1.44968 1.44935 5.62364 2.05939 10.5832C2.45826 13.866 5.06265 16.5862 8.32401 17.1372C10.7055 17.5359 12.9462 16.8089 14.5886 15.402L14.9054 15.7303V16.6565L19.8913 21.6395C20.3723 22.1202 21.1583 22.1202 21.6393 21.6395C22.1202 21.1588 22.1202 20.3732 21.6393 19.8925L16.6651 14.8978ZM9.62621 14.8978C6.70506 14.8978 4.34703 12.5412 4.34703 9.62174C4.34703 6.70231 6.70506 4.34566 9.62621 4.34566C12.5473 4.34566 14.9054 6.70231 14.9054 9.62174C14.9054 12.5412 12.5473 14.8978 9.62621 14.8978Z"
+                          fill="#827485"></path>
+                      </svg></div><input placeholder="Search" type="text"
+                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart" value="">
+                  </div>
+                </div>
+                <div>
+                  <div class="space-y-[8px]">
+                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
+                        type="checkbox" name="department" class="accent-[#1F8268]" value="1">
+                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Admin / Back Office / Computer
+                        Operator</p>
+                    </div>
+                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
+                        type="checkbox" name="department" class="accent-[#1F8268]" value="2">
+                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Advertising / Communication</p>
+                    </div>
+                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
+                        type="checkbox" name="department" class="accent-[#1F8268]" value="3">
+                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Aviation &amp; Aerospace</p>
+                    </div>
+                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
+                        type="checkbox" name="department" class="accent-[#1F8268]" value="4">
+                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Banking / Insurance / Financial
+                        Services</p>
+                    </div>
+                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
+                        type="checkbox" name="department" class="accent-[#1F8268]" value="5">
+                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Beauty, Fitness &amp; Personal Care
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-3 flex items-center space-x-[4px]">
+                    <p class="m-0 cursor-pointer text-xs font-semibold leading-[16px] text-[#1F8268]">Show 38 more</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
+                      <path fill="#1F8268"
+                        d="M4.874 3.684a.575.575 0 000 .884L7.624 7l-2.75 2.433a.575.575 0 000 .884.772.772 0 001 0l3.252-2.878a.575.575 0 000-.884L5.873 3.678a.78.78 0 00-.999.006z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">English level</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]">Select your English level to see all eligible jobs</div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
+                    class="accent-[#1F8268]" value="No English"><label for="english-level-radio-input"
+                    class="cursor-pointer">No English</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
+                    class="accent-[#1F8268]" value="Basic English"><label for="english-level-radio-input"
+                    class="cursor-pointer">Basic English</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
+                    class="accent-[#1F8268]" value="Intermediate English"><label for="english-level-radio-input"
+                    class="cursor-pointer">Intermediate English</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
+                    class="accent-[#1F8268]" value="Advanced English"><label for="english-level-radio-input"
+                    class="cursor-pointer">Advanced English</label></div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Gender</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="gender"
+                    class="accent-[#1F8268]" value="gender-f"><label for="gender-radio-input"
+                    class="cursor-pointer">Female</label></div>
+                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="gender"
+                    class="accent-[#1F8268]" value="gender-m"><label for="gender-radio-input"
+                    class="cursor-pointer">Male</label></div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-[12px] text-sm leading-[20px]">
+            <div class="flex cursor-pointer items-center justify-between">
+              <div class="flex items-center gap-[4px]">
+                <p class="m-0 font-semibold">Sort By</p>
+              </div>
+              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                  height="20" fill="none" viewBox="0 0 20 20">
+                  <path fill="#8C8594"
+                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+                  </path>
+                </svg></div>
+            </div>
+            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
+            <div class="block">
+              <div class="space-y-[8px]">
+                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
+                    class="mt-[4px] accent-[#1F8268]" value="" checked=""><label for="posted-in-radio-input"
+                    class="cursor-pointer">Relevant</label></div>
+                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
+                    class="mt-[4px] accent-[#1F8268]" value="-max_salary"><label for="posted-in-radio-input"
+                    class="cursor-pointer">Salary - High to low</label></div>
+                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
+                    class="mt-[4px] accent-[#1F8268]" value="-last_updated"><label for="posted-in-radio-input"
+                    class="cursor-pointer">Date posted - New to Old</label></div>
+              </div>
+            </div>
+            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="container2 d-flex flex-column w-60 m-2 container-part">
     {% if company %}
     {%for c in company%}
-    
-    <div class="container">
-      <div class="card">
+    <!-- {{c}} -->
+    <div class="add_pad">
+      <div class="card" style="border-radius: 31px;">
         <div class="card-body">
-          <div class="job_cards">
+          <div class="job_cards mb-2">
             <div class="job_cards">
-              {{counter}}
-              <img src="../media/{{c.1}}" class="cmp_img" width="30px" alt="image {{counter}}">
-              <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.0}}</h5>
+
+              <img src="{{c.company__image}}" class="cmp_img" width="30px" height="30px" alt="image {{counter}}"
+                style="object-fit: cover;">
+              <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.company__name}}</h5>
 
             </div>
             <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268">
@@ -60,10 +471,16 @@
               </path>
             </svg>
           </div>
-          <p class="card-text">Post - {{c.2}}</p>
-          <p class="card-text">Important Skill - {{c.3}}</p>
-          <p class="card-text">Graduation - {{c.4}}</p>
-          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          <span class="info-card rounded ">{{c.title}}</span>
+          <span class="info-card rounded ">{{c.req_skill__imp_skill}}</span>
+          <span class="info-card rounded ">{{c.req_skill__education}}</span>
+          <span class="info-card rounded ">{{c.salary}}</span>
+          <span class="info-card rounded ">{{c.location}}</span>
+          <span class="info-card rounded ">{{c.job_type}}</span>
+          <span class="info-card rounded ">{{c.updated_at}}</span>
+          <span class="info-card rounded ">{{c.location}}</span>
+          <p class="card-p" >Salary : {{c.salary}}</p>
+          <p class="card-updated"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
         </div>
       </div>
     </div>
@@ -75,12 +492,15 @@
     {%endif%}
   </div>
 
-  <div class="continer3 w-20 d-flex flex-column border rounded m-2 container-part">
+  <div class="container3 w-20 d-flex flex-column border rounded m-2 container-part">
     <!-- Display the Profile Image if available -->
-     <div class="profile-detail d-flex flex-column m-2 border rounded p-2 text-center">
+    <div class="profile-detail d-flex flex-column m-2 border rounded p-2 text-center">
       {% if user %}
       {% if user.user_profile_image %}
-      <img src="{{ user.user_profile_image.url }}" alt="Profile Image" width="100px" class="m-auto">
+      <img src="{{ user.user_profile_image.url }}" alt="Profile Image" class="m-auto" style="border-radius: 50%;
+      height: 80px;
+      width: 80px;
+      object-fit: cover;">
       {% else %}
       <p>No profile image uploaded.</p>
       {% endif %}
@@ -90,30 +510,27 @@
       <h4>Email: {{ user.email }}</h4>
       <h4>Password: {{ user.password }}</h4>
      </div> -->
-    
-    <a href="{% url 'logout' %}"><button class="btn btn-danger">logout</button></a>
-    <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
-    {% endif %}
+
+
+      {% endif %}
     </div>
-     <div class="profile-2 d-flex flex-column m-2 border rounded p-2 text-center">
+    <div class="profile-2 d-flex flex-column m-2 border rounded p-2 text-center">
       <h4>{{ user.first_name }} {{ user.last_name }}</h4>
       <h4>{{ user.phone_no }}</h4>
       <h4>Bio: {{ user.user_bio }}</h4>
       <h4>Email: {{ user.email }}</h4>
       <h4>Password: {{ user.password }}</h4>
-      <a href="{% url 'logout' %}"><button class="btn btn-danger">logout</button></a>
-      <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
-     </div>
-     <div class="profile-3 m-2 ">
-      
-     </div>
+    </div>
+    <div class="profile-3 m-2 ">
+
+    </div>
   </div>
 
 
 
 </div>
 {% endblock content %}
-{% block javascripts %} 
+{% block javascripts %}
 {% load static %}
 <script src="{% static 'js/home.js'%}"></script>
 {% endblock javascripts %}

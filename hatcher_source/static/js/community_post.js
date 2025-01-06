@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const postId = this.getAttribute("data-post-id");
             const icon = this.querySelector("i");
-
+            const slike = this.querySelector('span')
             // Toggle the like icon appearance
-           console.log(icon.classList)
+        //    console.log(icon.classList)
            
 
             // Send AJAX request to toggle like
@@ -27,9 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.liked) {
                         icon.classList.remove("not-liked");
                         icon.classList.add("liked");
+                        slike.innerHTML = +(slike.innerHTML) + 1;
                     } else {
                         icon.classList.remove("liked");
                         icon.classList.add("not-liked");
+                        slike.innerHTML = +(slike.innerHTML) - 1;
                     }  // Update the `data-liked` attribute
                 } else {
                     console.error("Error toggling like status.");

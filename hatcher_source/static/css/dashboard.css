@@ -8,12 +8,8 @@ body{
     top: 0px;
     z-index: 1;
 }
-#navbarNav{
-    padding-right: 50px;
-    justify-content: center;
-}
+
 .nav-item:hover{
-    
     text-decoration: underline;
     text-underline-offset: 5px;
     text-decoration-thickness: 3px;
@@ -21,7 +17,31 @@ body{
 }
 .nav-item{
     margin: 0 5px;
+    align-self: center;
 }
 .nav-link{
     font-weight: 700;
+}
+#search-box {
+    position: relative;
+    left: -88px;
+    color: white;
+    display: flex;
+    width: 200px;
+    padding: 3px 5px;
+    justify-content: center;
+    font-weight: 900;
+    opacity: 0.65;
+}
+#search-box:hover{
+    display: flex;
+    width: 200px;
+    justify-content: center;
+    font-weight: 900;
+    opacity: 1;
+    border: 2px solid white !important;
+}
+.navbar-brand{
+    width: 167px;
+    margin-right: 0;
 }

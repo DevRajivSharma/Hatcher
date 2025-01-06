@@ -50,9 +50,9 @@
           <!-- Display user profile image -->
           <div class="d-flex align-items-center mb-2">
             {% if post.user.user_profile_image %}
-              <img src="{{ post.user.user_profile_image.url }}" class="rounded-circle" width="40" height="40" alt="Profile Image">
+              <img src="{{ post.user.user_profile_image.url }}" width="40" height="40" alt="Profile Image" style="border-radius: 50%;object-fit: cover;">
             {% else %}
-              <img src="https://via.placeholder.com/40" class="rounded-circle" width="40" height="40" alt="Profile Image">
+              <img src="https://via.placeholder.com/40" class="rounded-circle" width="40" height="40" alt="Profile Image" style="border-radius: 50%;object-fit: cover;">
             {% endif %}
             <div class="ms-2">
               <h5 class="card-title">{{ post.user.first_name }} {{ post.user.last_name }}</h5>
@@ -64,9 +64,9 @@
           <!-- Like and Comment buttons (if needed) -->
           <section class="card-link like-btn" data-post-id="{{ post.id }}"  style="width: fit-content;">
             {% if post.id in liked_post_ids %}
-              <i class="fa-solid fa-thumbs-up liked" id="heart_icon" ></i> {{post.total_likes}}
+              <i class="fa-solid fa-thumbs-up liked" id="heart_icon" ></i> <span class="tlike">{{post.total_likes}}</span> 
             {% else %}
-              <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> {{post.total_likes}}
+              <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> <span class="tlike">{{post.total_likes}}</span> 
             {% endif %}
           </section>
         </div>

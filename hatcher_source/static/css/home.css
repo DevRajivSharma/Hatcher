@@ -25,3 +25,24 @@
     margin-bottom: 40px;
     padding: 20px 50px;
 }
+.add_pad{
+    padding: 0 .5rem .5rem;
+}
+.info-card {
+    display: inline-block;
+    padding: 0px 8px;
+    background: #4b44cf40;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 4px;
+}
+
+.card-p{
+    padding: 0;
+    margin: 0;
+}
+.card-updated{
+    padding: 0;
+    margin: 0;
+    text-align: end;
+}

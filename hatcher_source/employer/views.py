@@ -30,16 +30,16 @@ def employer_register(request):
     return render(request, 'credentials/employer_register.html')
 def employer_login(request):
     if request.method == "POST":
-        email = request.POST.get('email')
+        email =  request.POST.get('email')
         password = request.POST.get('password')
-        
         try:
-            
-            employer = employer_table.objects.get(email=email, password=password)
+            employer = employer_table.objects.get(email=email.strip(), password=password.strip())
+            print('Employer found')
             request.session['is_emp_authenticated'] = True 
             request.session['employer_id'] = employer.id 
             return redirect('employer_dashboard')  # Redirect to dashboard after login
-        except employer_table.DoesNotExist:
+        except Exception as e:
+            print(e)
             return render(request, 'credentials/employer_login.html', {'error': 'Invalid credentials'})
     return render(request, 'credentials/employer_login.html')
 
@@ -82,6 +82,7 @@ def start_hiring(request):
             return redirect('employer_dashboard')
         data = {
             'company' : cmp,
+            'job_type':form.get('job_type'),
             'title' : form.get('title'),
             'description' : form.get('description'),
             'location' : form.get('location'),

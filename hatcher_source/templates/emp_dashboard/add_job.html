@@ -1,7 +1,7 @@
 {% extends '../blocks/dashboard_block.html' %}
 
 {% block content %}
-<form method="POST" action="{% url 'start_hiring' %}">
+<form method="POST" class="container-fluid w-50 mt-5 pt-4" action="{% url 'start_hiring' %}">
     {% csrf_token %}
     
     <!-- Job Model Fields -->
@@ -22,7 +22,13 @@
         <label for="title" class="form-label">Job Title</label>
         <input type="text" class="form-control" id="title" name="title" placeholder="Enter Job Title" required>
     </div>
-
+    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
+        <option selected>JOB TYPE</option>
+        <option value="Internship">Internship</option>
+        <option value="Full Time">Full Time</option>
+        <option value="Part Time">Part Time</option>
+        <option value="Hourly">Hourly</option>
+      </select>
     <div class="mb-3">
         <label for="description" class="form-label">Job Description</label>
         <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Job Description" required></textarea>

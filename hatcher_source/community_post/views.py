@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from dashboard.models import *
 from credentials.models import *
 from community_post.models import *
-def post_list(request):
+def post_list(request): 
     posts = Post.objects.select_related('user').all()        
     # Precompute whether the user has liked each post
     user_id = request.session.get('user_id')
