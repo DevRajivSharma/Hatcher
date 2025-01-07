@@ -46,3 +46,6 @@
     margin: 0;
     text-align: end;
 }
+.add_pad>.card:hover{
+    box-shadow: #96ccf3 0px 0px 5px 2px;
+}

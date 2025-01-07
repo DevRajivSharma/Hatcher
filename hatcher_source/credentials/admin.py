@@ -8,4 +8,4 @@ class UserTableAdmin(admin.ModelAdmin):
 
 
 admin.site.register(user_table, UserTableAdmin)
-
+admin.site.register(FeedBack)

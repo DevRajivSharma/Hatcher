@@ -17,3 +17,12 @@ class user_table(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return self.email
+class FeedBack(models.Model):
+    name = models.CharField(max_length=100, default='Anonymous')
+    email = models.EmailField(max_length=100)
+    feedback = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.email

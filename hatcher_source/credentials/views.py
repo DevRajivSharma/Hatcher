@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 # Create your views here.
 
-from dashboard.models import user_table
+from dashboard.models import *
 def landing_page(request):
     return render(request,'credentials/landing_page.html')
 
@@ -48,3 +48,17 @@ def login(request):
 def logout(request):
     request.session.flush()
     return render(request, 'credentials/login.html')
+
+def feedback(request):
+    if request.method == "POST":
+        feedback = request.POST
+        data = {
+            'name': feedback.get('name'),
+            'email': feedback.get('email'),
+            'feedback': feedback.get('feedback')
+        }
+        print(data)
+        feedback_instance = FeedBack.objects.create(**data)
+        feedback_instance.save()
+        return render(request, 'credentials/landing_page.html')
+    return render(request, 'credentials/landing_page.html')

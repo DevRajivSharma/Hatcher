@@ -12,22 +12,22 @@
 <br>
 <br>
 
-<div class="container border  visually-hidden search_div d-flex justify-content-center" id="search-div">
+<div class="container  visually-hidden search_div d-flex justify-content-center" id="search-div">
   <form action="{% url 'dashboard:j_search' %}" method="get" class="d-flex flex-row " style="width: 90%;">
     {{ csrftoken }}
-    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" >
-        <option selected>JOB TYPE</option>
-        <option value="Internship">Internship</option>
+    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
+        <option value="Internship" selected>Internship</option>
         <option value="Full Time">Full Time</option>
         <option value="Part Time">Part Time</option>
         <option value="Hourly">Hourly</option>
+        <option value="Hourly">Freelance</option>
     </select>
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
-    <input type="text" placeholder="Enter KeyWord [company/position]" class="form-control" >
+    <input type="text" placeholder="Enter KeyWord [company/position]" name="keyword" class="form-control" required />
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
-    <input class="form-control " type="text" placeholder="Location [City]" >
+    <input class="form-control " type="text" placeholder="Location [City|Remote]" name="location" required />
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
     <button type="submit" class="btn btn-primary">Search</button>

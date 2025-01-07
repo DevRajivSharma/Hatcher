@@ -31,7 +31,7 @@ class company(models.Model):
     cmp_email = models.EmailField(null=True)
     name = models.CharField(max_length=100)
     bio = models.CharField(max_length=1000)
-    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
     employees = models.IntegerField(default=1)
     image = models.ImageField(upload_to='company_images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
