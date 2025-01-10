@@ -2,7 +2,6 @@ function getCSRFToken() {
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     return csrfToken;
 }
-
 document.getElementById('send-otp-btn').addEventListener('click', () => {
     const email = document.getElementById('email').value;
     if (!email) {
@@ -54,14 +53,4 @@ document.getElementById('verify-otp-btn').addEventListener('click', () => {
         alert(data.message)
     })
     .catch(error => console.error('Error:', error));
-});
-
-document.getElementById('submit-btn').addEventListener('click', function (e) {
-    const password = document.getElementById('Password').value;
-    const confirmPassword = document.getElementById('Password2').value;
-
-    if (password !== confirmPassword) {
-        e.preventDefault(); // Prevent form submission
-        alert("Passwords do not match!");
-    }
 });

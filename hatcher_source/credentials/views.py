@@ -13,20 +13,17 @@ def register(request):
         data = {
             'first_name': user.get('FirstName'),
             'last_name': user.get('LastName'),
-            'phone_no': user.get('phone_number'),
-            'user_bio': user.get('Bio'),
-            'age': user.get('age'),
-            'user_profile_image': profile_image,
             'email': user.get('Email'),
             'password': user.get('Password')
         }
-        # Save the user instance
-        user_instance = user_table.objects.create(**data)
-        user_instance.save()
-        request.session['is_authenticated'] = True 
-        request.session['user_id'] = user_instance.id 
-        # Pass the user instance to the template
-        return redirect('dashboard:home')
+        try:
+            user_instance = user_table.objects.create(**data)
+            user_instance.save()
+            request.session['is_authenticated'] = True 
+            request.session['user_id'] = user_instance.id 
+            return redirect('dashboard:home')
+        except Exception as e:
+            render(request, 'credentials/register.html', {'error': 'Invalid credentials'})
     return render(request, 'credentials/register.html')
 def login(request):
     if request.method == "POST":

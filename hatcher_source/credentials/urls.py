@@ -11,6 +11,6 @@ urlpatterns = [
     path('logout/',logout,name='logout'),
     path('dashboard/', include('dashboard.urls', namespace='dashboard')), 
     path('email-auth/',email_auth,name='email_auth'),
-    path('verify-otp/',verify_otp,name='email_verify'),
+    path('otp/',verify_otp,name='email_verify'),
     path('feddback/',feedback,name='feedback'),
 ]

@@ -1,5 +1,5 @@
 body{
-    background-color: #747270;
+    /* background: linear-gradient(90deg, #535264 50%, rgba(48, 19, 85, 0.5) 100%); */
     height: 100vh;
     font-family: monospace;
     background-blend-mode: overlay;
@@ -37,10 +37,9 @@ button:hover{
 .nav-link{
     color: #ecceff !important;
     font-weight: bold;
-    transition: 0.5s;
 }
 .nav-link:hover{
-    color: #6a159f !important;
+    color: #000000b8 !important;
     font-weight: bold;
 }
 .main{
@@ -49,24 +48,30 @@ button:hover{
 .sections-heading{
     text-align: center;
     font-family: 'circular';
-    color: rgb(34 21 16);
     font-weight: 600;
+    background: linear-gradient(90deg, rgb(79, 31, 31) 50%, rgba(23, 1, 52, 0.5) 100%);
+    -webkit-text-fill-color: transparent; 
+    background-clip: text;
+    -webkit-background-clip: text; 
 }
 .card{
     margin: 5px;
+}
+.price{
+    font-weight: bolder;
+    font-size: 43px !important;
+    background: -webkit-linear-gradient(#a43c3c, #333);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .price-section{
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
+    
 }
 .price-section>.card{
     margin: 10px;
-}
-.contact-form{
-    background-color: #f2b950;
-    width: 50%;
-    padding: 20px;
 }
 .form-btn{
     background-color: #6877e2;
@@ -84,8 +89,12 @@ button:hover{
 .form-container{
     width: 50%;
 }
+.contact-section{
+    padding: 0 117px;
+}
 .contact-section>section{
     width: 50%;
+    font-size: xx-large;
 }
 .image-div {
     background-image: url('../../media/logos/landing_bg.webp'); 
@@ -93,25 +102,24 @@ button:hover{
     background-size: cover;
     height: 600px;
     width: 100%;
-    opacity: 0.8;
+    /* opacity: 0.8; */
 }
 .card-group>.card {
     flex: 1 0 0%;
     margin: 50px;
     height: 606px;
-    background: linear-gradient(148deg, #9889c0, transparent);
+    /* background: linear-gradient(148deg, #9889c0, transparent); */
     color: rgb(2 2 2);
     font-size: larger;
     font-weight: 500;
 }
 .card-img-top{
-    opacity: 0.8;
+    /* opacity: 0.8; */
 }
 .card-group>.card:hover {
-    background: linear-gradient(148deg, #9889c0, transparent);
     color: rgb(47, 5, 69);
     font-weight: 700;
-    box-shadow: #6877e2 0px 0px 10px 5px;
+    box-shadow: #6877e2 0px 0px 5px 1px;
     /* transition: 0.1s ease-in-out; */
     
 }
@@ -120,10 +128,10 @@ button:hover{
     cursor: pointer;
 }
 .buy-btn{
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
+    height: fit-content;
+    align-self: center;
 }
+
 .silver_card{
     background: linear-gradient(94deg, #c3c7d0, #0000000d);
     border-radius: 16px;
@@ -152,22 +160,29 @@ button:hover{
 }
 
 .btn-gradient1 {
-    background-image: linear-gradient(to right,
-                    #870000 0%, #b75534  51%,
-                    #870000  100%);
+    background-color: white;
     border: none;
     color: rgb(3, 2, 2);
     font-weight: 700;
     }
 .btn-gradient2 {
-    background-image: linear-gradient(to right,
-                    #512de2 0%, #163f9e  51%,
-                    #512de2  100%);
+    background-color: black;
+    border: none;
+    color: white;
+    font-weight: 700;
+    }
+.btn-gradient1:hover {
+    background-color: white;
     border: none;
     color: rgb(3, 2, 2);
     font-weight: 700;
     }
-
+.btn-gradient2:hover {
+    background-color: black;
+    border: none;
+    color: white;
+    font-weight: 700;
+    }
 .social-icons {
     display: inline-block
 }
@@ -318,5 +333,8 @@ button:hover{
     }
     .user-modal{
         align-items: center;
+    }
+    .contact-section{
+        padding: 0px;
     }
 }

@@ -32,21 +32,21 @@ price_cards.forEach((card) => {
 });
 
 // Shake animation
-const shake = document.querySelectorAll(".shake");
+// const shake = document.querySelectorAll(".shake");
 
-// Create a GSAP timeline
-const timeline = gsap.timeline({ defaults: { duration: 0.8, ease: "power2.out"},repeat:-1 ,repeatDelay:0.5});
+// // Create a GSAP timeline
+// const timeline = gsap.timeline({ defaults: { duration: 0.8, ease: "power2.out"},repeat:-1 ,repeatDelay:0.5});
 
-// Loop through each element and add animations to the timeline
-shake.forEach((element) => {
-    timeline.to(element, {
-        scale: 1.1,
-        ease: "power2.out"
-    }).to(element, {
-        scale: 1,
-        ease: "power2.out"
-    });
-});
+// // Loop through each element and add animations to the timeline
+// shake.forEach((element) => {
+//     timeline.to(element, {
+//         scale: 1.1,
+//         ease: "power2.out"
+//     }).to(element, {
+//         scale: 1,
+//         ease: "power2.out"
+//     });
+// });
 
 
 setInterval(function(){
