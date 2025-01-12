@@ -12,7 +12,8 @@ env/
 media/
 
 # Ignore all JSON files
-*.json
+package-lock.json
+package.json
 
 # If you want to include specific JSON files, you can "unignore" them like this:
 # !important_config.json
