@@ -5,7 +5,8 @@ class user_table(models.Model):
     last_name = models.CharField(max_length=100,null=True)
     phone_no = models.CharField(max_length=10,unique=True,null=True)
     user_bio = models.CharField(max_length=500,null=True)
-    user_profile_image = models.ImageField(upload_to='user_profile_image', blank=True, null=True)
+    user_profile_image = models.ImageField(upload_to='user_profile_image', blank=True, 
+                                           default='logos/default_user.png')
     email =  models.EmailField(unique=True)
     password = models.CharField(max_length=100)
     username = models.EmailField(unique=True,null=True)

@@ -45,13 +45,19 @@ body{
     width: 250px;
     border-radius: 4px;
     background: #ebebeb;
+    border: 1px solid transparent;
+}
+.pass_group{
+    width: 250px;
+    background: #ebebeb;
+    border-radius: 4px;
     padding: 2px 6px;
     border: 1px solid transparent;
 }
-.input_group_3:hover{
+.pass_group:hover{
     border: 1px solid black;
 }
-.input_group_3:has(input:focus) {
+.pass_group:has(input:focus) {
     border: 2px solid black; /* Highlight the parent on input focus */
     border-radius: 5px;
   }
@@ -78,16 +84,25 @@ flex-direction: column;
 width: 250px;
 border-radius: 4px;
 background: #ebebeb;
-padding: 2px 6px;
 border: 1px solid transparent;
 }
-.input_group_4:hover{
+.confirm_pass_group{
+    width: 250px;
+    background: #ebebeb;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+.confirm_pass_group:hover{
     border: 1px solid black;
 }
-.input_group_4:has(input:focus) {
+.confirm_pass_group:has(input:focus) {
     border: 2px solid black; /* Highlight the parent on input focus */
     border-radius: 5px;
   }
+.hidden{
+    display: none;
+}
 label{
     display: block;
     text-align: start;
@@ -111,7 +126,8 @@ input{
     backdrop-filter: blur(1px);
 }
 .sub-btn {
-    background-color: #ffd4ff;
+    background-color: black;
+    color: white;
     border-radius: 5px;
     display: inline-block;
     width: 250px;
@@ -147,8 +163,34 @@ p{
     text-decoration: underline;
     text-underline-offset: 5px;
 }
-.hidden{
-    display: none;
+
+.otp_input_group{
+    display: flex;
+    justify-content: center;
+
+}
+.otp_input_group > input {
+    border: 1PX solid black;
+    width: 30px;
+    height: 35px;
+    margin: 2px;
+    font-size: large;
+}
+/* .open_eye{
+    position: relative;
+    right: 10px;
+    width: 20px;
+}
+.close_eye{
+    position: absolute;
+    right: 10px;
+    width: 10px;
+} */
+
+#verify-otp-btn{
+    border-radius: 5px;
+    color: white;
+    background: black;
 }
 
 /* Responsive */

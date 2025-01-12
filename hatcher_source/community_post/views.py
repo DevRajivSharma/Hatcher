@@ -12,7 +12,7 @@ def post_list(request):
     liked_posts =  Post.objects.filter(likes__user=user).all()
     liked_post_ids = liked_posts.values_list('id', flat=True)  # Get a list of liked post IDs
     print(f'liked post id list is :{liked_post_ids}')
-    return render(request, 'dashboard/community_post.html', {'posts': posts, 'liked_post_ids': liked_post_ids})
+    return render(request, 'dashboard/community_post.html', {'user':user, 'posts': posts, 'liked_post_ids': liked_post_ids})
 def add_post(request):
     if request.method == 'POST':    
         # Get the content from the form

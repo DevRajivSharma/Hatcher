@@ -2,15 +2,30 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
+from credentials.models import user_table
+from employer.models import employer_table
 import random
 # Create your views here.
 def email_auth(request):
     if request.method == 'POST':
+        receipent_type = request.POST.get('type')
         recipient_email = request.POST.get('email')  # Extract email from the request
-        if not recipient_email:
-            return JsonResponse({"message": "Email is required", "status": "error"}, status=400)
-        
-        otp = random.randint(100000, 999999)  # Generate a 6-digit OTP
+        print(receipent_type)
+        if (receipent_type == 'user'):
+            if not recipient_email:
+                
+                return JsonResponse({"message": "Email is required", "status": "error"}, status=400)
+            user = user_table.objects.filter(email=recipient_email)
+            
+            if user:
+                return JsonResponse({"message": "Email already exists", "status": "error"}, status=400)
+        else:
+            if not recipient_email:
+                return JsonResponse({"message": "Email is required", "status": "error"}, status=400)
+            emp = employer_table.objects.filter(email=recipient_email)
+            if emp:
+                return JsonResponse({"message": "Email already exists", "status": "error"}, status=400)
+        otp = random.randint(1000, 9999)  # Generate a 6-digit OTP
         
         # Save OTP to session (can be replaced with DB storage)
         request.session['email_verification_otp'] = otp

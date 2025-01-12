@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect
 # Create your views here.
-
+from dotenv import load_dotenv
+import os
 from dashboard.models import *
+
+load_dotenv()
+
 def landing_page(request):
     return render(request,'credentials/landing_page.html')
 
@@ -19,16 +23,14 @@ def register(request):
         try:
             user_instance = user_table.objects.create(**data)
             user_instance.save()
-            request.session['is_authenticated'] = True 
-            request.session['user_id'] = user_instance.id 
-            return redirect('dashboard:home')
+            return redirect('login')
         except Exception as e:
             render(request, 'credentials/register.html', {'error': 'Invalid credentials'})
-    return render(request, 'credentials/register.html')
+    return render(request, 'credentials/register.html',)
 def login(request):
     if request.method == "POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email = request.POST.get('Email')
+        password = request.POST.get('Password')
         # Validate email and password
         try:
             

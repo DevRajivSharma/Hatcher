@@ -1,5 +1,6 @@
 body{
     font-family: monospace;
+    background: #c8c6ef36;
 }
 .navbar{
     background-color: #706ce4 ;
@@ -7,13 +8,17 @@ body{
     width: 100%;
     top: 0px;
     z-index: 1;
+    padding: 0;
 }
-
-.nav-item:hover{
-    text-decoration: underline;
-    text-underline-offset: 5px;
-    text-decoration-thickness: 3px;
-    text-decoration-color: orange ;
+.hatcher-logo {
+    height: 65px;
+    cursor: pointer;
+}
+.nav-item{
+    transition: 1s;
+}
+.nav-item>a:hover{
+    color: white !important;
 }
 .nav-item{
     margin: 0 5px;
@@ -42,6 +47,63 @@ body{
     border: 2px solid white !important;
 }
 .navbar-brand{
-    width: 167px;
-    margin-right: 0;
+    padding: 0;
+}
+.search_div{
+    background: white;
+    border-radius: 23px;
+    margin-bottom: 40px;
+    padding: 20px 50px;
+    width: 50%;
+}
+
+#Up_Arrow{
+    position: fixed;
+    bottom: 40px;
+    right: 50px;
+}
+
+/* Footer Css */
+.footer_mentions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.footer_content{
+    display: flex;
+    flex-direction: column;
+    line-height: 40px;
+    padding: 0 50px;
+}
+.footer_img{
+    fill: #4c4bde;
+    margin-right: 8px;
+}
+.mentions{
+    font-size: large;
+
+}
+.mentions:hover{
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+.mention-head{
+    font-size: 20px;
+    font-weight: 600;
+}
+.Copyright{
+    font-size: small;
+    padding-bottom: 5px;
+}
+.hatcher_logo2{
+    margin-left: -9px;
+}
+
+.profile_box{
+    position: fixed;
+    top: 80px;
+    right: 24px;
+    background:white;
+    padding: 20px;
+    border-radius: 16px;
 }

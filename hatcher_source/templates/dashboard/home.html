@@ -2,25 +2,26 @@
 {% block title %}Home{% endblock title %}
 {% block css %}
 {% load static %}
+{% load custom_filters %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
-<br>
-<br>
-<br>
-<br>
-<br>
 
-<div class="container  visually-hidden search_div d-flex justify-content-center" id="search-div">
-  <form action="{% url 'dashboard:j_search' %}" method="get" class="d-flex flex-row " style="width: 90%;">
+<br>
+<br>
+<br>
+<br>
+<div class="container border search_div d-flex justify-content-center" id="search-div">
+  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="width: 90%;">
     {{ csrftoken }}
     <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
-        <option value="Internship" selected>Internship</option>
-        <option value="Full Time">Full Time</option>
-        <option value="Part Time">Part Time</option>
-        <option value="Hourly">Hourly</option>
-        <option value="Hourly">Freelance</option>
+      <option value="Internship" selected>Internship</option>
+      <option value="Full Time">Full Time</option>
+      <option value="Part Time">Part Time</option>
+      <option value="Hourly">Hourly</option>
+      <option value="Hourly">Freelance</option>
     </select>
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
@@ -33,437 +34,162 @@
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>
-<div class="main-container container d-flex flex-row">
 
-  <div class="container1 d-flex flex-column w-20 border rounded m-2 container-part">
-    <div class="rounded-xl border border-solid border-[#E8E7EA] bg-white p-[16px] shadow-sm">
-      <div class="space-y-[16px]">
-        <div class="">
-          <div class="mb-[16px] flex items-center justify-between">
-            <div class="flex items-center space-x-[4px]"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                fill="none" viewBox="0 0 16 16">
-                <path fill="#190A28"
-                  d="M1.51 2.675c1.943 2.483 4.815 6.158 4.815 6.158V13a1.676 1.676 0 003.35 0V8.833s2.872-3.675 4.815-6.158c.427-.55.033-1.342-.67-1.342H2.172a.831.831 0 00-.661 1.342z">
-                </path>
-              </svg>
-              <div class="flex items-center">
-                <p class="m-0 text-sm font-semibold leading-[20px]">Filters&nbsp;</p>
-                <p class="m-0 text-sm font-semibold leading-[20px]">(1)</p>
-              </div>
-            </div>
-            <p class="m-0 cursor-pointer text-xs font-semibold leading-[16px] text-[#1F8268]">Clear all</p>
-          </div>
-          <div>
-            <div class="flex flex-wrap items-center gap-[8px]">
-              <div
-                class="flex w-max cursor-pointer items-center gap-[4px] rounded-3xl border border-solid border-[#003C96] bg-[#EBF3FE] px-[8px] py-[4px]">
-                <p class="m-0 max-w-[166px] truncate text-xs leading-[16px] text-[#003C96]">Fresher</p><svg
-                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                  <path fill="#003C96"
-                    d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-            <div class="mt-[16px] h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
+<div class="main-container container d-flex flex-row justify-content-center p-0 ">
+
+  <!-- Three Main Container  -->
+
+
+  <div class="p-2 container1 d-flex flex-column w-20 border rounded m-2 container-part">
+
+    <!-- All Filter Clear/Toggle -->
+    <div class="d-flex flex-row justify-content-evenly">
+      <div class="d-flex flex-row align-item-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+          <path fill="#190A28"
+            d="M1.51 2.675c1.943 2.483 4.815 6.158 4.815 6.158V13a1.676 1.676 0 003.35 0V8.833s2.872-3.675 4.815-6.158c.427-.55.033-1.342-.67-1.342H2.172a.831.831 0 00-.661 1.342z">
+          </path>
+        </svg>
+        <div class="d-flex flex-row">
+          <p>Filters&nbsp;</p>
+          <p>(1)</p>
         </div>
-        <div class="space-y-[12px]">
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Experience</p>
-                <div class="flex h-[20px] w-[20px] items-center justify-center rounded-full bg-[#FFF2EB]">
-                  <p class="m-0 text-xs leading-[16px] text-[#842000]">1</p>
-                </div>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]">Your work experience</div>
-            <div class="block">
-              <div class="mb-[28px] space-y-[8px]">
-                <p class="m-0 mb-7 text-[#8C8594]"></p>
-                <div class="w-[95%]">
-                  <div class="relative w-[100%]"><span class="MuiSlider-root MuiSlider-colorPrimary"><span
-                        class="MuiSlider-rail jss12"></span><span class="MuiSlider-track jss13"
-                        style="left: 0%; width: 0%;"></span><input type="hidden" value="0"><span
-                        class="MuiSlider-thumb jss11 MuiSlider-thumbColorPrimary jss17 jss16" tabindex="0" role="slider"
-                        data-index="0" aria-orientation="horizontal" aria-valuemax="32" aria-valuemin="0"
-                        aria-valuenow="0" style="left: 0%;"><span class="jss18 MuiSlider-valueLabel jss14"><span
-                            class="jss19"><span class="jss20 jss15">Fresher</span></span></span></span></span>
-                    <div class="absolute bottom-[-12px] left-0 text-[14px] leading-[20px] text-[#827485]">0 years</div>
-                    <div class="absolute bottom-[-12px] right-[-5px] text-[14px] leading-[20px] text-[#827485]">31 years
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Date posted</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
-                    class="accent-[#1F8268]" value="-1" checked=""><label for="posted-in-radio-input"
-                    class="cursor-pointer">All</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
-                    class="accent-[#1F8268]" value="24"><label for="posted-in-radio-input" class="cursor-pointer">Last
-                    24 hours</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
-                    class="accent-[#1F8268]" value="72"><label for="posted-in-radio-input" class="cursor-pointer">Last 3
-                    days</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="postedIn"
-                    class="accent-[#1F8268]" value="168"><label for="posted-in-radio-input" class="cursor-pointer">Last
-                    7 days</label></div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Salary</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="mb-[28px] space-y-[8px]">
-                <p class="m-0 mb-7 text-[#8C8594]">Minimum monthly salary</p>
-                <div class="w-[95%]">
-                  <div class="relative w-[100%]"><span class="MuiSlider-root MuiSlider-colorPrimary"><span
-                        class="MuiSlider-rail jss12"></span><span class="MuiSlider-track jss13"
-                        style="left: 0%; width: 0%;"></span><input type="hidden" value="1"><span
-                        class="MuiSlider-thumb jss11 MuiSlider-thumbColorPrimary jss17 jss16" tabindex="0" role="slider"
-                        data-index="0" aria-orientation="horizontal" aria-valuemin="10000" aria-valuenow="10000"
-                        style="left: 0%;"><span class="jss18 MuiSlider-valueLabel jss14"><span class="jss19"><span
-                              class="jss20 jss15">₹0</span></span></span></span></span>
-                    <div class="absolute bottom-[-12px] left-0 text-[14px] leading-[20px] text-[#827485]">0</div>
-                    <div class="absolute bottom-[-12px] right-[-5px] text-[14px] leading-[20px] text-[#827485]">1.5
-                      Lakhs</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Highest education</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]">Select your highest education level to see all eligible
-              jobs</div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="1"><label for="education-level-radio-input"
-                    class="cursor-pointer">10 or Below 10th</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="2"><label for="education-level-radio-input"
-                    class="cursor-pointer">12th Pass</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="3"><label for="education-level-radio-input"
-                    class="cursor-pointer">Diploma</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="4"><label for="education-level-radio-input"
-                    class="cursor-pointer">ITI</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="5"><label for="education-level-radio-input"
-                    class="cursor-pointer">Graduate</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="education_level"
-                    class="accent-[#1F8268]" value="6"><label for="education-level-radio-input"
-                    class="cursor-pointer">Post Graduate</label></div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Work Mode</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
-                    class="accent-[#1F8268]" value="wfh">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from home</p>
-                </div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
-                    class="accent-[#1F8268]" value="wfo">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from office</p>
-                </div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_mode"
-                    class="accent-[#1F8268]" value="wff">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Work from field</p>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Work Type</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="cursor-pointer space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
-                    class="accent-[#1F8268]" value="full_time">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Full time</p>
-                </div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
-                    class="accent-[#1F8268]" value="part_time">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Part time</p>
-                </div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_type"
-                    class="accent-[#1F8268]" value="internship">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Internship</p>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Work Shift</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_shift"
-                    class="accent-[#1F8268]" value="day_shift">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Day shift</p>
-                </div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="checkbox" name="work_shift"
-                    class="accent-[#1F8268]" value="night_shift">
-                  <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Night shift</p>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Department</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[12px]">
-                <div class="w-full rounded-[8px] border-[1px] bg-[#F4F2F6] px-[8px] py-[4px]">
-                  <div
-                    class="MuiInputBase-root MuiInput-root DesktopFilters__StyledInput-sc-8iaes-0 Ptezn  grow outline-none MuiInputBase-adornedStart">
-                    <div class="MuiInputAdornment-root MuiInputAdornment-positionStart"><svg width="14" height="14"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M16.6651 14.8978H15.7383L15.4098 14.5812C16.8176 12.9398 17.545 10.7004 17.1461 8.3203C16.5947 5.06086 13.873 2.45799 10.5882 2.05936C5.62577 1.44968 1.44935 5.62364 2.05939 10.5832C2.45826 13.866 5.06265 16.5862 8.32401 17.1372C10.7055 17.5359 12.9462 16.8089 14.5886 15.402L14.9054 15.7303V16.6565L19.8913 21.6395C20.3723 22.1202 21.1583 22.1202 21.6393 21.6395C22.1202 21.1588 22.1202 20.3732 21.6393 19.8925L16.6651 14.8978ZM9.62621 14.8978C6.70506 14.8978 4.34703 12.5412 4.34703 9.62174C4.34703 6.70231 6.70506 4.34566 9.62621 4.34566C12.5473 4.34566 14.9054 6.70231 14.9054 9.62174C14.9054 12.5412 12.5473 14.8978 9.62621 14.8978Z"
-                          fill="#827485"></path>
-                      </svg></div><input placeholder="Search" type="text"
-                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart" value="">
-                  </div>
-                </div>
-                <div>
-                  <div class="space-y-[8px]">
-                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
-                        type="checkbox" name="department" class="accent-[#1F8268]" value="1">
-                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Admin / Back Office / Computer
-                        Operator</p>
-                    </div>
-                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
-                        type="checkbox" name="department" class="accent-[#1F8268]" value="2">
-                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Advertising / Communication</p>
-                    </div>
-                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
-                        type="checkbox" name="department" class="accent-[#1F8268]" value="3">
-                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Aviation &amp; Aerospace</p>
-                    </div>
-                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
-                        type="checkbox" name="department" class="accent-[#1F8268]" value="4">
-                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Banking / Insurance / Financial
-                        Services</p>
-                    </div>
-                    <div class="flex cursor-pointer items-center space-x-[8px] text-sm leading-[20px]"><input
-                        type="checkbox" name="department" class="accent-[#1F8268]" value="5">
-                      <p class="m-0 truncate text-sm leading-[20px] text-[#190A28]">Beauty, Fitness &amp; Personal Care
-                      </p>
-                    </div>
-                  </div>
-                  <div class="mt-3 flex items-center space-x-[4px]">
-                    <p class="m-0 cursor-pointer text-xs font-semibold leading-[16px] text-[#1F8268]">Show 38 more</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
-                      <path fill="#1F8268"
-                        d="M4.874 3.684a.575.575 0 000 .884L7.624 7l-2.75 2.433a.575.575 0 000 .884.772.772 0 001 0l3.252-2.878a.575.575 0 000-.884L5.873 3.678a.78.78 0 00-.999.006z">
-                      </path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">English level</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]">Select your English level to see all eligible jobs</div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
-                    class="accent-[#1F8268]" value="No English"><label for="english-level-radio-input"
-                    class="cursor-pointer">No English</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
-                    class="accent-[#1F8268]" value="Basic English"><label for="english-level-radio-input"
-                    class="cursor-pointer">Basic English</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
-                    class="accent-[#1F8268]" value="Intermediate English"><label for="english-level-radio-input"
-                    class="cursor-pointer">Intermediate English</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="english_level"
-                    class="accent-[#1F8268]" value="Advanced English"><label for="english-level-radio-input"
-                    class="cursor-pointer">Advanced English</label></div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Gender</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="gender"
-                    class="accent-[#1F8268]" value="gender-f"><label for="gender-radio-input"
-                    class="cursor-pointer">Female</label></div>
-                <div class="flex cursor-pointer items-center space-x-[8px]"><input type="radio" name="gender"
-                    class="accent-[#1F8268]" value="gender-m"><label for="gender-radio-input"
-                    class="cursor-pointer">Male</label></div>
-              </div>
-            </div>
-          </div>
-          <div class="space-y-[12px] text-sm leading-[20px]">
-            <div class="flex cursor-pointer items-center justify-between">
-              <div class="flex items-center gap-[4px]">
-                <p class="m-0 font-semibold">Sort By</p>
-              </div>
-              <div class="-rotate-180 duration-300 rotate-0"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                  height="20" fill="none" viewBox="0 0 20 20">
-                  <path fill="#8C8594"
-                    d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
-                  </path>
-                </svg></div>
-            </div>
-            <div class="text-sm leading-[20px] text-[#8C8594]"></div>
-            <div class="block">
-              <div class="space-y-[8px]">
-                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
-                    class="mt-[4px] accent-[#1F8268]" value="" checked=""><label for="posted-in-radio-input"
-                    class="cursor-pointer">Relevant</label></div>
-                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
-                    class="mt-[4px] accent-[#1F8268]" value="-max_salary"><label for="posted-in-radio-input"
-                    class="cursor-pointer">Salary - High to low</label></div>
-                <div class="flex  items-start space-x-[8px]"><input type="radio" name="sort_by"
-                    class="mt-[4px] accent-[#1F8268]" value="-last_updated"><label for="posted-in-radio-input"
-                    class="cursor-pointer">Date posted - New to Old</label></div>
-              </div>
-            </div>
-            <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
-          </div>
+      </div>
+      <p style="cursor: pointer;">Clear all</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div>
+
+      <!-- Posted Time Filter -->
+      <div class="d-flex justify-content-between">
+        <div class="container">
+          <p class="m-0"><b>Date posted</b></p>
+        </div>
+        <div>
+          <svg class="toggle_arrow" data-toggle-div='posted_filter' xmlns="http://www.w3.org/2000/svg" width="20"
+            height="20" fill="none" viewBox="0 0 20 20">
+            <path fill="#8C8594"
+              d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <div class="container mt-2 d-flex flex-column" id="posted_filter">
+        <div>
+          <input type="radio" name="postedIn" value="-1" checked>
+          <label for="posted-in-radio-input">All</label>
+        </div>
+        <div>
+          <input type="radio" name="postedIn" value="24" id="last_24_hour">
+          <label for="last_24_hour">Last 24 hours</label>
+        </div>
+        <div>
+          <input type="radio" name="postedIn" value="72" id="last_3_day">
+          <label for="last_3_day">Last 3 days</label>
+        </div>
+        <div>
+          <input type="radio" name="postedIn" value="168" id="last_7_day">
+          <label for="last_7_day">Last 7 days</label>
+        </div>
+      </div>
+
+      <div class="container ">
+        <hr class="filter_devide">
+      </div>
+
+      <!-- Salary Filter -->
+      <div class="d-flex justify-content-between">
+        <div class="container">
+          <p class="m-0"><b>Salary</b></p>
+        </div>
+        <div>
+          <svg class="toggle_arrow" data-toggle-div='salary_filter' xmlns="http://www.w3.org/2000/svg" width="20"
+            height="20" fill="none" viewBox="0 0 20 20">
+            <path fill="#8C8594"
+              d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <div class="container mt-2 d-flex flex-column" id="salary_filter">
+        <div>
+          <input type="radio" name="salary" value="-1" checked id="all_salary">
+          <label for="all_salary">All</label>
+        </div>
+        <div>
+          <input type="radio" name="salary" value="10000" id="20k">
+          <label for="20k">20k+</label>
+        </div>
+        <div>
+          <input type="radio" name="salary" value="20000" id="50k">
+          <label for="50k">50k+</label>
+        </div>
+        <div>
+          <input type="radio" name="salary" value="30000" id="100k">
+          <label for="100k">100k+</label>
+        </div>
+      </div>
+
+      <div class="container ">
+        <hr class="filter_devide">
+      </div>
+
+
+      <!-- Work Type Filter -->
+      <div class="d-flex justify-content-between">
+        <div class="container">
+          <p class="m-0"><b>Work Type</b></p>
+        </div>
+        <div>
+          <svg class="toggle_arrow" data-toggle-div='work_type_filter' xmlns="http://www.w3.org/2000/svg" width="20"
+            height="20" fill="none" viewBox="0 0 20 20">
+            <path fill="#8C8594"
+              d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <div class="container mt-2 d-flex flex-column" id="work_type_filter">
+        <div>
+          <input type="checkbox" name="salary" value="10000" id="FullTime" >
+          <label for="FullTime">FullTime</label>
+        </div>
+        <div>
+          <input type="checkbox" name="salary" value="20000" id="PartTime" >
+          <label for="PartTime">PartTime</label>
+        </div>
+        <div>
+          <input type="checkbox" name="salary" value="30000" id="Internship" >
+          <label for="Internship">Internship</label>
         </div>
       </div>
     </div>
+
+    <div class="h-[1px] w-full bg-[#E8E7EA]"></div>
   </div>
 
+
   <div class="container2 d-flex flex-column w-60 m-2 container-part">
-    {% if company %}
-    {%for c in company%}
-    <!-- {{c}} -->
+    {% if jobs %}
+    {%for c in jobs%}
     <div class="add_pad">
-      <div class="card" style="border-radius: 31px;">
+      <div class="card " id="card_id_contain" data-job-id = {{c.id}} style="border-radius: 14px;cursor: pointer;" onclick="detail_job()">
         <div class="card-body">
           <div class="job_cards mb-2">
             <div class="job_cards">
-
-              <img src="{{c.company__image}}" class="cmp_img" width="30px" height="30px" alt="image {{counter}}"
-                style="object-fit: cover;">
-              <h5 class="card-title" style="margin: auto 10px;color:Red">{{c.company__name}}</h5>
-
+              <img src="/media/{{c.company__image}}" class="cmp_img" width="30px" height="30px" alt="image {{counter}}"
+                >
+              <div class="d-flex flex-column" style="margin-left: 10px;">
+                <span 
+                      style="line-height: 14px;
+                      font-size: 20px;">
+                      {{c.title}}
+                </span>
+                <span style="color: gray;font-size: 14px;">
+                  {{c.company__name}}
+                </span>
+              </div>
             </div>
             <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268">
               <path
@@ -471,41 +197,173 @@
               </path>
             </svg>
           </div>
-          <span class="info-card rounded ">{{c.title}}</span>
-          <span class="info-card rounded ">{{c.req_skill__imp_skill}}</span>
-          <span class="info-card rounded ">{{c.req_skill__education}}</span>
-          <span class="info-card rounded ">{{c.salary}}</span>
-          <span class="info-card rounded ">{{c.location}}</span>
-          <span class="info-card rounded ">{{c.job_type}}</span>
-          <span class="info-card rounded ">{{c.updated_at}}</span>
-          <span class="info-card rounded ">{{c.location}}</span>
-          <p class="card-p" >Salary : {{c.salary}}</p>
-          <p class="card-updated"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
+            <img width="19px" height="auto" src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Location_icon.webp" alt="">
+            <span style="color: gray;font-size: 16px;margin-left: 5px;">{{c.location}}</span>
+          </div>
+          <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
+            <img width="19px" height="auto" src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
+            <span style="color: gray;font-size: 16px;margin-left: 5px;">{{c.salary}}</span>
+          </div>
+          <div class="d-flex " style="margin-top: 10px;">
+            <!-- <div class="info-card rounded ">{{c.title}}</div> -->
+            <div class="info-card rounded ">{{c.req_skill__imp_skill}}</div>
+            <div class="info-card rounded ">{{c.working_location}}</div>
+            <div class="info-card rounded ">{{c.job_type}}</div>
+            <div class="info-card rounded ">{{c.experience}}</div>
+          </div>
+          <p class="card-updated"><small class="text-body-secondary">{{ c.updated_at|custom_timesince }}</small></p>
         </div>
       </div>
     </div>
     {%endfor%}
     {%else%}
-    <div class="container text-center w-20 border rounded m-2">
-      Sorry No Searched Found
+    <div class="card mb-3">
+      <svg width="120" class="card-img-top" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Frame 1171279533">
+          <g id="Group 1171278524">
+            <g id="Group 1171278514">
+              <g id="Group 1171278508">
+                <path id="Vector 594"
+                  d="M109.77 24.3732L108.016 23.3014C107.803 23.1713 107.524 23.2512 107.413 23.4744L104.972 28.3522C104.873 28.5502 104.942 28.7912 105.131 28.9066L106.1 29.4982C106.289 29.6136 106.535 29.5651 106.666 29.3866L109.892 24.9891C110.04 24.7878 109.983 24.5033 109.77 24.3732Z"
+                  fill="#CB2F4B"></path>
+                <rect id="Rectangle 13594" x="104.074" y="29.8838" width="1.91808" height="1.91808" rx="0.42624"
+                  transform="rotate(31.421 104.074 29.8838)" fill="#CB2F4B"></rect>
+              </g>
+              <g id="Group 1171278512">
+                <path id="Vector 594_2"
+                  d="M112.992 30.6628L112.032 29.2065C111.916 29.0297 111.673 28.9905 111.506 29.1216L107.872 31.9863C107.724 32.1026 107.69 32.3126 107.794 32.4694L108.324 33.2732C108.427 33.4301 108.634 33.4816 108.799 33.3918L112.863 31.1795C113.049 31.0783 113.109 30.8396 112.992 30.6628Z"
+                  fill="#CB2F4B"></path>
+                <rect id="Rectangle 13594_2" x="106.63" y="32.8389" width="1.62746" height="1.62746" rx="0.361659"
+                  transform="rotate(56.5979 106.63 32.8389)" fill="#CB2F4B"></rect>
+              </g>
+              <g id="Group 1171278513">
+                <path id="Vector 594_3"
+                  d="M101.785 23.4631L103.479 23.8804C103.685 23.9311 103.803 24.1468 103.735 24.3475L102.253 28.7312C102.193 28.9092 102.006 29.0115 101.824 28.9665L100.889 28.7362C100.706 28.6913 100.589 28.5141 100.618 28.3285L101.342 23.7577C101.375 23.5486 101.58 23.4125 101.785 23.4631Z"
+                  fill="#CB2F4B"></path>
+                <rect id="Rectangle 13594_3" width="1.62746" height="1.62746" rx="0.361659"
+                  transform="matrix(-0.970964 -0.239224 -0.239224 0.970964 101.864 30.1865)" fill="#CB2F4B"></rect>
+              </g>
+            </g>
+            <g id="Group 1171276985">
+              <g id="Group 1171276956">
+                <circle id="Ellipse 176" cx="96.5852" cy="42.241" r="6.68345" transform="rotate(153.792 96.5852 42.241)"
+                  fill="white" stroke="#4D3951" stroke-width="0.768828"></circle>
+                <path id="Vector 90" d="M99.9512 43.2109L94.9012 42.0204" stroke="white" stroke-width="0.235595"></path>
+                <path id="Vector 91" d="M101.642 42.3789L94.9088 40.7038" stroke="white" stroke-width="0.235595"></path>
+                <rect id="Rectangle 21" x="92.7969" y="47.3242" width="11.9019" height="1.73569" rx="0.495911"
+                  transform="rotate(132.767 92.7969 47.3242)" fill="#4D3951"></rect>
+              </g>
+              <path id="Vector 82"
+                d="M78.6216 20.943C82.8347 22.5446 87.0854 27.4504 89.3637 30.6751C89.7593 31.235 90.5847 31.2816 91.0213 30.7531L97.0777 23.4216C97.2911 23.1632 97.369 22.8149 97.2385 22.5062C95.2963 17.9124 84.9379 11.3213 84.199 11.3213C83.6634 11.3213 80.2627 15.9992 78.0062 19.2258C77.5843 19.8291 77.9335 20.6814 78.6216 20.943Z"
+                fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+              <path id="Vector 97"
+                d="M97.0356 99.8367V69.5649H104.891L97.0356 51.1719H66.3806L49.7119 57.1113V97.346L66.3806 99.8367H97.0356Z"
+                fill="#F4F2F6"></path>
+              <g id="Group 1171276952">
+                <path id="Vector 74" d="M17.422 44.4297L21.9538 50.346L16.949 54.4285L13.1171 46.7647L17.422 44.4297Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 75"
+                  d="M12.9273 46.7651C7.22097 49.1654 6.27692 45.962 8.04447 45.0255L17.0113 41.2925L17.4777 42.4472L17.9441 43.6019L18.7442 45.504L13.5021 48.2979L12.9273 46.7651Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 76"
+                  d="M8.99486 44.6253L17.418 41.1595L17.0198 39.9375C4.5233 44.7307 6.4358 44.7265 7.37043 46.765C7.37408 46.2231 7.22914 45.2908 8.99486 44.6253Z"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+              </g>
+              <path id="Vector 67"
+                d="M50.1819 97.2411L66.7649 99.8367V52.2561C66.7649 51.7271 66.2416 51.3571 65.7428 51.5337L50.7831 56.8291C50.482 56.9357 50.2786 57.2177 50.2726 57.537L49.5342 96.4694C49.5269 96.8523 49.8035 97.1819 50.1819 97.2411Z"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 60"
+                d="M50.7309 39.983C54.0172 37.3274 60.9773 36.7284 64.274 36.8033C64.089 33.1043 65.1976 32.4603 66.0942 31.8838C66.1578 31.8429 66.2281 31.8103 66.3012 31.7908C70.8499 30.5765 74.634 36.4464 76.3444 39.6772C77.9052 42.6255 80.4613 47.4395 80.932 48.326C80.9821 48.4203 81.0512 48.5027 81.1352 48.5687L82.5788 49.703C83.151 50.1526 82.8331 51.0719 82.1053 51.0719H66.5028C66.3919 51.0719 66.2824 51.096 66.1817 51.1425L60.7486 53.6501C60.4183 53.8025 60.0263 53.7017 59.8105 53.4088L50.6321 40.9525C50.4074 40.6475 50.4361 40.2212 50.7309 39.983Z"
+                fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 69" d="M41.8587 91.7906L44.1579 84.7016L50.0973 86.2343L46.0738 93.7065L41.8587 91.7906Z"
+                fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 59"
+                d="M60.6344 53.5691C59.5118 47.5948 58.2682 42.1389 52.0326 39.0677C51.9459 39.0249 51.8452 39.0089 51.7495 39.0226C44.8736 40.0108 41.0771 44.6813 39.9585 46.7346C39.9466 46.7564 39.9336 46.7765 39.9186 46.7964C36.0954 51.8795 33.9291 54.5602 31.3958 56.5078C31.2086 56.6517 30.9456 56.6369 30.7716 56.4773L21.4917 47.9694C21.3155 47.8079 21.0484 47.7959 20.8586 47.9412C18.1734 49.9971 17.0121 51.117 15.3362 52.6261C15.1611 52.7838 15.119 53.0421 15.242 53.2431C17.8392 57.4884 23.9426 64.7426 30.8674 67.9403C31.0014 68.0021 31.1445 68.0316 31.2914 68.0179C35.7194 67.6062 44.3832 60.581 47.7967 55.771L41.5481 86.4283C41.5093 86.6186 41.585 86.8151 41.7463 86.9233C44.9698 89.086 49.4207 89.1749 51.5737 88.9152C51.7715 88.8913 51.929 88.7451 51.9771 88.5517L60.6283 53.7798C60.6455 53.7109 60.6475 53.6389 60.6344 53.5691Z"
+                fill="#8C8594" stroke="black" stroke-width="0.566038" stroke-linecap="round"></path>
+              <path id="Vector 61"
+                d="M71.7774 38.7648V47.7745C71.7774 48.1682 71.4791 48.4979 71.0873 48.5371L67.7154 48.8743C67.3316 48.9126 66.9791 48.6598 66.8924 48.284L64.2041 36.6348"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 62" d="M61.127 42.0781C61.9159 45.3914 62.8783 52.3021 60.417 53.4381" stroke="#4D3951"
+                stroke-width="0.766375"></path>
+              <path id="Vector 63" d="M67.9912 48.9404V50.5971" stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 64" d="M71.7451 48.4893C71.9029 49.1993 72.5498 50.7613 73.8751 51.3292" stroke="#4D3951"
+                stroke-width="0.766375"></path>
+              <path id="Vector 65" d="M81.0069 48.7051L78.877 51.0717" stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 66"
+                d="M66.7646 51.1719V99.8367H98.9524C99.3757 99.8367 99.7188 99.4936 99.7188 99.0703V68.9901"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 68"
+                d="M72.9292 68.6804L67.1241 52.1928C66.9486 51.6942 67.3185 51.1719 67.847 51.1719H99.6191C99.9308 51.1719 100.211 51.3606 100.329 51.6493L107.042 68.1369C107.247 68.6409 106.876 69.1923 106.332 69.1923H73.6521C73.3269 69.1923 73.0372 68.9871 72.9292 68.6804Z"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 70"
+                d="M46.4551 94.0906C52.7777 97.1561 49.4445 100.1 47.6703 99.1759L39.5076 93.9118L40.1936 92.8724L40.8796 91.8331L41.9916 90.0948L46.9191 92.8724L46.4551 94.0906Z"
+                fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 71"
+                d="M46.8012 98.6179L39.1671 93.6498L38.387 94.6712C49.4257 102.24 48.1811 100.996 49.329 99.07C48.8808 99.3746 48.3512 99.694 46.8012 98.6179Z"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 72"
+                d="M47.6054 95.047L46.47 96.3241M48.9466 95.8134L47.8112 97.0905M47.6054 95.047L46.47 96.3241M48.9466 95.8134L47.8112 97.0905"
+                stroke="#4D3951" stroke-width="0.766375"></path>
+              <path id="Vector 73" d="M11.6021 45.6167L11.7305 47.3207M10.0067 45.9593L10.1351 47.6632" stroke="#4D3951"
+                stroke-width="0.766375"></path>
+              <g id="Group 1171276954">
+                <path id="Vector 80"
+                  d="M60.3896 101.752L61.5392 100.603L75.1424 107.883C65.1795 108.956 61.156 104.243 60.3896 101.752Z"
+                  fill="#C8C2C9"></path>
+                <path id="Vector 79"
+                  d="M85.1179 102.385C79.1152 102.421 74.4422 97.811 72.5292 94.979C72.4098 94.8022 72.1762 94.7416 71.9889 94.8437L62.1102 100.232C61.9258 100.333 61.8488 100.559 61.9402 100.748C64.8155 106.698 72.7996 108.486 76.6109 108.644C76.6895 108.647 76.7643 108.627 76.8315 108.586L85.4443 103.357C85.833 103.121 85.5726 102.382 85.1179 102.385Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+              </g>
+              <g id="Group 1171276953">
+                <path id="Vector 78"
+                  d="M106.811 109.036C103.439 109.342 96.0174 107.567 92.8242 106.737C92.8242 105.817 94.9956 104.054 96.0813 103.288L106.811 109.036Z"
+                  fill="#C8C2C9"></path>
+                <path id="Vector 77"
+                  d="M102.183 90.6668C104.597 96.8791 108.968 100.79 111.801 102.556C112.415 102.938 112.541 103.825 112.005 104.311L107.071 108.797C106.901 108.951 106.684 109.045 106.455 109.052C99.9893 109.255 94.2618 103.468 91.7551 99.9468C91.4762 99.5551 91.5366 99.0219 91.8798 98.6851L100.458 90.2655C100.997 89.7364 101.91 89.9627 102.183 90.6668Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+              </g>
+              <g id="Group 1171276955">
+                <path id="Vector 83"
+                  d="M94.2172 64.7467L95.1282 62.9144C100.44 63.8326 102.337 72.8025 103.031 76.3317C101.587 72.1503 96.5535 66.5289 94.2172 64.7467Z"
+                  fill="#C8C2C9"></path>
+                <path id="Vector 81"
+                  d="M102.958 75.4002C102.591 71.3757 97.8668 65.6562 95.3178 63.0587C95.2211 62.9601 95.2492 62.7968 95.3727 62.7351L101.564 59.6393C101.61 59.6163 101.664 59.6119 101.713 59.6268C110.133 62.1723 113.625 68.8411 114.408 72.1444C114.441 72.2848 114.318 72.4112 114.174 72.3985C111.747 72.1831 106.11 74.3278 103.251 75.5769C103.119 75.6342 102.971 75.5428 102.958 75.4002Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+              </g>
+              <path id="Vector 99" d="M63.6433 31.2457C64.2302 30.3097 65.6574 29.4803 66.8766 29.6015" stroke="#4D3951"
+                stroke-width="0.766375" stroke-linecap="round"></path>
+              <path id="Vector 100" d="M19.0588 38.911C18.484 37.7614 17.3344 37.5698 15.9933 37.953" stroke="#4D3951"
+                stroke-width="0.766375" stroke-linecap="round"></path>
+              <path id="Vector 101" d="M97.3398 38.5283C98.4894 38.9115 100.022 39.8695 100.405 42.1686"
+                stroke="#4D3951" stroke-width="0.808569" stroke-linecap="round"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div class="card-body">
+        <h5 class="card-title">No Jobs Found</h5>
+        <p class="card-text">Clear the filters to see all jobs.</p>
+      </div>
     </div>
     {%endif%}
   </div>
 
-  <div class="container3 w-20 d-flex flex-column border rounded m-2 container-part">
+  <div class="container3 w-20 d-flex flex-column   m-2 container-part">
     <!-- Display the Profile Image if available -->
-    <div class="profile-detail d-flex flex-column m-2 border rounded p-2 text-center">
+    <div class="profile-detail d-flex flex-column m-2 rounded  p-4 text-center">
       {% if user %}
-      {% if user.user_profile_image %}
       <img src="{{ user.user_profile_image.url }}" alt="Profile Image" class="m-auto" style="border-radius: 50%;
       height: 80px;
       width: 80px;
-      object-fit: cover;">
-      {% else %}
-      <p>No profile image uploaded.</p>
-      {% endif %}
+      object-fit: cover;
+      background: #857d7d3b;">
       <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-      <h4>{{ user.phone_no }}</h4>
+      <button class="rounded bg-white "
+      style="color: green;border: 1px solid green; font-size: 14px;"
+      >
+      Update Profile
+    </button>
       <!-- <h4>Bio: {{ user.user_bio }}</h4>
       <h4>Email: {{ user.email }}</h4>
       <h4>Password: {{ user.password }}</h4>
@@ -514,16 +372,19 @@
 
       {% endif %}
     </div>
-    <div class="profile-2 d-flex flex-column m-2 border rounded p-2 text-center">
-      <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+
+    <div class="profile-2 d-flex flex-column m-2 rounded  p-4 text-center">
+      <h4>Skills</h4>
+      <!-- <h4>{{ user.first_name }} {{ user.last_name }}</h4>
       <h4>{{ user.phone_no }}</h4>
       <h4>Bio: {{ user.user_bio }}</h4>
       <h4>Email: {{ user.email }}</h4>
-      <h4>Password: {{ user.password }}</h4>
+      <h4>Password: {{ user.password }}</h4> -->
     </div>
     <div class="profile-3 m-2 ">
-
+      <img src="/media/logos/Hatcher_Poster.png"  width="248" alt="">
     </div>
+
   </div>
 
 
@@ -532,5 +393,15 @@
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
+<script>console.log("{{jobs}}")</script>
 <script src="{% static 'js/home.js'%}"></script>
+<script>
+function detail_job() {
+    const card = document.getElementById('card_id_contain');
+    const id = card.getAttribute('data-job-id');
+    const url = "{% url 'dashboard:job_detail' 0 %}".replace('0', id); // Construct the URL dynamically
+    window.location.href = url;       // Navigate to the URL
+}
+
+</script>
 {% endblock javascripts %}

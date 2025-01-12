@@ -1,6 +1,11 @@
-document.getElementById('search-box').addEventListener('click',()=>{
-    const search_div = document.getElementById('search-div');
-    const job_type_select = document.getElementById('job_type_select');
-    search_div.classList.remove('visually-hidden');
-    job_type_select.focus();
-});
+document.querySelectorAll('.toggle_arrow').forEach(arrow => {
+    arrow.addEventListener('click', () => {
+      arrow.classList.toggle('rotate');
+      const targetId = arrow.getAttribute('data-toggle-div');
+      const targetDiv = document.getElementById(targetId);
+      if (targetDiv) {
+        targetDiv.classList.toggle('visually-hidden');
+      }
+    });
+  });
+

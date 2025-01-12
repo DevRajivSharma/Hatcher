@@ -6,8 +6,30 @@
 {% endblock css %}
 
 {% block content %}
+
+<br>
+<br>
+<br>
+<br>
+<div class="container border search_div d-flex justify-content-center" id="search-div">
+  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="width: 90%;">
+    {{ csrftoken }}
+    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
+      <option value="Internship" selected>All Post</option>
+      <option value="Full Time">My Post</option>
+      <option value="Part Time">Liked Post</option>
+      <option value="Hourly">Most Liked</option>
+    </select>
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
+      class="align-self-center" />
+    <input type="text" placeholder="Search any ......" name="keyword" class="form-control" required />
+    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
+      class="align-self-center" />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
   <!-- Display the user's data after form submission -->
-<h1 class="text-center" >Community Post</h1>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">
   Add Post
 </button>
@@ -45,7 +67,10 @@
 <div class="container-sm">
   {% if posts %}
     {% for post in posts %}
-      <div class="card" style="width: 18rem; margin-bottom: 20px;">
+      <div class="card" 
+      style=" width: 80%;
+      margin: 20px auto;"
+      >
         <div class="card-body">
           <!-- Display user profile image -->
           <div class="d-flex align-items-center mb-2">
@@ -62,13 +87,13 @@
           <!-- Post content -->
           <p class="card-text">{{ post.content }}</p>
           <!-- Like and Comment buttons (if needed) -->
-          <section class="card-link like-btn" data-post-id="{{ post.id }}"  style="width: fit-content;">
+          <p class="card-link like-btn text-end" data-post-id="{{ post.id }}" >
             {% if post.id in liked_post_ids %}
               <i class="fa-solid fa-thumbs-up liked" id="heart_icon" ></i> <span class="tlike">{{post.total_likes}}</span> 
             {% else %}
               <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> <span class="tlike">{{post.total_likes}}</span> 
             {% endif %}
-          </section>
+          </p>
         </div>
       </div>
     {% endfor %}

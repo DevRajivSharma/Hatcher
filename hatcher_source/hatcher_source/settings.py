@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'community_post',
     'employer',
     'user_auth',
-    
+    'tailwind',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -141,10 +142,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
