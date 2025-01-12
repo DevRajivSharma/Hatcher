@@ -1,6 +1,18 @@
-.venv
-env
+# Ignore Python virtual environments
+.venv/
+env/
+
+# Ignore environment files (often contain secrets)
 .env
+
+# Ignore compiled Python files
 *.pyc
-media
-.json
+
+# Ignore user-uploaded media files
+media/
+
+# Ignore all JSON files
+*.json
+
+# If you want to include specific JSON files, you can "unignore" them like this:
+# !important_config.json
