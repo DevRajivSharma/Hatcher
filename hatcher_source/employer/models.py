@@ -40,7 +40,7 @@ class Job(models.Model):
     WORK_TYPE_CHOICES = [
         ('Work from home', 'Work from home'),
         ('Work from office', 'Work from office'),
-        ('Field Job', 'Work from home and office')
+        ('Field Job', 'Field Job')
     ]
     JOB_TYPE_CHOICES = [
         ('Full time', 'Full time'),

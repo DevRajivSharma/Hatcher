@@ -71,7 +71,7 @@ def employer_dashboard(request):
     return redirect('employer_login')
 
 @company_exist
-def start_hiring(request):
+def add_job(request):
     employer_id = request.session.get('employer_id')
     emp_table = employer_table.objects.get(id = employer_id) 
     emp_companies = company.objects.filter(cmp_email = emp_table.email)
@@ -88,6 +88,7 @@ def start_hiring(request):
         data = {
             'company' : cmp,
             'job_type':form.get('job_type'),
+            'work_type':form.get('work_type'),
             'title' : form.get('title'),
             'description' : form.get('description'),
             'location' : form.get('location'),

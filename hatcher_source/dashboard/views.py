@@ -71,25 +71,22 @@ def job_search_ajax(request):
         work_type = request.GET.get('work_type','')
         query = Q()
         print(job_type,salary,posted_in,work_type)
-        if job_type:
-            print('inside_job_type')
-            query &= Q(job_type__icontains=job_type)
+        if job_type:   
+            job_type_list = job_type.split(',')
+            query &= Q(job_type__icontains=job_type_list)
         if work_type:
-            print('inside_job_type')
             query &= Q(work_type__icontains=work_type)
         if salary and salary != '-1':
-            print('inside_job_type')
             query &= Q(salary__gte=int(salary))
         if posted_in and posted_in != '-1':
-            print('inside_job_type')
             time_threshold = timezone.now() - timedelta(hours=int(posted_in))
             print(time_threshold)
-            query &= Q(updated_at__gte=time_threshold)
+            query &= Q(created_at__gte=time_threshold)
 
         jobs = Job.objects.filter(query).distinct()
         jobs_val = list(jobs.values(
             'company__name', 'company__image', 'title', 'salary',
-            'location', 'job_type', 'updated_at', 'id'
+            'location', 'job_type', 'created_at', 'id'
         ))
         return JsonResponse({'jobs': jobs_val}, safe=False)
 

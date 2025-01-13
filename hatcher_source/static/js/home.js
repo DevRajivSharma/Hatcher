@@ -13,8 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to handle filter application
   function applyFilters() {
     // Collect filter values
-    const jobType = document.querySelector('#job_type_filter input:checked')?.id || '';
-    const workType = document.querySelector('#work_type_filter input:checked')?.id || '';
+    const jobTypeElements = document.querySelectorAll('#job_type_filter input:checked');
+    const jobType = Array.from(jobTypeElements).map(el => el.value).join(','); // Collect all selected job types
+    console.log(jobType)
+    const workType = document.querySelector('#work_type_filter input:checked')?.value || '';
     const salary = document.querySelector('#salary_filter input:checked')?.value || '';
     const postedIn = document.querySelector('#posted_filter input:checked')?.value || '';
 
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add event listeners to filters
-  document.querySelectorAll('#work_type_filter input, #salary_filter input, #posted_filter input').forEach((filter) => {
+  document.querySelectorAll('#job_type_filter input, #work_type_filter input, #salary_filter input, #posted_filter input').forEach((filter) => {
     filter.addEventListener('change', applyFilters);
   });
 });

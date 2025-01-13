@@ -7,7 +7,7 @@ urlpatterns = [
     path('employer_register',employer_register,name='employer_register'),
     path('employer_dashboard',employer_dashboard,name='employer_dashboard'),
     path('employer_logout',employer_logout,name='employer_logout'),
-    path('start_hiring',start_hiring,name='start_hiring'),
+    path('add_job',add_job,name='add_job'),
     path('company_register',company_register,name='company_register')
     # path('employer_dashboard/', include('employer_dashboard.urls', namespace='employer_dashboard')), 
 ]

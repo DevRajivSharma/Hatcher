@@ -1,7 +1,7 @@
 {% extends '../blocks/dashboard_block.html' %}
 
 {% block content %}
-<form method="POST" class="container-fluid w-50 mt-5 pt-4" action="{% url 'start_hiring' %}">
+<form method="POST" class="container-fluid w-50 mt-5 pt-4" action="{% url 'add_job' %}">
     {% csrf_token %}
     
     <!-- Job Model Fields -->
@@ -22,13 +22,30 @@
         <label for="title" class="form-label">Job Title</label>
         <input type="text" class="form-control" id="title" name="title" placeholder="Enter Job Title" required>
     </div>
+    <label for="job_type_select" class="form-label">Job Type</label>
     <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
-        <option selected>JOB TYPE</option>
         <option value="Internship">Internship</option>
         <option value="Full Time">Full Time</option>
         <option value="Part Time">Part Time</option>
         <option value="Hourly">Hourly</option>
       </select>
+    
+    <label for="work_type_select" class="form-label">Work Type</label>
+    <select class="form-select" aria-label="Default select example" name="work_type" id="work_type_select" required>
+    <option value="Internship">Work from home</option>
+    <option value="Full Time">Work from office</option>
+    <option value="Part Time">Field Job</option>
+    </select>
+
+
+    <label for="perks" class="form-label">Any perks</label>
+    <select class="form-select" aria-label="Default select example" name="work_type" id="perks" required>
+    <option value="Internship">None</option>
+    <option value="Full Time">Performance Bonuses</option>
+    <option value="Part Time">Paid Time Off</option>
+    <option value="Part Time">Free Meals</option>
+    <option value="Part Time">Health Insurance</option>
+    </select>
     <div class="mb-3">
         <label for="description" class="form-label">Job Description</label>
         <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Job Description" required></textarea>

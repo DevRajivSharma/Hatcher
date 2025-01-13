@@ -78,8 +78,8 @@
       </div>
       <div class="container mt-2 d-flex flex-column" id="posted_filter">
         <div>
-          <input type="radio" name="postedIn" value="-1" checked>
-          <label for="posted-in-radio-input">All</label>
+          <input type="radio" name="postedIn" value="-1" checked id="posted-all">
+          <label for="posted-all">All</label>
         </div>
         <div>
           <input type="radio" name="postedIn" value="24" id="last_24_hour">
@@ -120,15 +120,15 @@
           <label for="all_salary">All</label>
         </div>
         <div>
-          <input type="radio" name="salary" value="10000" id="20k">
+          <input type="radio" name="salary" value="20000" id="20k">
           <label for="20k">20k+</label>
         </div>
         <div>
-          <input type="radio" name="salary" value="20000" id="50k">
+          <input type="radio" name="salary" value="50000" id="50k">
           <label for="50k">50k+</label>
         </div>
         <div>
-          <input type="radio" name="salary" value="30000" id="100k">
+          <input type="radio" name="salary" value="100000" id="100k">
           <label for="100k">100k+</label>
         </div>
       </div>
@@ -155,20 +155,20 @@
       </div>
       <div class="container mt-2 d-flex flex-column" id="job_type_filter">
         <div>
-          <input type="checkbox" name="salary" value="10000" id="FullTime" >
+          <input type="checkbox" name="salary" value="Full Time" id="FullTime" >
           <label for="FullTime">Full Time</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="20000" id="PartTime" >
+          <input type="checkbox" name="salary" value="Part Time" id="PartTime" >
           <label for="PartTime">Part Time</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="30000" id="Internship" >
+          <input type="checkbox" name="salary" value="Internship" id="Internship" >
           <label for="Internship">Internship</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="30000" id="Internship" >
-          <label for="Internship">Hourly</label>
+          <input type="checkbox" name="salary" value="Hourly" id="Hourly" >
+          <label for="Hourly">Hourly</label>
         </div>
       </div>
 
@@ -194,16 +194,16 @@
       </div>
       <div class="container mt-2 d-flex flex-column" id="work_type_filter">
         <div>
-          <input type="checkbox" name="salary" value="10000" id="FullTime" >
-          <label for="FullTime">Work from home</label>
+          <input type="checkbox" name="salary" value="Work from home" id="wfh" >
+          <label for="wfh">Work from home</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="20000" id="PartTime" >
-          <label for="PartTime">Work from office</label>
+          <input type="checkbox" name="salary" value="Work from office" id="wfo" >
+          <label for="wfo">Work from office</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="30000" id="Internship" >
-          <label for="Internship">Field Job</label>
+          <input type="checkbox" name="salary" value="Field Job" id="fs" >
+          <label for="fs">Field Job</label>
         </div>
       </div>
 
@@ -273,7 +273,9 @@
             <div class="info-card rounded ">{{c.perks}}</div>
             {% endif %}
           </div>
-          <p class="card-updated"><small class="text-body-secondary">{{ c.updated_at|custom_timesince }}</small></p>
+          <p class="card-updated"><small class="text-body-secondary">{{ c.updated_at|custom_timesince }}
+            {{ c.updated_at|  timesince }}
+          </small></p>
         </div>
       </div>
     </div>

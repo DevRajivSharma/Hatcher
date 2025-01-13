@@ -8,6 +8,7 @@ register = template.Library()
 @register.filter
 def custom_timesince(value):
     now = datetime.now()
+    print('date',value)
     if is_aware(value):
         now = make_aware(now, get_current_timezone())
     time_diff = timesince(value, now)

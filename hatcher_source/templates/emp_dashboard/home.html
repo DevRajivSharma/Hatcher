@@ -13,7 +13,7 @@
     <h2>Email: {{ employer.email }}</h2>
     <h2>Password: {{ employer.password }}</h2>
     {% endif %}
-    <a href="{% url 'start_hiring' %}"><button  type="button" class="btn btn-warning">Start Hiring</button></a>
+    <a href="{% url 'add_job' %}"><button  type="button" class="btn btn-warning">Add Job</button></a>
     <a href="{% url 'company_register' %}"><button  type="button" class="btn btn-warning">Add company</button></a>
     <div class="container text-center">
     {% if posted_job %}
