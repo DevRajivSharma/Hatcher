@@ -37,7 +37,7 @@ class company(models.Model):
         return self.name
 
 class Job(models.Model):
-    WORKING_LOCATION_CHOICES = [
+    WORK_TYPE_CHOICES = [
         ('Work from home', 'Work from home'),
         ('Work from office', 'Work from office'),
         ('Field Job', 'Work from home and office')
@@ -48,7 +48,7 @@ class Job(models.Model):
         ('Internship', 'Internship'),
         ('Hourly', 'Hourly')
     ]
-    experience_choices = [
+    EXPERIENCE_CHOICES = [
         ('Fresher','Fresher'),
         ('1 year', '1 year'),
         ('1-3 years', '1-3 years'),
@@ -59,14 +59,15 @@ class Job(models.Model):
     company = models.ForeignKey(company, on_delete=models.CASCADE, related_name='job')
     title = models.CharField(max_length=100)
     job_type = models.CharField(max_length=100, null=True, choices=JOB_TYPE_CHOICES)
-    working_location = models.CharField(max_length=100, null=True, choices=WORKING_LOCATION_CHOICES)
+    work_type = models.CharField(max_length=100, null=True, choices=WORK_TYPE_CHOICES)
     description = models.TextField()
     location = models.CharField(max_length=100)
     salary = models.CharField(max_length=50, blank=True, null=True)
     total_vacancy = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    experience = models.CharField(max_length=100,null=True,choices=experience_choices)
+    experience = models.CharField(max_length=100,null=True,choices=EXPERIENCE_CHOICES)
+    perks = models.CharField(max_length=100,null=True)
     def __str__(self):
         return self.title 
 

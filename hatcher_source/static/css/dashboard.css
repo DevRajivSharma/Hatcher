@@ -54,7 +54,7 @@ body{
     border-radius: 23px;
     margin-bottom: 40px;
     padding: 20px 50px;
-    width: 50%;
+    /* width: 50%; */
 }
 
 #Up_Arrow{
@@ -106,4 +106,8 @@ body{
     background:white;
     padding: 20px;
     border-radius: 16px;
+}
+
+.rotate-180deg{
+    rotate: 180deg;
 }

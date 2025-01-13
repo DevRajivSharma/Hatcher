@@ -17,8 +17,9 @@
   <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="width: 90%;">
     {{ csrftoken }}
     <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
-      <option value="Internship" selected>Internship</option>
+      <option value="Full Time" selected>Any</option>
       <option value="Full Time">Full Time</option>
+      <option value="Internship">Internship</option>
       <option value="Part Time">Part Time</option>
       <option value="Hourly">Hourly</option>
       <option value="Hourly">Freelance</option>
@@ -170,7 +171,7 @@
   </div>
 
 
-  <div class="container2 d-flex flex-column w-60 m-2 container-part">
+  <div class="container2 d-flex flex-column w-60 m-2 container-part" id="job-list-container">
     {% if jobs %}
     {%for c in jobs%}
     <div class="add_pad">
@@ -207,10 +208,25 @@
           </div>
           <div class="d-flex " style="margin-top: 10px;">
             <!-- <div class="info-card rounded ">{{c.title}}</div> -->
+            {% if c.req_skill__imp_skill %}             
             <div class="info-card rounded ">{{c.req_skill__imp_skill}}</div>
-            <div class="info-card rounded ">{{c.working_location}}</div>
+            {% endif %}
+
+            {% if c.work_type %}
+            <div class="info-card rounded ">{{c.work_type}}</div>
+            {% endif %}
+
+            {% if c.job_type %}
             <div class="info-card rounded ">{{c.job_type}}</div>
+            {% endif %}
+
+            {% if c.experience %}
             <div class="info-card rounded ">{{c.experience}}</div>
+            {% endif %}
+
+            {% if c.perks %}
+            <div class="info-card rounded ">{{c.perks}}</div>
+            {% endif %}
           </div>
           <p class="card-updated"><small class="text-body-secondary">{{ c.updated_at|custom_timesince }}</small></p>
         </div>

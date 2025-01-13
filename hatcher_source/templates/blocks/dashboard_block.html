@@ -52,14 +52,18 @@
           <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
         </div> -->
 
-        <div style="width: 110px;">
-          <img src="{{ user.user_profile_image.url }}" id="toggle_profile_box" alt="Profile Image" class="m-auto" 
+        <div style="width: 110px;" id="toggle_profile_box" class="d-flex flex-row align-items-center">
+          <img src="{{ user.user_profile_image.url }}"  alt="Profile Image" 
           style="border-radius: 50%;
           height: 50px;
           width: 50px;
           object-fit: cover;
           background: #857d7d3b;"
         >
+          <svg class="profile_dropdown rotate-180deg"  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+            <path fill="white" d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+            </path>
+          </svg>
         </div>
 
 

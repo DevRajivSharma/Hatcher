@@ -1,9 +1,14 @@
+
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404 , redirect
 from credentials.models import user_table  # Ensure correct model import
 from django.core.serializers import serialize
 from .middlewares import auth
 from employer.models import *
 from django.db.models import Q
+from django.utils import timezone
+from datetime import timedelta
+
 # import requests,json
 @auth
 def home(request):
@@ -16,7 +21,7 @@ def home(request):
         user_instance = user_table.objects.get(id=user_id)
         # print('user')
         jobs = Job.objects.all()
-        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary','location','job_type','updated_at','location','id','working_location','experience')
+        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary','location','job_type','updated_at','location','id','work_type','experience')
         # print('jobs is ',jobs_val)
         # Pass the user instance to the template
         return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
@@ -38,7 +43,7 @@ def job_search(request):
     query = Q()
 
     # Add conditions for filtering
-    if job_type:
+    if job_type and job_type != 'Any':
         query &= Q(job_type__icontains=job_type)
     if keyword:
         query &= (
@@ -57,6 +62,31 @@ def job_search(request):
     # print(jobs_val)
     return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})
+
+def job_search_ajax(request):
+    if request.method == "GET":
+        job_type = request.GET.get('job_type', '')
+        salary = request.GET.get('salary', '')
+        posted_in = request.GET.get('posted_in', '')
+
+        query = Q()
+
+        if job_type:
+            query &= Q(work_type__icontains=job_type)
+        if salary and salary != '-1':
+            query &= Q(salary__gte=int(salary))
+        if posted_in and posted_in != '-1':
+            time_threshold = timezone.now() - timedelta(hours=int(posted_in))
+            query &= Q(updated_at__gte=time_threshold)
+
+        jobs = Job.objects.filter(query).distinct()
+        jobs_val = list(jobs.values(
+            'company__name', 'company__image', 'title', 'salary',
+            'location', 'job_type', 'updated_at', 'id'
+        ))
+        return JsonResponse({'jobs': jobs_val}, safe=False)
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 def job_detail(request, job_id):
