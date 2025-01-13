@@ -68,15 +68,22 @@ def job_search_ajax(request):
         job_type = request.GET.get('job_type', '')
         salary = request.GET.get('salary', '')
         posted_in = request.GET.get('posted_in', '')
-
+        work_type = request.GET.get('work_type','')
         query = Q()
-
+        print(job_type,salary,posted_in,work_type)
         if job_type:
-            query &= Q(work_type__icontains=job_type)
+            print('inside_job_type')
+            query &= Q(job_type__icontains=job_type)
+        if work_type:
+            print('inside_job_type')
+            query &= Q(work_type__icontains=work_type)
         if salary and salary != '-1':
+            print('inside_job_type')
             query &= Q(salary__gte=int(salary))
         if posted_in and posted_in != '-1':
+            print('inside_job_type')
             time_threshold = timezone.now() - timedelta(hours=int(posted_in))
+            print(time_threshold)
             query &= Q(updated_at__gte=time_threshold)
 
         jobs = Job.objects.filter(query).distinct()
