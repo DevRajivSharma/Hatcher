@@ -43,9 +43,11 @@
   <div class="p-2 container1 d-flex flex-column w-20 border rounded m-2 container-part">
 
     <!-- All Filter Clear/Toggle -->
-    <div class="d-flex flex-row justify-content-evenly">
+    <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row align-item-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" style="
+        margin: 5px;
+    ">
           <path fill="#190A28"
             d="M1.51 2.675c1.943 2.483 4.815 6.158 4.815 6.158V13a1.676 1.676 0 003.35 0V8.833s2.872-3.675 4.815-6.158c.427-.55.033-1.342-.67-1.342H2.172a.831.831 0 00-.661 1.342z">
           </path>
@@ -55,7 +57,7 @@
           <p>(1)</p>
         </div>
       </div>
-      <p style="cursor: pointer;">Clear all</p>
+      <p style="cursor: pointer;font-size: 14px;color: green;font-weight: bold;">Clear all</p>
     </div>
 
     <!-- Filter Section -->
@@ -154,19 +156,19 @@
       </div>
       <div class="container mt-2 d-flex flex-column" id="job_type_filter">
         <div>
-          <input type="checkbox" name="salary" value="Full Time" id="FullTime" >
+          <input type="checkbox" name="salary" value="Full Time" id="FullTime">
           <label for="FullTime">Full Time</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="Part Time" id="PartTime" >
+          <input type="checkbox" name="salary" value="Part Time" id="PartTime">
           <label for="PartTime">Part Time</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="Internship" id="Internship" >
+          <input type="checkbox" name="salary" value="Internship" id="Internship">
           <label for="Internship">Internship</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="Hourly" id="Hourly" >
+          <input type="checkbox" name="salary" value="Hourly" id="Hourly">
           <label for="Hourly">Hourly</label>
         </div>
       </div>
@@ -193,23 +195,23 @@
       </div>
       <div class="container mt-2 d-flex flex-column" id="work_type_filter">
         <div>
-          <input type="checkbox" name="salary" value="Work from home" id="wfh" >
+          <input type="checkbox" name="salary" value="Work from home" id="wfh">
           <label for="wfh">Work from home</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="Work from office" id="wfo" >
+          <input type="checkbox" name="salary" value="Work from office" id="wfo">
           <label for="wfo">Work from office</label>
         </div>
         <div>
-          <input type="checkbox" name="salary" value="Field Job" id="fs" >
+          <input type="checkbox" name="salary" value="Field Job" id="fs">
           <label for="fs">Field Job</label>
         </div>
       </div>
 
-    <!-- filter_devide -->
-    <div class="container ">
-      <hr class="filter_devide">
-    </div>
+      <!-- filter_devide -->
+      <div class="container ">
+        <hr class="filter_devide">
+      </div>
 
     </div>
   </div>
@@ -219,17 +221,15 @@
     {% if jobs %}
     {%for c in jobs%}
     <div class="add_pad">
-      <div class="card card_id_contain"  data-job-id = {{c.id}} style="border-radius: 14px;cursor: pointer;" >
+      <div class="card card_id_contain" data-job-id={{c.id}} style="border-radius: 14px;cursor: pointer;">
         <div class="card-body">
           <div class="job_cards mb-2">
             <div class="job_cards">
-              <img src="/media/{{c.company__image}}" class="cmp_img" width="30px" height="30px" alt="image {{counter}}"
-                >
+              <img src="/media/{{c.company__image}}" class="cmp_img" width="30px" height="30px" alt="image {{counter}}">
               <div class="d-flex flex-column" style="margin-left: 10px;">
-                <span 
-                      style="line-height: 14px;
+                <span style="line-height: 14px;
                       font-size: 20px;">
-                      {{c.title}}
+                  {{c.title}}
                 </span>
                 <span style="color: gray;font-size: 14px;">
                   {{c.company__name}}
@@ -243,16 +243,27 @@
             </svg>
           </div>
           <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
-            <img width="19px" height="auto" src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Location_icon.webp" alt="">
+            <img width="19px" height="auto"
+              src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Location_icon.webp" alt="">
             <span style="color: gray;font-size: 16px;margin-left: 5px;">{{c.location}}</span>
           </div>
           <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
-            <img width="19px" height="auto" src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
-            <span style="color: gray;font-size: 16px;margin-left: 5px;"><img src="/media/logos/rupee.png" alt="" width="15">{{c.salary_minimum}}-<img src="/media/logos/rupee.png" alt="" width="15">{{c.salary_maximum}} monthly</span>
+            <img width="19px" height="auto"
+              src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
+            <span style="color: gray;font-size: 16px;margin-left: 5px;">
+              <img src="/media/logos/rupee.png" alt="" width="15" style="
+                margin-right: -3px;
+                margin-top: -2px;">
+                {{c.salary_minimum}}-
+                <img src="/media/logos/rupee.png" alt="" width="15" style="
+                margin-right: -3px;
+                margin-top: -2px;">
+                {{c.salary_maximum}} monthly
+              </span>
           </div>
           <div class="d-flex " style="margin-top: 10px;">
             <!-- <div class="info-card rounded ">{{c.title}}</div> -->
-            {% if c.req_skill__imp_skill %}             
+            {% if c.req_skill__imp_skill %}
             <div class="info-card rounded ">{{c.req_skill__imp_skill}}</div>
             {% endif %}
 
@@ -269,14 +280,15 @@
             {% endif %}
           </div>
           <p class="card-updated"><small class="text-body-secondary">{{ c.updated_at|custom_timesince }}
-          </small></p>
+            </small></p>
         </div>
       </div>
     </div>
     {%endfor%}
     {%else%}
     <div class="card mb-3">
-      <svg width="120" class="card-img-top" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="120" class="card-img-top" height="120" viewBox="0 0 120 120" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
         <g id="Frame 1171279533">
           <g id="Group 1171278524">
             <g id="Group 1171278514">
@@ -408,7 +420,7 @@
 
   <div class="container3 w-20 d-flex flex-column   m-2 container-part">
     <!-- Display the Profile Image if available -->
-    <div class="profile-detail d-flex flex-column m-2 rounded  p-4 text-center">
+    <div class="profile-detail d-flex flex-column border rounded  p-4 text-center">
       {% if user %}
       <img src="{{ user.user_profile_image.url }}" alt="Profile Image" class="m-auto" style="border-radius: 50%;
       height: 80px;
@@ -416,11 +428,9 @@
       object-fit: cover;
       background: #857d7d3b;">
       <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-      <button class="rounded bg-white "
-      style="color: green;border: 1px solid green; font-size: 14px;"
-      >
-      Update Profile
-    </button>
+      <button class="rounded bg-white " style="color: green;border: 1px solid green; font-size: 14px;">
+        Update Profile
+      </button>
       <!-- <h4>Bio: {{ user.user_bio }}</h4>
       <h4>Email: {{ user.email }}</h4>
       <h4>Password: {{ user.password }}</h4>
@@ -430,7 +440,7 @@
       {% endif %}
     </div>
 
-    <div class="profile-2 d-flex flex-column m-2 rounded  p-4 text-center">
+    <div class="profile-2 d-flex flex-column border rounded  p-4 text-center">
       <h4>Skills</h4>
       <!-- <h4>{{ user.first_name }} {{ user.last_name }}</h4>
       <h4>{{ user.phone_no }}</h4>
@@ -438,8 +448,8 @@
       <h4>Email: {{ user.email }}</h4>
       <h4>Password: {{ user.password }}</h4> -->
     </div>
-    <div class="profile-3 m-2 ">
-      <img src="/media/logos/Hatcher_Poster.png"  width="248" alt="">
+    <div class="profile-3  bg-transparent ">
+      <img class="border rounded" src="/media/logos/Hatcher_Poster.png" width="100%" alt="">
     </div>
 
   </div>
@@ -453,15 +463,15 @@
 <script>console.log("{{jobs}}")</script>
 <script src="{% static 'js/home.js'%}"></script>
 <script>
-document.querySelectorAll('.card_id_contain').forEach(card => {
+  document.querySelectorAll('.card_id_contain').forEach(card => {
     card.addEventListener('click', function () {
-        const jobId = card.getAttribute('data-job-id'); // Get the job ID
-        if (jobId) {
-            const url = "{% url 'dashboard:job_detail' 0 %}".replace('0', jobId); // Construct the URL
-            window.location.href = url; // Redirect to the URL
-        }
+      const jobId = card.getAttribute('data-job-id'); // Get the job ID
+      if (jobId) {
+        const url = "{% url 'dashboard:job_detail' 0 %}".replace('0', jobId); // Construct the URL
+        window.location.href = url; // Redirect to the URL
+      }
     });
-});
+  });
 
 
 </script>

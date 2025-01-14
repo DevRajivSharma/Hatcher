@@ -69,3 +69,6 @@
 .container3 > div{
     background: white;
 }
+.container3>div{
+    margin-bottom: .5rem;
+}

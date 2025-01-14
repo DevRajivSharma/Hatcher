@@ -36,9 +36,13 @@ def job_search(request):
     job_type = request.GET.get('job_type', '')
     keyword = request.GET.get('keyword', '').strip()
     location = request.GET.get('location', '').strip()
-    print(job_type)
-    print(keyword)
-    print(location)
+
+    request.session['search_query'] = {
+    'job_type': job_type,
+    'keyword': keyword,
+    'location': location,
+    }
+
     # Filter jobs based on user input
     query = Q()
 
@@ -57,7 +61,6 @@ def job_search(request):
 
     # Filter jobs based on the query
     jobs = Job.objects.filter(query).distinct()
-    print(jobs)
     jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id')
     # print(jobs_val)
     return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
@@ -65,12 +68,33 @@ def job_search(request):
 
 def job_search_ajax(request):
     if request.method == "GET":
+
+        search_query = request.session.get('search_query', {})
+        job_type = search_query.get('job_type', '')
+        keyword = search_query.get('keyword', '')
+        location = search_query.get('location', '')
+
+        print(job_type,keyword,location)
+
         job_type = request.GET.get('job_type', '')
         salary = request.GET.get('salary', '')
         posted_in = request.GET.get('posted_in', '')
         work_type = request.GET.get('work_type','')
-        print()
         query = Q()
+
+        if job_type and job_type != 'Any':
+            query &= Q(job_type__icontains=job_type)
+        if keyword:
+            query &= (
+                Q(title__icontains=keyword) |
+                Q(description__icontains=keyword) |
+                Q(company__name__icontains=keyword) |
+                Q(company__description__icontains=keyword)
+            )
+        if location:
+            query &= Q(location__icontains=location) | Q(company__city__icontains=location)
+
+
         if job_type:   
             job_type_list = job_type.split(',')
             for job in job_type_list:
