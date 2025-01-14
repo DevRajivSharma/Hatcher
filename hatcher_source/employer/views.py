@@ -90,9 +90,12 @@ def add_job(request):
             'job_type':form.get('job_type'),
             'work_type':form.get('work_type'),
             'title' : form.get('title'),
+            'experience' :  form.get('experience'),
+            'total_vacancy' : form.get('total_vacancy'),
             'description' : form.get('description'),
             'location' : form.get('location'),
-            'salary' : form.get('salary'),
+            'salary_minimum' : form.get('salary_minimum'),
+            'salary_maximum' : form.get('salary_maximum'),
         }
         job = Job.objects.create(**data)
         data2 = {

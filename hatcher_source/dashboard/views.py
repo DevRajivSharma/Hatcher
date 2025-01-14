@@ -21,7 +21,7 @@ def home(request):
         user_instance = user_table.objects.get(id=user_id)
         # print('user')
         jobs = Job.objects.all()
-        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary','location','job_type','updated_at','location','id','work_type','experience')
+        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id','work_type','experience','perks')
         # print('jobs is ',jobs_val)
         # Pass the user instance to the template
         return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
@@ -58,7 +58,7 @@ def job_search(request):
     # Filter jobs based on the query
     jobs = Job.objects.filter(query).distinct()
     print(jobs)
-    jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary','location','job_type','updated_at','location','id')
+    jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id')
     # print(jobs_val)
     return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})
@@ -69,25 +69,23 @@ def job_search_ajax(request):
         salary = request.GET.get('salary', '')
         posted_in = request.GET.get('posted_in', '')
         work_type = request.GET.get('work_type','')
+        print()
         query = Q()
-        print(job_type,salary,posted_in,work_type)
         if job_type:   
             job_type_list = job_type.split(',')
-            query &= Q(job_type__icontains=job_type_list)
+            for job in job_type_list:
+                query |= Q(job_type__icontains=job)
         if work_type:
             query &= Q(work_type__icontains=work_type)
         if salary and salary != '-1':
-            query &= Q(salary__gte=int(salary))
+            print('salary is',int(salary))
+            query &= Q(salary_maximum__gte=int(salary))
         if posted_in and posted_in != '-1':
             time_threshold = timezone.now() - timedelta(hours=int(posted_in))
-            print(time_threshold)
             query &= Q(created_at__gte=time_threshold)
 
         jobs = Job.objects.filter(query).distinct()
-        jobs_val = list(jobs.values(
-            'company__name', 'company__image', 'title', 'salary',
-            'location', 'job_type', 'created_at', 'id'
-        ))
+        jobs_val = list(jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id','work_type','experience'))
         return JsonResponse({'jobs': jobs_val}, safe=False)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
@@ -96,5 +94,11 @@ def job_search_ajax(request):
 def job_detail(request, job_id):
     user_id = request.session.get('user_id')
     user_instance = user_table.objects.get(id=user_id)
-    job = get_object_or_404(Job, id=job_id)
-    return render(request, 'dashboard/job_detail.html', context={'user': user_instance, 'job': job})
+    job = Job.objects.filter(id=job_id)
+    job_val = Job.objects.filter(id=job_id).values(
+            'company__name', 'company__image', 'title', 'req_skill__imp_skill',
+            'req_skill__education', 'salary_maximum', 'salary_minimum', 'location',
+            'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description'
+        ).first()
+    print(job_val)
+    return render(request, 'dashboard/job_detail.html', context={'user': user_instance, 'job': job_val})

@@ -1,7 +1,18 @@
-{% extends '../blocks/dashboard_block.html' %}
+{% extends '../blocks/emp_dashboard.html' %}
+{% block css %} 
+{% load static %}
+{% load custom_filters %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+.detail_form{
+    margin: auto;
+    width: 80%;
+}
+</style>
+{% endblock css %}
 
 {% block content %}
-<form method="POST" class="container-fluid w-50 mt-5 pt-4" action="{% url 'add_job' %}">
+<form method="POST" class="container-fluid detail_form " action="{% url 'add_job' %}">
     {% csrf_token %}
     
     <!-- Job Model Fields -->
@@ -32,23 +43,31 @@
     
     <label for="work_type_select" class="form-label">Work Type</label>
     <select class="form-select" aria-label="Default select example" name="work_type" id="work_type_select" required>
-    <option value="Internship">Work from home</option>
-    <option value="Full Time">Work from office</option>
-    <option value="Part Time">Field Job</option>
+    <option value="Work from home">Work from home</option>
+    <option value="Work from office">Work from office</option>
+    <option value="Field Job">Field Job</option>
+    </select>
+
+    <label for="experience" class="form-label">Experience</label>
+    <select class="form-select" aria-label="Default select example" name="experience" id="experience" required>
+    <option value="Fresher">Fresher</option>
+    <option value="1-3 years">1-3 years</option>
+    <option value="3-6 years">3-6 years</option>
+    <option value="6-10 years">6-10 years</option>
+    <option value="10+ years">10+ years</option>
     </select>
 
 
     <label for="perks" class="form-label">Any perks</label>
-    <select class="form-select" aria-label="Default select example" name="work_type" id="perks" required>
-    <option value="Internship">None</option>
-    <option value="Full Time">Performance Bonuses</option>
-    <option value="Part Time">Paid Time Off</option>
-    <option value="Part Time">Free Meals</option>
-    <option value="Part Time">Health Insurance</option>
-    </select>
+    <input type="text" class="form-control" id="perks" name="perks " placeholder="Enter any perks [Performance Bonuses,5 Day Work Week, Flexible Work Hours, etc]" required>
+
+
     <div class="mb-3">
         <label for="description" class="form-label">Job Description</label>
-        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Job Description" required></textarea>
+        <textarea id="description" name="description" placeholder="Enter job description here..." rows="5" cols="50"></textarea>
+        <p id="word-count" style="color: gray;">0/100 words</p>
+
+        <!-- <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Job Description" required></textarea> -->
     </div>
 
     <div class="mb-3">
@@ -57,8 +76,51 @@
     </div>
 
     <div class="mb-3">
-        <label for="salary" class="form-label">Salary</label>
-        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter Salary " required>
+        <label for="salary_disclose" class="form-label">Disclose Salary?</label>
+        <div>
+            <input type="radio" id="disclose_salary" name="salary_disclose" value="disclose" onclick="toggleSalaryField(true)">
+            <label for="disclose_salary" class="form-label">Yes, Disclose</label>
+        </div>
+        <div>
+            <input type="radio" id="dont_disclose_salary" name="salary_disclose" value="dont_disclose" onclick="toggleSalaryField(false)" checked>
+            <label for="dont_disclose_salary" class="form-label">No, Do not Disclose</label>
+        </div>
+    </div>
+    
+    <div class="mb-3" id="salary_input" style="display: none;">
+        <label for="masalary" class="form-label">Minimum Salary</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="masalary" 
+            name="salary_minimum" 
+            placeholder="Enter Salary [20000,500000,etc]" 
+            pattern="\d*" 
+            required 
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        >
+    
+    <div class="mb-3">
+        <label for="misalary" class="form-label">Maximum Salary</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        id="misalary" 
+        name="salary_maximum" 
+        placeholder="Enter Salary [20000,500000,etc]" 
+        pattern="\d*" 
+        required 
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        >
+      
+    </div>
+</div>
+    <div class="mb-3">
+        <label for="total_vacancy" class="form-label">Total Vacancies</label>
+        <input type="number" class="form-control" id="total_vacancy" name="total_vacancy" placeholder="Enter Salary "
+        pattern="\d*" 
+        required 
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
     </div>
 
     <!-- req_skill Model Fields -->
@@ -101,3 +163,50 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock content %}
+{% block javascripts %} 
+<!-- Place the first <script> tag in your HTML's <head> -->
+    <script src="https://cdn.tiny.cloud/1/soxyc0slkpvfgmlokdnfg041ezsy3u17nfwc7j2skdsz4nbg/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',  // Targets all <textarea> elements
+            plugins: [
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+            ],
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        
+            // Word count configuration
+            wordcount: {
+            max_word_count: 5,  // Set maximum word count for job descriptions
+            countHTML: true,      // Count visible text only (ignores HTML tags)
+            onUpdate: function(count) {
+                const wordCountDisplay = document.getElementById('word-count');
+                wordCountDisplay.textContent = `${count} / 500 words`;  // Display the current word count and limit
+            }
+            },
+    
+        });
+    </script>
+
+    <script>
+        // Function to toggle the salary input field based on the radio selection
+        function toggleSalaryField(show) {
+            var salaryInputDiv = document.getElementById('salary_input');
+            if (show) {
+                salaryInputDiv.style.display = 'block'; // Show salary input if disclosed
+            } else {
+                salaryInputDiv.style.display = 'none'; // Hide salary input if not disclosed
+            }
+        }
+    </script>
+          
+{% endblock javascripts %}

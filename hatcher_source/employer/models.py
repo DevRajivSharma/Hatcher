@@ -1,10 +1,9 @@
 from django.db import models
 from django.db.models.signals import *
-from django.dispatch import receiver
 from django.core.validators import RegexValidator
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.hashers import check_password
-
+from django.utils.timesince import timesince
+from django.utils.timezone import is_aware, make_aware, get_current_timezone
+from datetime import datetime
 class employer_table(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -62,14 +61,28 @@ class Job(models.Model):
     work_type = models.CharField(max_length=100, null=True, choices=WORK_TYPE_CHOICES)
     description = models.TextField()
     location = models.CharField(max_length=100)
-    salary = models.CharField(max_length=50, blank=True, null=True)
+    salary_minimum = models.IntegerField( blank=True, null=True)
+    salary_maximum = models.IntegerField( blank=True, null=True)
     total_vacancy = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     experience = models.CharField(max_length=100,null=True,choices=EXPERIENCE_CHOICES)
     perks = models.CharField(max_length=100,null=True)
+    
     def __str__(self):
         return self.title 
+    @property
+    def custom_timesince(self):
+        """
+        Custom timesince method that calculates time passed since 'updated_at'
+        and returns a human-readable format.
+        """
+        now = datetime.now()
+        if is_aware(self.updated_at):
+            now = make_aware(now, get_current_timezone())
+        time_diff = timesince(self.updated_at, now)
+        time_units = time_diff.split(', ')
+        return time_units[0] + ' ago'
 
 class req_skill(models.Model):
     job = models.ForeignKey(Job,on_delete=models.CASCADE,related_name='req_skill')
