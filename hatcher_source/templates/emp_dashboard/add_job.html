@@ -78,8 +78,8 @@
     <div class="mb-3">
         <label for="salary_disclose" class="form-label">Disclose Salary?</label>
         <div>
-            <input type="radio" id="disclose_salary" name="salary_disclose" value="disclose" onclick="toggleSalaryField(true)">
-            <label for="disclose_salary" class="form-label">Yes, Disclose</label>
+        <input type="radio" id="disclose_salary" name="salary_disclose" value="disclose" onclick="toggleSalaryField(true)">
+        <label for="disclose_salary" class="form-label">Yes, Disclose</label>
         </div>
         <div>
             <input type="radio" id="dont_disclose_salary" name="salary_disclose" value="dont_disclose" onclick="toggleSalaryField(false)" checked>
@@ -96,7 +96,7 @@
             name="salary_minimum" 
             placeholder="Enter Salary [20000,500000,etc]" 
             pattern="\d*" 
-            required 
+             
             oninput="this.value = this.value.replace(/[^0-9]/g, '')"
         >
     
@@ -109,7 +109,7 @@
         name="salary_maximum" 
         placeholder="Enter Salary [20000,500000,etc]" 
         pattern="\d*" 
-        required 
+         
         oninput="this.value = this.value.replace(/[^0-9]/g, '')"
         >
       

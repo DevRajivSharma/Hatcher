@@ -61,6 +61,7 @@ class Job(models.Model):
     work_type = models.CharField(max_length=100, null=True, choices=WORK_TYPE_CHOICES)
     description = models.TextField()
     location = models.CharField(max_length=100)
+    salary_disclose = models.BooleanField(default=True)
     salary_minimum = models.IntegerField( blank=True, null=True)
     salary_maximum = models.IntegerField( blank=True, null=True)
     total_vacancy = models.IntegerField(null=True)
@@ -68,21 +69,20 @@ class Job(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     experience = models.CharField(max_length=100,null=True,choices=EXPERIENCE_CHOICES)
     perks = models.CharField(max_length=100,null=True)
-    
     def __str__(self):
         return self.title 
     @property
-    def custom_timesince(self):
+    def timesince(self):
         """
-        Custom timesince method that calculates time passed since 'updated_at'
-        and returns a human-readable format.
+        Dynamically calculates and returns the time passed since 'updated_at'
+        in a human-readable format.
         """
         now = datetime.now()
         if is_aware(self.updated_at):
             now = make_aware(now, get_current_timezone())
         time_diff = timesince(self.updated_at, now)
-        time_units = time_diff.split(', ')
-        return time_units[0] + ' ago'
+        return f"{time_diff.split(', ')[0]} ago"  # Return the first time unit (e.g., '2 days ago')
+
 
 class req_skill(models.Model):
     job = models.ForeignKey(Job,on_delete=models.CASCADE,related_name='req_skill')

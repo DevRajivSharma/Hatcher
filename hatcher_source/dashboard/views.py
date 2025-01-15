@@ -15,16 +15,16 @@ def home(request):
     # Retrieve user ID from session
     user_id = request.session.get('user_id')
     # print(user_id)
-
+    search_query = request.session.get('search_query', {})
     if user_id:
         # Fetch user instance from the database using user_id
         user_instance = user_table.objects.get(id=user_id)
         # print('user')
         jobs = Job.objects.all()
-        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id','work_type','experience','perks')
+        jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id','work_type','experience','perks','salary_disclose')
         # print('jobs is ',jobs_val)
         # Pass the user instance to the template
-        return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
+        return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val,'search_query': search_query,})
     
     # If user_id not found in session, redirect to login or show an error
     return redirect('login')  # Replace 'login' with the actual login URL name
@@ -42,7 +42,7 @@ def job_search(request):
     'keyword': keyword,
     'location': location,
     }
-
+    search_query = request.session.get('search_query', {})
     # Filter jobs based on user input
     query = Q()
 
@@ -63,7 +63,7 @@ def job_search(request):
     jobs = Job.objects.filter(query).distinct()
     jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id')
     # print(jobs_val)
-    return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val})
+    return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val,'search_query': search_query,})
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})
 
 def job_search_ajax(request):

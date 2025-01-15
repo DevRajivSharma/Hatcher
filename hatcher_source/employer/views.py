@@ -73,43 +73,55 @@ def employer_dashboard(request):
 @company_exist
 def add_job(request):
     employer_id = request.session.get('employer_id')
-    emp_table = employer_table.objects.get(id = employer_id) 
-    emp_companies = company.objects.filter(cmp_email = emp_table.email)
+    emp_table = employer_table.objects.get(id=employer_id) 
+    emp_companies = company.objects.filter(cmp_email=emp_table.email)
     emp_cmp_name = emp_companies.values_list('name')
+    
     if request.method == 'POST':
         form = request.POST
         f_cmp = form.get('company')
         print(f_cmp)
-        try :
+        try:
             cmp = company.objects.get(name=f_cmp)
-        except :
-            print('There is so such company')
-            return redirect('employer_dashboard')
+        except company.DoesNotExist:
+            print('There is no such company')
+            return render(request, 'emp_dashboard/add_job.html', context={'Message': 'There is no such company'})
+        
+        # Handle salary disclosure
+        salary_disclose = form.get('salary_disclose') == 'disclose'
+        salary_minimum = form.get('salary_minimum') if salary_disclose else None
+        salary_maximum = form.get('salary_maximum') if salary_disclose else None
+
         data = {
-            'company' : cmp,
-            'job_type':form.get('job_type'),
-            'work_type':form.get('work_type'),
-            'title' : form.get('title'),
-            'experience' :  form.get('experience'),
-            'total_vacancy' : form.get('total_vacancy'),
-            'description' : form.get('description'),
-            'location' : form.get('location'),
-            'salary_minimum' : form.get('salary_minimum'),
-            'salary_maximum' : form.get('salary_maximum'),
+            'company': cmp,
+            'job_type': form.get('job_type'),
+            'work_type': form.get('work_type'),
+            'title': form.get('title'),
+            'experience': form.get('experience'),
+            'total_vacancy': form.get('total_vacancy'),
+            'description': form.get('description'),
+            'location': form.get('location'),
+            'salary_disclose': salary_disclose,
+            'salary_minimum': salary_minimum,
+            'salary_maximum': salary_maximum,
+            'perks':form.get('perks')
         }
         job = Job.objects.create(**data)
+        job.save()
         data2 = {
-            'job':job,
-            'imp_skill' : form.get('imp_skill'),
-            'skill_2' : form.get('skill_2'),
-            'skill_3' : form.get('skill_3'),
-            'skill_4' : form.get('skill_4'),
-            'education' : form.get('education'),
-            'speak_lng_1' : form.get('speak_lng_1'),
-            'speak_lng_2' : form.get('speak_lng_2'),
+            'job': job,
+            'imp_skill': form.get('imp_skill'),
+            'skill_2': form.get('skill_2'),
+            'skill_3': form.get('skill_3'),
+            'skill_4': form.get('skill_4'),
+            'education': form.get('education'),
+            'speak_lng_1': form.get('speak_lng_1'),
+            'speak_lng_2': form.get('speak_lng_2'),
         }
-        re_skill = req_skill.objects.create(**data2)
+        req_skill.objects.create(**data2)
+        
         return redirect('employer_dashboard')
+    
     return render(request, 'emp_dashboard/add_job.html', context={'emp_cmp_name': emp_cmp_name})
 
 def company_register(request):
