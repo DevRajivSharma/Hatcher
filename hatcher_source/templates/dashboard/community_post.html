@@ -12,93 +12,63 @@
 <br>
 <br>
 <div class="container border search_div d-flex justify-content-center" id="search-div">
-  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="width: 90%;">
+  <form action="{% url 'community_post:post_filter' %}" id="form" method="get" class="d-flex flex-row "
+    style="width: 90%;">
     {{ csrftoken }}
-    <select class="form-select" aria-label="Default select example" name="job_type" id="job_type_select" required>
-      <option value="Internship" selected>All Post</option>
-      <option value="Full Time">My Post</option>
-      <option value="Part Time">Liked Post</option>
-      <option value="Hourly">Most Liked</option>
-    </select>
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
-      class="align-self-center" />
-    <input type="text" placeholder="Search any ......" name="keyword" class="form-control" required />
+    <input type="text" placeholder="Search any ......" name="search_keyword" class="form-control" required />
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>
 
-  <!-- Display the user's data after form submission -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">
-  Add Post
-</button>
+<!-- Display the user's data after form submission -->
+<a href="{% url 'community_post:add_post' %}">
+  <button type="button" class="btn btn-primary">
+    Add Post
+  </button>
+</a>
 
-<!-- Modal -->
-<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addPostModalLabel">Create a New Post</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Post creation form -->
-        <form id="postForm" method="post" action="{% url 'community_post:add_post' %}" >
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="new_post" rows="3"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Success/Error message -->
-<div id="responseMessage" class="alert" style="display: none;"></div>
 
 
 <div class="container-sm">
   {% if posts %}
-    {% for post in posts %}
-      <div class="card" 
-      style=" width: 80%;
-      margin: 20px auto;"
-      >
-        <div class="card-body">
-          <!-- Display user profile image -->
-          <div class="d-flex align-items-center mb-2">
-            {% if post.user.user_profile_image %}
-              <img src="{{ post.user.user_profile_image.url }}" width="40" height="40" alt="Profile Image" style="border-radius: 50%;object-fit: cover;">
-            {% else %}
-              <img src="https://via.placeholder.com/40" class="rounded-circle" width="40" height="40" alt="Profile Image" style="border-radius: 50%;object-fit: cover;">
-            {% endif %}
-            <div class="ms-2">
-              <h5 class="card-title">{{ post.user.first_name }} {{ post.user.last_name }}</h5>
-            </div>
-          </div>
-
-          <!-- Post content -->
-          <p class="card-text">{{ post.content }}</p>
-          <!-- Like and Comment buttons (if needed) -->
-          <p class="card-link like-btn text-end" data-post-id="{{ post.id }}" >
-            {% if post.id in liked_post_ids %}
-              <i class="fa-solid fa-thumbs-up liked" id="heart_icon" ></i> <span class="tlike">{{post.total_likes}}</span> 
-            {% else %}
-              <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> <span class="tlike">{{post.total_likes}}</span> 
-            {% endif %}
-          </p>
+  {% for post in posts %}
+  <div class="card" style=" width: 80%;
+      margin: 20px auto;">
+    <div class="card-body">
+      <!-- Display user profile image -->
+      <div class="d-flex align-items-center mb-2">
+        {% if post.user.user_profile_image %}
+        <img src="{{ post.user.user_profile_image.url }}" width="40" height="40" alt="Profile Image"
+          style="border-radius: 50%;object-fit: cover;">
+        {% else %}
+        <img src="https://via.placeholder.com/40" class="rounded-circle" width="40" height="40" alt="Profile Image"
+          style="border-radius: 50%;object-fit: cover;">
+        {% endif %}
+        <div class="ms-2">
+          <h5 class="card-title">{{ post.user.first_name }} {{ post.user.last_name }}</h5>
         </div>
       </div>
-    {% endfor %}
+
+      <!-- Post content -->
+       <div class="card-text">
+        {{ post.content|safe }}
+       </div>
+      <!-- Like and Comment buttons (if needed) -->
+      <p class="card-link like-btn text-end" data-post-id="{{ post.id }}">
+        {% if post.id in liked_post_ids %}
+        <i class="fa-solid fa-thumbs-up liked" id="heart_icon"></i> <span class="tlike">{{post.total_likes}}</span>
+        {% else %}
+        <i class="fa-solid fa-thumbs-up not-liked" id="heart_icon"></i> <span class="tlike">{{post.total_likes}}</span>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
   {% else %}
-    <p>No posts available at the moment.</p>
+  <p>No posts available at the moment.</p>
   {% endif %}
 </div>
 {% endblock content %}
@@ -106,4 +76,34 @@
 {% block javascripts %}
 {% load static %}
 <script src="{% static 'js/community_post.js' %}"></script>
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+  tinymce.init({
+    selector: 'textarea',  // Targets all <textarea> elements
+    plugins: [
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
+    ],
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+
+    // Word count configuration
+    wordcount: {
+      max_word_count: 5,  // Set maximum word count for job descriptions
+      countHTML: true,      // Count visible text only (ignores HTML tags)
+      onUpdate: function (count) {
+        const wordCountDisplay = document.getElementById('word-count');
+        wordCountDisplay.textContent = `${count} / 500 words`;  // Display the current word count and limit
+      }
+    },
+
+  });
+</script>
+
 {% endblock javascripts %}

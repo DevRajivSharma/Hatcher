@@ -28,18 +28,19 @@ def add_post(request):
             return JsonResponse({"error": "User does not exist."}, status=400)
 
         if content:
+            print(user.first_name)
+            print(content)
             # Create a new post with the user and content
             post = Post(user=user, content=content)
             post.save()  # Save the post to the database
 
-            # Return a success response (optional: for AJAX)
             return redirect('community_post:post_list')
 
         else:
             return JsonResponse({"error": "Content cannot be empty."}, status=400)
 
     # If it's a GET request, just redirect to the post list page
-    return redirect('community_post:post_list')
+    return render(request,'dashboard/add_post.html')
 @csrf_exempt
 def toggle_like(request, post_id):
     user_id = request.session.get('user_id')
@@ -63,3 +64,13 @@ def toggle_like(request, post_id):
 
         return JsonResponse({"success": True, "liked": liked})
     return JsonResponse({"success": False}, status=400)
+
+def post_filter(request):
+    user_id = request.session.get('user_id')
+    if request.method == "POST":
+        post_by_user = Post.objects.filter(user__id = user_id)
+        post_user_liked = Post.objects.filter()
+        search_keyword = request.POST.get('search_keyword')
+        if search_keyword:
+            post_by_search_keyword= Post.objects.filter(content__icontains = search_keyword) | Post.objects.filter(user__first_name__icontains = search_keyword) | Post.objects.filter(user__last_name__icontains = search_keyword)
+        

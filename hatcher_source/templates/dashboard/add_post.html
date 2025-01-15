@@ -1,0 +1,48 @@
+{% extends '../blocks/dashboard_block.html' %}
+{% block css %}
+{% load static %}
+
+{% endblock css %}
+{% block content %}
+<form id="postForm" method="post" action="{% url 'community_post:add_post' %}" class="container" >
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="new_post" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}
+{% block javascripts %}
+<script src="https://cdn.tiny.cloud/1/soxyc0slkpvfgmlokdnfg041ezsy3u17nfwc7j2skdsz4nbg/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea', // Targets all <textarea> elements
+        plugins: [
+            'wordcount', 'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 
+            'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'checklist', 
+            'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 
+            'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 
+            'editimage', 'advtemplate', 'mentions', 'tinycomments', 'tableofcontents', 
+            'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown', 
+            'importword', 'exportword', 'exportpdf'
+        ],
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+
+        setup: function(editor) {
+	  	var max = 2;
+	    editor.on('submit', function(event) {
+		  var numChars = tinymce.activeEditor.plugins.wordcount.body.getWordCount();
+		  if (numChars > max) {
+			alert("Maximum " + max + " characters allowed.");
+			event.preventDefault();
+			return false;
+		  }
+		});
+        },
+    });
+</script>
+
+
+
+{% endblock javascripts %}
