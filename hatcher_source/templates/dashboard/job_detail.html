@@ -5,10 +5,7 @@
 <link rel="stylesheet" href="{% static 'css/job_detail.css' %}">
 {% endblock css %}
 {% block content %}
-<br>
-<br>
-<br>
-<br>
+
 <div class="container border search_div d-flex justify-content-center" id="search-div">
   <form action="{% url 'dashboard:job_search' %}" method="get" class="d-flex flex-row " style="width: 90%;">
     {{ csrftoken }}

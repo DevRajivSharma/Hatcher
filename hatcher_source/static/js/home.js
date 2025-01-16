@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <img width="19px" height="auto" src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
                    <span style="color: gray;font-size: 16px;margin-left: 5px;"><img src="/media/logos/rupee.png" alt="" width="15">${job.salary_minimum}-<img src="/media/logos/rupee.png" alt="" width="15">${job.salary_maximum} monthly</span>
                 </div>
-                <div class="d-flex" style="margin-top: 10px;">
+                <div class="d-flex" style="margin-top: 10px;overflow: hidden;">
                   <div class="info-card rounded">${job.req_skill__imp_skill}</div>
                   <div class="info-card rounded">${job.work_type}</div>
                   <div class="info-card rounded">${job.job_type}</div>

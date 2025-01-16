@@ -33,12 +33,12 @@ def home(request):
 def job_search(request):
     user_id = request.session.get('user_id')
     user_instance = user_table.objects.get(id=user_id)
-    job_type = request.GET.get('job_type', '')
+    experience = request.GET.get('experience', '')
     keyword = request.GET.get('keyword', '').strip()
     location = request.GET.get('location', '').strip()
 
     request.session['search_query'] = {
-    'job_type': job_type,
+    'experience': experience,
     'keyword': keyword,
     'location': location,
     }
@@ -47,8 +47,8 @@ def job_search(request):
     query = Q()
 
     # Add conditions for filtering
-    if job_type and job_type != 'Any':
-        query &= Q(job_type__icontains=job_type)
+    if experience and experience != 'Any':
+        query &= Q(experience__icontains=experience)
     if keyword:
         query &= (
             Q(title__icontains=keyword) |
@@ -61,7 +61,7 @@ def job_search(request):
 
     # Filter jobs based on the query
     jobs = Job.objects.filter(query).distinct()
-    jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id')
+    jobs_val = jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','experience','updated_at','work_type','id','job_type')
     # print(jobs_val)
     return render(request, 'dashboard/home.html',context =  {'user': user_instance,'jobs':jobs_val,'search_query': search_query,})
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})

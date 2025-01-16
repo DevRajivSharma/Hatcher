@@ -28,6 +28,7 @@
     font-size: 14px;
     font-weight: 350;
     margin: 4px;
+    min-width: max-content;
 }
 
 .card-p{
@@ -71,4 +72,21 @@
 }
 .container3>div{
     margin-bottom: .5rem;
+}
+.autocomplete-items{
+    position: absolute;
+    border: 1px solid rgb(204, 204, 204);
+    background-color: rgb(255, 255, 255);
+    z-index: 1;
+    top: 203px;
+    right: 327px;
+    width: 275px;
+}
+.autocomplete-item{
+    font-size: larger;
+    padding: 5px;
+    border-bottom: 2px solid #0000004f;
+}
+.autocomplete-item:hover {
+    background: #8080802e;
 }
