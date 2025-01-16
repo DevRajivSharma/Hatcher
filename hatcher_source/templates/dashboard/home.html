@@ -33,7 +33,7 @@
     autocomplete="off" 
     required
 />
-<div id="city_suggestions" class="autocomplete-items"></div>
+<div id="city_suggestions" class="autocomplete-items visually-hidden"></div>
 
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
     <button type="submit" class="btn btn-primary">Search</button>
@@ -494,10 +494,9 @@
   document.addEventListener('DOMContentLoaded', () => {
     const cityInput = document.getElementById('city_input');
     const suggestionsDiv = document.getElementById('city_suggestions');
-
     cityInput.addEventListener('input', () => {
       const query = cityInput.value;
-
+      suggestionsDiv.classList.toggle('visually-hidden')
       if (query.length >= 1) {  // Start searching when 2+ characters are entered
         fetch(`/search_city/?term=${query}`)
           .then(response => response.json())

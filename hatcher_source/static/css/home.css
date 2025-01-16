@@ -85,7 +85,7 @@
 .autocomplete-item{
     font-size: larger;
     padding: 5px;
-    border-bottom: 2px solid #0000004f;
+    /* border-bottom: 2px solid #0000004f; */
 }
 .autocomplete-item:hover {
     background: #8080802e;
