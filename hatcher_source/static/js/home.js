@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const workType = document.querySelector('#work_type_filter input:checked')?.value || '';
     const salary = document.querySelector('#salary_filter input:checked')?.value || '';
     const postedIn = document.querySelector('#posted_filter input:checked')?.value || '';
-
+    const total_search_result = document.getElementById('total-search-result')
     // Prepare the AJAX request
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `/dashboard/job_search_ajax/?job_type=${jobType}&salary=${salary}&posted_in=${postedIn}&work_type=${workType}`, true);
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (xhr.status === 200) {
         const data = JSON.parse(xhr.responseText);
         updateJobListings(data.jobs);
+        total_search_result.textContent = `Showing ${(data.jobs).length} jobs based on your filter`;
       } else {
         console.error('Failed to fetch filtered jobs');
       }

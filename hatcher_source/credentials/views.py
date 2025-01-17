@@ -3,9 +3,10 @@ from django.shortcuts import render,redirect
 from dotenv import load_dotenv
 import os
 from dashboard.models import *
-
+from .middleware import check_session
 load_dotenv()
 
+@check_session
 def landing_page(request):
     return render(request,'credentials/landing_page.html')
 

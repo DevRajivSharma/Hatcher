@@ -4,6 +4,7 @@
 {% load static %}
 {% load custom_filters %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
@@ -40,6 +41,14 @@
   </form>
 </div>
 
+
+  <h4 class="container" style="
+  width: 73%;
+  font-weight: 600;
+  " id="total-search-result">
+Showing {{jobs|length}} jobs based on your filter
+</h4>
+
 <div class="main-container container d-flex flex-row justify-content-center p-0 ">
 
   <!-- Three Main Container  -->
@@ -64,7 +73,12 @@
       </div>
       <p style="cursor: pointer;font-size: 14px;color: green;font-weight: bold;">Clear all</p>
     </div>
-
+    <div id="all-applied-filter" class="d-flex flex-row justify-content-between">
+      <div class="applied-filter">
+        <span style=" margin-right: 6px;margin-left: 3px;">Last 24 hours</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16"><path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path></svg>
+      </div>
+    </div>
     <!-- Filter Section -->
     <div>
 
@@ -138,6 +152,51 @@
           <label for="100k">100k+</label>
         </div>
       </div>
+
+      <!-- filter_devide -->
+      <div class="container ">
+        <hr class="filter_devide">
+      </div>
+
+      <!-- Experience Filter -->
+      <div class="d-flex justify-content-between">
+        <div class="container">
+          <p class="m-0"><b>Experience</b></p>
+        </div>
+        <div>
+          <svg class="toggle_arrow" data-toggle-div='experience_filter' xmlns="http://www.w3.org/2000/svg" width="20"
+            height="20" fill="none" viewBox="0 0 20 20">
+            <path fill="#8C8594"
+              d="M9.37 6.963L5.261 11.61a1.104 1.104 0 000 1.428.82.82 0 001.261 0l3.482-3.929 3.471 3.928a.82.82 0 001.262 0 1.104 1.104 0 000-1.427l-4.107-4.647c-.34-.395-.913-.395-1.262 0z">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <div class="container mt-2 d-flex flex-column" id="experience_filter">
+        <label for="experience_slider" style="color: gray;margin-bottom: 10px;">Your work experience</label>
+        
+        <div >
+        <span id="experience_value_0" class="exp_val visually-hidden" style="width: fit-content;">Fresher</span>
+        <span id="experience_value_1" class="exp_val visually-hidden" style="width: fit-content;">1</span>
+        <span id="experience_value_2" class="exp_val visually-hidden" style="width: fit-content;">1-3</span>
+        <span id="experience_value_3" class="exp_val visually-hidden" style="width: fit-content;">3-6</span>
+        <span id="experience_value_4" class="exp_val visually-hidden" style="width: fit-content;">6-10</span>
+        <span id="experience_value_5" class="exp_val visually-hidden" style="width: fit-content;">10+</span> 
+        <span id="experience_value_6" class="exp_val visually-hidden" style="width: fit-content;">Any</span> 
+        </div>  
+        <input type="range" name="experience" id="experience_slider" 
+        min="0" max="6" style="cursor: pointer;">
+        <div class="d-flex flex-row justify-content-between" style="
+            color: gray;
+            padding: 0 3px;
+            font-size: 14px;
+        ">
+        <div>0 years</div> 
+        <div>10+ years</div>
+      </div>]
+
+      </div>
+      
 
       <!-- filter_devide -->
       <div class="container ">
@@ -468,10 +527,10 @@
     </div>
 
   </div>
-
-
-
 </div>
+
+
+
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
@@ -496,7 +555,7 @@
     const suggestionsDiv = document.getElementById('city_suggestions');
     cityInput.addEventListener('input', () => {
       const query = cityInput.value;
-      suggestionsDiv.classList.toggle('visually-hidden')
+      // suggestionsDiv.classList.toggle('visually-hidden')
       if (query.length >= 1) {  // Start searching when 2+ characters are entered
         fetch(`/search_city/?term=${query}`)
           .then(response => response.json())
@@ -532,6 +591,58 @@
     suggestionsDiv.style.backgroundColor = '#fff';
     suggestionsDiv.style.zIndex = '1000';
   });
+</script>
+<script>
+  // Predefined experience values
+  const experienceOptions = ["Fresher", "1 year", "1-3 years", "3-6 years", "6-10 years", "10+ years"];
+
+  // Get the slider element
+  const slider = document.getElementById("experience_slider");
+
+
+  // Get the selected experience value from the template
+  const value = "{{ search_query.experience | default:'Fresher' }}";
+
+  // Find the corresponding index
+  console.log(value)
+  const index = experienceOptions.indexOf(value.toString());
+  console.log(index)
+  // Debug: Alert the experience value and index
+
+  id = "experience_value_"+index
+  console.log(id)
+  const experience_value = document.getElementById(id)
+  // Set the slider to the corresponding index if valid
+  if (index !== -1) {
+    slider.value = index;
+    experience_value.classList.remove('visually-hidden')
+  } else {
+    alert("Invalid experience value. Resetting to default.");
+    slider.value = 0; // Reset to default (Fresher)
+  }
+
+  const spans = document.querySelectorAll(".exp_val");
+
+  // Function to update visible span
+    function updateExperienceLabel(value) {
+        spans.forEach((span, index) => {
+            if (index == value) {
+                span.classList.remove("visually-hidden"); // Show the selected span
+            } else {
+                span.classList.add("visually-hidden"); // Hide other spans
+            }
+        });
+    }
+
+    // Initialize on page load
+    updateExperienceLabel(slider.value);
+
+    // Add event listener to slider
+    slider.addEventListener("input", function () {
+        updateExperienceLabel(this.value);
+    });  
+
+
 </script>
 
 {% endblock javascripts %}

@@ -35,6 +35,8 @@ def job_search(request):
     user_instance = user_table.objects.get(id=user_id)
     experience = request.GET.get('experience', '')
     keyword = request.GET.get('keyword', '').strip()
+    keyword2 = keyword.split(' ')
+    print(keyword2)
     location = request.GET.get('location', '').strip()
 
     request.session['search_query'] = {
@@ -50,12 +52,13 @@ def job_search(request):
     if experience and experience != 'Any':
         query &= Q(experience__icontains=experience)
     if keyword:
-        query &= (
-            Q(title__icontains=keyword) |
-            Q(description__icontains=keyword) |
-            Q(company__name__icontains=keyword) |
-            Q(company__description__icontains=keyword)
-        )
+        for k in keyword2:
+            query &= (
+                Q(title__icontains=k) |
+                Q(description__icontains=k) |
+                Q(company__name__icontains=k) |
+                Q(company__description__icontains=k)
+            )
     if location:
         query &= Q(location__icontains=location) | Q(company__city__icontains=location)
 

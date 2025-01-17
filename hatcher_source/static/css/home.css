@@ -90,3 +90,43 @@
 .autocomplete-item:hover {
     background: #8080802e;
 }
+.exp_val{
+    position: relative;
+    background: #0075ff;
+    color: white;
+    font-size: 15px;
+    border-radius: 14px;
+    padding: 2px 12px;
+}
+#experience_value_0{
+left: -27px;
+}
+#experience_value_1{
+left: 25px
+}
+#experience_value_2{
+left: 51px
+}
+#experience_value_3{
+left: 87px
+}
+#experience_value_4{
+left: 118px
+}
+#experience_value_5{
+left: 155px
+}
+#experience_value_6{
+left: 189px
+}
+.applied-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 5px;
+    background: #ebf3fe;
+    border: 2px solid #003c9685;
+    border-radius: 17px;
+    font-size: small;
+    color: #003c96;
+}
