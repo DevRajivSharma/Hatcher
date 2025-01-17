@@ -102,25 +102,24 @@
 left: -27px;
 }
 #experience_value_1{
-left: 25px
+left: 11px
 }
 #experience_value_2{
-left: 51px
+left: 36px
 }
 #experience_value_3{
-left: 87px
+left: 70px
 }
 #experience_value_4{
-left: 118px
+left: 102px
 }
 #experience_value_5{
-left: 155px
+left: 138px
 }
 #experience_value_6{
 left: 189px
 }
 .applied-filter {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2px 5px;
@@ -129,4 +128,7 @@ left: 189px
     border-radius: 17px;
     font-size: small;
     color: #003c96;
+    width: fit-content;
+    margin-bottom: 4px;
+    display: inline-block;
 }

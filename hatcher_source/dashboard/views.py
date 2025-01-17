@@ -73,20 +73,38 @@ def job_search_ajax(request):
     if request.method == "GET":
 
         search_query = request.session.get('search_query', {})
-        job_type = search_query.get('job_type', '')
         keyword = search_query.get('keyword', '')
         location = search_query.get('location', '')
 
-        print(job_type,keyword,location)
-
+        experience = request.GET.get('experience', '')
         job_type = request.GET.get('job_type', '')
         salary = request.GET.get('salary', '')
         posted_in = request.GET.get('posted_in', '')
         work_type = request.GET.get('work_type','')
         query = Q()
-
-        if job_type and job_type != 'Any':
-            query &= Q(job_type__icontains=job_type)
+        print(experience)
+        # posted_in_send = ''
+        print(posted_in)
+        if (posted_in == '24'):
+            posted_in_send = 'Last 24 hours'
+        elif (posted_in == '72'):
+            posted_in_send = 'Last 3 days'
+        elif(posted_in == '168'):
+            posted_in_send = 'Last 7 days'
+        else:
+            posted_in_send = ''
+        request.session['all_filter'] = {
+            'experience' : experience,
+            'job_type': job_type,
+            'salary':salary,
+            'posted_in':posted_in_send,
+            'work_type':work_type
+        }
+        all_filter = request.session.get('all_filter',{})
+        print(all_filter)
+        if experience and experience != 'Any':
+            print('experience',experience)
+            query &= Q(experience__icontains=experience)
         if keyword:
             query &= (
                 Q(title__icontains=keyword) |
@@ -100,10 +118,13 @@ def job_search_ajax(request):
 
         if job_type:   
             job_type_list = job_type.split(',')
-            for job in job_type_list:
-                query |= Q(job_type__icontains=job)
+            for j_type in job_type_list:
+                query |= Q(job_type__icontains=j_type)
         if work_type:
-            query &= Q(work_type__icontains=work_type)
+            work_type_list = work_type.split(',')
+            for w_type in work_type_list:
+                print(w_type)
+                query |= Q(work_type=w_type)
         if salary and salary != '-1':
             print('salary is',int(salary))
             query &= Q(salary_maximum__gte=int(salary))
@@ -113,7 +134,7 @@ def job_search_ajax(request):
 
         jobs = Job.objects.filter(query).distinct()
         jobs_val = list(jobs.values('company__name','company__image','title','req_skill__imp_skill','req_skill__education','salary_maximum','salary_minimum','location','job_type','updated_at','location','id','work_type','experience'))
-        return JsonResponse({'jobs': jobs_val}, safe=False)
+        return JsonResponse({'jobs': jobs_val,'all_filter':all_filter}, safe=False)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
