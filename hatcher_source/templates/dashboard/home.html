@@ -2,9 +2,8 @@
 {% block title %}Home{% endblock title %}
 {% block css %}
 {% load static %}
-{% load custom_filters %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
-
+{% load custom_filters %}
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
@@ -37,7 +36,9 @@
 <div id="city_suggestions" class="autocomplete-items visually-hidden"></div>
 
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-success" style="
+    width: 44%;
+">Search Job</button>
   </form>
 </div>
 
@@ -499,15 +500,11 @@ Showing {{jobs|length}} jobs based on your filter
       object-fit: cover;
       background: #857d7d3b;">
       <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+      <a href="{% url 'dashboard:profile' %}" target="_blank">
       <button class="rounded bg-white " style="color: green;border: 1px solid green; font-size: 14px;">
         Update Profile
       </button>
-      <!-- <h4>Bio: {{ user.user_bio }}</h4>
-      <h4>Email: {{ user.email }}</h4>
-      <h4>Password: {{ user.password }}</h4>
-     </div> -->
-
-
+    </a>
       {% endif %}
     </div>
 

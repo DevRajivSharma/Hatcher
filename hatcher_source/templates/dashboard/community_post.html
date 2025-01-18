@@ -1,5 +1,5 @@
 {% extends '../blocks/dashboard_block.html' %}
-
+{% block title %}Community{% endblock title %}
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/community_post.css' %}">
@@ -14,7 +14,9 @@
     <input type="text" placeholder="Search any ......" name="search_keyword" class="form-control" required />
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
-    <button type="submit" class="btn btn-primary">Search</button>
+      <button type="submit" class="btn btn-success" style="
+      width:13%
+  ">Search</button>
   </form>
 </div>
 

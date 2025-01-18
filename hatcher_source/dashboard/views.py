@@ -30,7 +30,6 @@ def home(request):
     # If user_id not found in session, redirect to login or show an error
     return redirect('login')  # Replace 'login' with the actual login URL name
 
-
 def job_search(request):
     user_id = request.session.get('user_id')
     user_instance = user_table.objects.get(id=user_id)
@@ -139,7 +138,6 @@ def job_search_ajax(request):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-
 def job_detail(request, job_id):
     user_id = request.session.get('user_id')
     user_instance = user_table.objects.get(id=user_id)
@@ -151,3 +149,10 @@ def job_detail(request, job_id):
         ).first()
     print(job_val)
     return render(request, 'dashboard/job_detail.html', context={'user': user_instance, 'job': job_val})
+
+
+def profile(request):
+    user_id = request.session.get('user_id')
+    user_instance = user_table.objects.get(id=user_id)
+    return render(request, 'dashboard/profile.html', context={'user': user_instance})
+    
