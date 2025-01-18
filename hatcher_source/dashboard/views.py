@@ -1,4 +1,5 @@
 
+import time
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404 , redirect
 from credentials.models import user_table  # Ensure correct model import
@@ -71,7 +72,7 @@ def job_search(request):
 
 def job_search_ajax(request):
     if request.method == "GET":
-
+    #     time.sleep(1)
         search_query = request.session.get('search_query', {})
         keyword = search_query.get('keyword', '')
         location = search_query.get('location', '')

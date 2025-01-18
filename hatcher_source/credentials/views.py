@@ -45,6 +45,7 @@ def login(request):
         except user_table.DoesNotExist:
             return render(request, 'credentials/login.html', {'error': 'Invalid credentials'})
     return render(request, 'credentials/login.html')
+
 def logout(request):
     request.session.flush()
     return render(request, 'credentials/login.html')

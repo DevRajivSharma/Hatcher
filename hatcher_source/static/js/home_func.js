@@ -1,4 +1,11 @@
 export function applyFilters() {
+    const jobListContainer = document.getElementById('job-list-container');
+    jobListContainer.innerHTML = '';
+    jobListContainer.innerHTML = `
+        <div class="skeleton_1" style="height: 200px;margin-bottom: 10px;"></div>
+        <div class="skeleton_1" style="height: 200px;margin-bottom: 10px;"></div>
+        <div class="skeleton_1" style="height: 200px;margin-bottom: 10px;"></div>
+    `
     // Collect filter values
     const jobTypeElements = document.querySelectorAll('#job_type_filter input:checked');
     const jobType = Array.from(jobTypeElements).map(el => el.value).join(','); // Collect all selected job types
