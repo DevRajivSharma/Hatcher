@@ -1,4 +1,4 @@
-import { applyFilters ,clear_all} from '/static/js/home_func.js';
+import { applyFilters ,clear_all} from '/static/js/candidate_dashboard/home_func.js';
 document.querySelectorAll('.toggle_arrow').forEach(arrow => {
     arrow.addEventListener('click', () => {
       arrow.classList.toggle('rotate');

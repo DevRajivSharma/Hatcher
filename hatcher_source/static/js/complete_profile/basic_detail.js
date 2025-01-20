@@ -1,6 +1,11 @@
+$(function () {
+  $('#txtDate').datepicker({
+      format: "dd/mm/yyyy"
+  });
+});
 const button = document.querySelector("#get_loc");
-
-button.addEventListener("click", () => {
+button.addEventListener("click", (e) => {
+    e.preventDefault()
     button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
     navigator.geolocation.getCurrentPosition(position => {
         // Getting latitude & longitude from position obj
@@ -67,3 +72,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   });
+
+const is_student = document.getElementById('student');
+const no_student = document.getElementById('non_student');
+const education_depend_label = document.getElementById('education_depend_label');
+const schooling_detail = document.getElementById('schooling_detail');
+function student(){
+  schooling_detail.classList.remove(
+    'visually-hidden',
+  )
+  is_student.classList.remove('info-card');
+  is_student.classList.add('active-info-card');
+  no_student.classList.remove('active-info-card');
+  no_student.classList.add('info-card');
+  education_depend_label.innerHTML = 'What are you currently pursuing ?';
+}
+function non_student(){
+  schooling_detail.classList.remove(
+    'visually-hidden',
+  )
+  no_student.classList.remove('info-card');
+  no_student.classList.add('active-info-card');
+  is_student.classList.remove('active-info-card');
+  is_student.classList.add('info-card');
+  education_depend_label.innerHTML = 'Select your highest education level';
+}
+is_student.addEventListener('click',()=>{
+  student();
+})
+no_student.addEventListener('click',()=>{
+  non_student();
+  })
+
+
+  const dropdown = document.querySelector('.custom-dropdown');
+  const selected = dropdown.querySelector('.selected');
+  const options = dropdown.querySelector('.options');
+  
+  selected.addEventListener('click', () => {
+    dropdown.classList.toggle('active');
+  });
+  
+  options.addEventListener('click', (event) => {
+    if (event.target.tagName === 'LI') {
+      selected.textContent = event.target.textContent;
+      dropdown.classList.remove('active');
+    }
+  });
+  

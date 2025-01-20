@@ -83,7 +83,7 @@ form{
     width: 25%;
     border-radius: 8px;
 }
-input,textarea:focus {
+ textarea:focus {
     border: 2px solid green;
 }
 .cutom_inp{
@@ -115,8 +115,80 @@ input,textarea:focus {
 .autocomplete-item{
     font-size: 17px;
     padding: 5px;
-    border-bottom: 2px solid #0000004f;
 }
 .autocomplete-item:hover {
     background: #8080802e;
 }
+.compulsory::after {
+    content: ' *';
+    color: red;
+}
+.error{
+    color: red;
+    font-size: small;
+    text-align: center;
+}
+.info-card {
+    display: inline-block;
+    padding: 0px 8px;
+    font-size: 16px;
+    font-weight: 350;
+    margin: 4px;
+    border: 1px solid gray;
+    cursor: pointer;
+    min-width: max-content;
+}
+.active-info-card {
+    display: inline-block;
+    padding: 0px 8px;
+    background: #b2ffb23b;
+    font-size: 16px;
+    color: green;
+    font-weight: 350;
+    margin: 4px;
+    border: 1px solid green;
+    cursor: pointer;
+    min-width: max-content;
+}
+
+
+.custom-dropdown {
+    position: relative;
+    width: 200px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .selected {
+    padding: 10px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .options li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .options li:hover {
+    background: #e0e0e0;
+  }
+  
+  /* Show options when the dropdown is active */
+  .custom-dropdown.active .options {
+    display: block;
+  }
+  
