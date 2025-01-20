@@ -1,0 +1,122 @@
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .progress-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+    z-index: 1;
+    transform: translateY(-50%);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    transition: width 0.3s ease;
+  }
+
+  .progress-step {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    position: relative;
+    font-size: 14px;
+    color: white;
+  }
+
+  .progress-step.active {
+    background-color: #4caf50;
+  }
+
+  .progress-step::after {
+    content: attr(data-step);
+    position: absolute;
+    top: 40px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .buttons {
+    margin-top: 30px;
+  }
+
+  .buttons button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .buttons button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+form{
+    width: 500%;
+    display: flex;
+    transition: 0.5s;
+}
+.detail_container{
+    background-color: white;
+    margin-top: 30px;
+    padding: 20px;
+    width: 25%;
+    border-radius: 8px;
+}
+input,textarea:focus {
+    border: 2px solid green;
+}
+.cutom_inp{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    display: block;
+    width: 100%;
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid #80808066;
+    outline: none;
+}
+.autocomplete-items{
+    margin-top: 46px;
+    position: absolute;
+    border: 1px solid rgb(204, 204, 204);
+    background-color: rgb(255, 255, 255);
+    z-index: 1;
+    width: 237px;
+    height: 209px;
+    overflow-y: auto;
+}
+.autocomplete-items:empty{
+    display: none;
+}
+.autocomplete-item{
+    font-size: 17px;
+    padding: 5px;
+    border-bottom: 2px solid #0000004f;
+}
+.autocomplete-item:hover {
+    background: #8080802e;
+}

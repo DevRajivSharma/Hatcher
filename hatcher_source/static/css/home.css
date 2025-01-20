@@ -78,14 +78,15 @@
     border: 1px solid rgb(204, 204, 204);
     background-color: rgb(255, 255, 255);
     z-index: 1;
-    top: 203px;
-    right: 327px;
-    width: 275px;
+    top: 185px;
+    right: 433px;
+    width: 242px;
 }
+
 .autocomplete-item{
     font-size: larger;
     padding: 5px;
-    /* border-bottom: 2px solid #0000004f; */
+    border-bottom: 2px solid #0000004f;
 }
 .autocomplete-item:hover {
     background: #8080802e;
@@ -131,4 +132,8 @@ left: 189px
     width: fit-content;
     margin-bottom: 4px;
     display: inline-block;
+}
+
+div#city_suggestions:empty {
+    display: none;
 }

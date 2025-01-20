@@ -13,6 +13,7 @@ class user_table(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     age = models.CharField(max_length=10,null=True)
     updated_at = models.DateTimeField(auto_now=True)
+    complete_profile = models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         self.username = self.email
         super().save(*args, **kwargs)

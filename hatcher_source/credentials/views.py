@@ -63,3 +63,4 @@ def feedback(request):
         feedback_instance.save()
         return render(request, 'credentials/landing_page.html')
     return render(request, 'credentials/landing_page.html')
+

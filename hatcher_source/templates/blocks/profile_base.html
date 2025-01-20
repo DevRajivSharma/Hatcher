@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/complete_profile/profile_base.css' %}">
+    <link href="/media/logos/hatcher_tab.png" rel="icon" type="image/png">
+    {% block css %}
+        
+    {% endblock css %}
+</head>
+<body style="margin: 0px;
+height: 100vh;
+background-color: #c8c6ef36;
+">
+    <nav  style="background-color: white;">
+        <div >
+          <a  href="#">
+            <img src="/media/logos/hatcher.png" alt="Logo" width="163"  " style="margin-left: 70px;">
+          </a>
+        </div>
+    </nav>
+    
+        {% block content %}
+        
+        {% endblock content %}
+
+    </div>
+
+
+
+    {% block javascript %}
+        
+    {% endblock javascript %}
+</body>
+</html>

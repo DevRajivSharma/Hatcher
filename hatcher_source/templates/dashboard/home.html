@@ -33,7 +33,7 @@
     autocomplete="off" 
     required
 />
-<div id="city_suggestions" class="autocomplete-items visually-hidden"></div>
+<div id="city_suggestions" class="autocomplete-items "></div>
 
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
     <button type="submit" class="btn btn-success" style="
@@ -529,8 +529,8 @@ Showing {{jobs|length}} jobs based on your filter
 {% block javascripts %}
 {% load static %}
 <script>console.log("{{jobs}}")</script>
-<script src="{% static 'js/home_func.js'%}"  type="module"></script>
-<script src="{% static 'js/home.js'%}" type="module"></script>
+<script src="{% static 'js/candidate_dashboard/home_func.js'%}"  type="module"></script>
+<script src="{% static 'js/candidate_dashboard/home.js'%}" type="module"></script>
 <script>
   document.querySelectorAll('.card_id_contain').forEach(card => {
     card.addEventListener('click', function () {

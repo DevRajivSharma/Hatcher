@@ -1,0 +1,269 @@
+{% extends '../blocks/profile_base.html' %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/complete_profile/basic_detail.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="main-container m-auto container d-flex flex-column align-items-center">
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
+        </div>
+        <div class="progress-step active" data-step="Basic Detail">01</div>
+        <div class="progress-step" data-step="Education Info">02</div>
+        <div class="progress-step" data-step="Experience">03</div>
+        <div class="progress-step" data-step="Language">04</div>
+        <div class="progress-step" data-step="Resume">05</div>
+    </div>
+    <div class="" style="width: 63%; overflow: hidden;">
+        <form action="" id="complete_profile_form">
+        <div class="detail_container" id="basic_detail">
+            <h2 class="text-center">Basic Details</h2>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Birth Date</label>
+                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
+                    placeholder="Describe yourself in few words " rows="1"></textarea>
+            </div>
+            <div class="">
+                <label class="form-label">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="male">
+                <label class="form-label" for="male">male</label>
+                <input type="radio" name="gender" id="female">
+                <label class="form-label" for="female">female</label>
+            </div>
+            <label class="form-label" for="location">Please share your current address</label>
+            <div class="d-flex flex-column ">
+                <div class="input-group ">
+                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
+                    <button class="btn " id="get_loc" style="
+                            border: 2px solid;
+                            margin-left: 9px;
+                            border-radius: 4px;
+                            color: white;
+                            background: green;
+                            ">Pick Current Location</button>
+                </div>
+                <div id="city_suggestions" class="autocomplete-items "></div>
+            </div>
+        </div>
+        <div class="detail_container" id="Educaiton">
+            <h2 class="text-center">Basic Details 2</h2>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Birth Date</label>
+                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
+                    placeholder="Describe yourself in few words " rows="1"></textarea>
+            </div>
+            <div class="">
+                <label class="form-label">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="male">
+                <label class="form-label" for="male">male</label>
+                <input type="radio" name="gender" id="female">
+                <label class="form-label" for="female">female</label>
+            </div>
+            <label class="form-label" for="location">Please share your current address</label>
+            <div class="d-flex flex-column ">
+                <div class="input-group ">
+                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
+                    <button class="btn " id="get_loc" style="
+                            border: 2px solid;
+                            margin-left: 9px;
+                            border-radius: 4px;
+                            color: white;
+                            background: green;
+                            ">Pick Current Location</button>
+                </div>
+                <div id="city_suggestions" class="autocomplete-items "></div>
+            </div>
+        </div>
+        <div class="detail_container" id="Experience">
+            <h2 class="text-center">Basic Details 3</h2>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Birth Date</label>
+                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
+                    placeholder="Describe yourself in few words " rows="1"></textarea>
+            </div>
+            <div class="">
+                <label class="form-label">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="male">
+                <label class="form-label" for="male">male</label>
+                <input type="radio" name="gender" id="female">
+                <label class="form-label" for="female">female</label>
+            </div>
+            <label class="form-label" for="location">Please share your current address</label>
+            <div class="d-flex flex-column ">
+                <div class="input-group ">
+                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
+                    <button class="btn " id="get_loc" style="
+                            border: 2px solid;
+                            margin-left: 9px;
+                            border-radius: 4px;
+                            color: white;
+                            background: green;
+                            ">Pick Current Location</button>
+                </div>
+                <div id="city_suggestions" class="autocomplete-items "></div>
+            </div>
+        </div>
+        <div class="detail_container" id="Language">
+            <h2 class="text-center">Basic Details 4</h2>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Birth Date</label>
+                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
+                    placeholder="Describe yourself in few words " rows="1"></textarea>
+            </div>
+            <div class="">
+                <label class="form-label">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="male">
+                <label class="form-label" for="male">male</label>
+                <input type="radio" name="gender" id="female">
+                <label class="form-label" for="female">female</label>
+            </div>
+            <label class="form-label" for="location">Please share your current address</label>
+            <div class="d-flex flex-column ">
+                <div class="input-group ">
+                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
+                    <button class="btn " id="get_loc" style="
+                            border: 2px solid;
+                            margin-left: 9px;
+                            border-radius: 4px;
+                            color: white;
+                            background: green;
+                            ">Pick Current Location</button>
+                </div>
+                <div id="city_suggestions" class="autocomplete-items "></div>
+            </div>
+        </div>
+        <div class="detail_container" id="Resume">
+            <h2 class="text-center">Basic Details 5</h2>
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Birth Date</label>
+                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
+                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
+                    placeholder="Describe yourself in few words " rows="1"></textarea>
+            </div>
+            <div class="">
+                <label class="form-label">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="male">
+                <label class="form-label" for="male">male</label>
+                <input type="radio" name="gender" id="female">
+                <label class="form-label" for="female">female</label>
+            </div>
+            <label class="form-label" for="location">Please share your current address</label>
+            <div class="d-flex flex-column ">
+                <div class="input-group ">
+                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
+                    <button class="btn " id="get_loc" style="
+                            border: 2px solid;
+                            margin-left: 9px;
+                            border-radius: 4px;
+                            color: white;
+                            background: green;
+                            ">Pick Current Location</button>
+                </div>
+                <div id="city_suggestions" class="autocomplete-items "></div>
+            </div>
+        </div>
+        </form>
+    </div>  
+    <div class="buttons">
+        <button id="prev" disabled>Previous</button>
+        <button id="next">Next</button>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+{% load static %}
+<script src="{% static 'js/complete_profile/basic_detail.js' %}"></script>
+<script>
+    const progressSteps = document.querySelectorAll(".progress-step");
+    const progressBarFill = document.querySelector(".progress-bar-fill");
+    const prevButton = document.getElementById("prev");
+    const nextButton = document.getElementById("next");
+    const complete_profile_form = document.getElementById('complete_profile_form');
+    const sections = document.querySelectorAll(".detail_container");
+    let currentIndex = 0; // Tracks the currently visible section
+    let currentStep = 1;
+
+    function next_page() {
+    if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; // Slide to the next section
+    }
+    }
+
+    function previous_page() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; // Slide to the previous section
+    }
+    }
+
+    function updateProgress() {
+      // Update active steps
+      progressSteps.forEach((step, index) => {
+        if (index < currentStep) {
+          step.classList.add("active");
+        } else {
+          step.classList.remove("active");
+        }
+      });
+    
+      // Update progress bar fill
+      const progressPercentage = ((currentStep - 1) / (progressSteps.length - 1)) * 100;
+      progressBarFill.style.width = `${progressPercentage}%`;
+
+      // Enable/disable buttons
+      prevButton.disabled = currentStep === 1;
+      nextButton.disabled = currentStep === progressSteps.length;
+    }
+
+    
+    nextButton.addEventListener("click", () => {
+      if (currentStep < progressSteps.length) {
+        currentStep++;
+        updateProgress();
+      }
+      next_page()
+    });
+
+    prevButton.addEventListener("click", () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateProgress();
+      }
+      previous_page()
+    });
+  </script>
+{% endblock javascript %}

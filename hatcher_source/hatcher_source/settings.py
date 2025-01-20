@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'user_auth',
     'tailwind',
     'theme',
-    'citydata'
+    'citydata',
+    'complete_profile',
 ]
 
 MIDDLEWARE = [
