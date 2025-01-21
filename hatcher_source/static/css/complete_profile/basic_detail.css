@@ -1,13 +1,18 @@
+body{
+    margin: 0px;
+    height: 100vh;
+    background-color: #c8c6ef36;
+    overflow-x: hidden;
+}
 .progress-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 30px auto;
     width: 80%;
-    max-width: 800px;
     position: relative;
+    max-width: 900px`;
   }
-
   .progress-bar {
     position: absolute;
     top: 50%;
@@ -47,23 +52,25 @@
   .progress-step::after {
     content: attr(data-step);
     position: absolute;
+    text-align: center;
+    width: 93px;
     top: 40px;
     font-size: 14px;
+    font-weight: 500;
     color: #333;
-  }
+}
 
   .buttons {
     margin-top: 30px;
   }
 
-  .buttons button {
-    padding: 10px 20px;
-    margin: 0 5px;
-    font-size: 16px;
-    background-color: #4caf50;
+ .green_button {
+    border: 2px solid;
+    margin-left: 9px;
+    border-radius: 4px;
+    padding: 4px 14px;
     color: white;
-    border: none;
-    border-radius: 5px;
+    background: green;
     cursor: pointer;
   }
 
@@ -72,7 +79,7 @@
     cursor: not-allowed;
   }
 form{
-    width: 500%;
+    width: 600%;
     display: flex;
     transition: 0.5s;
 }
@@ -82,6 +89,8 @@ form{
     padding: 20px;
     width: 25%;
     border-radius: 8px;
+    height: 400px;
+    overflow-y: auto;
 }
  textarea:focus {
     border: 2px solid green;
@@ -151,44 +160,59 @@ form{
     min-width: max-content;
 }
 
+label{
+    font-weight: 600;
+}
+select {
+    padding: 3px;
+}
+.custom_radio>input[type="radio"] {
+    filter: hue-rotate(252deg); 
+}
+.radio_p{
+    margin: 0;
+    color: gray;
+}
+.english_div{
+    border: 1px solid green;
+    padding: 20px;
+    border-radius: 11px;
+}
 
-.custom-dropdown {
-    position: relative;
-    width: 200px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .selected {
-    padding: 10px;
-    background: #f0f0f0;
-    border: 1px solid #ccc;
+.lang-info {
+    padding: 0 7px;
+    border: 1px solid gray;
+    border-radius: 17px;
+    font-size: 15px;
+    color: black;
+    width: fit-content;
+    margin-bottom: 4px;
+    display: inline-block;
     cursor: pointer;
-  }
-  
-  .options {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .options li {
-    padding: 10px;
+    margin-right: 13px;
+    margin-bottom: 8px;
+}
+.active-lang-info {
+    padding: 0 7px;
+    background: #e8ffe8;
+    border: 2px solid green;
+    border-radius: 17px;
+    font-size: 15px;
+    color: #003c96;
+    width: fit-content;
+    margin-bottom: 4px;
+    display: inline-block;
     cursor: pointer;
-  }
-  
-  .options li:hover {
-    background: #e0e0e0;
-  }
-  
-  /* Show options when the dropdown is active */
-  .custom-dropdown.active .options {
-    display: block;
-  }
-  
+    margin-right: 13px;
+    margin-bottom: 8px;
+}
+.add_cut_svg{
+    margin-top: -2px;
+}
+.rotate_svg{
+    rotate:-45deg ;
+}
+.transition{
+    transition: 0.5s;
+    margin-top: -4px;
+}

@@ -5,52 +5,47 @@
 {% endblock css %}
 
 {% block content %}
-<div class="main-container m-auto container d-flex flex-column align-items-center">
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-bar-fill"></div>
-        </div>
-        <div class="progress-step active" data-step="Basic Detail">01</div>
-        <div class="progress-step" data-step="Education Info">02</div>
-        <div class="progress-step" data-step="Experience">03</div>
-        <div class="progress-step" data-step="Language">04</div>
-        <div class="progress-step" data-step="Resume">05</div>
+<div class="progress-container">
+    <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
     </div>
-    <div class="" style="width: 63%; overflow: hidden;">
+    <div class="progress-step active" data-step="Basic Detail">01</div>
+    <div class="progress-step" data-step="Education Info">02</div>
+    <div class="progress-step" data-step="Experience">03</div>
+    <div class="progress-step" data-step="Language">04</div>
+    <div class="progress-step" data-step="Preferred Job Type">05</div>
+    <div class="progress-step" data-step="Resume">06</div>
+</div>
+<div class="main-container m-auto container d-flex flex-column align-items-center " style="padding-top: 50px;">
+    <div style="width: 63%; overflow: hidden;">
         <form action="" id="complete_profile_form">
         <div class="detail_container" id="basic_detail">
             <h2 class="text-center">Basic Details</h2>
             <div class="mb-3">
-                <label for="birth_date" class="form-label compulsory">Birth Date</label>
+                <label for="birth_date" class="form-label compulsory ">Birth Date</label>
                 <br>
                 
                     <input type="text" name="selectedDate" id="txtDate" placeholder="Choose date" />
             
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label compulsory">Bio</label>
+                <label for="exampleFormControlTextarea1" class="form-label compulsory ">Bio</label>
                 <textarea class="cutom_inp" id="exampleFormControlTextarea1"
                     placeholder="Describe yourself in few words " rows="1"></textarea>
             </div>
             <div class="mb-2">
-                <label class="form-label compulsory">Gender</label>
+                <label class="form-label compulsory ">Gender</label>
                 <br>
                 <input type="radio" name="gender" id="male">
                 <label class="" for="male">male</label>
                 <input type="radio" name="gender" id="female">
                 <label class="" for="female">female</label>
             </div>
-            <label class="form-label compulsory" for="location">Please share your current address</label>
+            <label class="form-label compulsory " for="location">Please share your current address</label>
             <div class="d-flex flex-column ">
                 <div >
                     <input class="" type="text" name="location" id="location" style="display: inline;">
-                    <button class=" " id="get_loc" style="
-                    border: 2px solid;
-                    margin-left: 9px;
-                    border-radius: 4px;
-                    padding: 4px 14px;
-                    color: white;
-                    background: green;
+                    <button class="green_button" id="get_loc" 
                     ">Pick Current Location</button>
                 </div>
                 <div id="city_suggestions" class="autocomplete-items "></div>
@@ -61,7 +56,7 @@
         <div class="detail_container" id="Educaiton">
             <h2 class="text-center">Education Details </h2>
             <div class="mb-3" >
-                <label class="form-label compulsory" data-educating="">
+                <label class="form-label compulsory " data-educating="" id="is_student_data">
                     Are you pursuing your education?
                 </label>
                 <br>
@@ -69,17 +64,155 @@
                 <span class="info-card rounded" id="non_student">No</span>
             </div>
             <div class="mb-3 visually-hidden" id="schooling_detail">
-                <label class="form-label compulsory" id="education_depend_label"></label>
+                <label class="form-label compulsory " id="education_depend_label"
+                 data-higest-educaiton=""></label>
                 <br>
-                <span class="info-card rounded" id="">10th or Below 10th</span>
-                <span class="info-card rounded" id="">12th Pass</span>
-                <span class="info-card rounded" id="">Diploma</span>
-                <span class="info-card rounded" id="">ITI</span>
-                <span class="info-card rounded" id="">Graduate</span>
-                <span class="info-card rounded" id="">Post Graduate</span>
+                <span class="info-card rounded schooling_details" id="10_below_10">10th or Below 10th</span>
+                <span class="info-card rounded schooling_details" id="12_pass">12th Pass</span>
+                <span class="info-card rounded schooling_details" id="diploma">Diploma</span>
+                <span class="info-card rounded schooling_details" id="iti">ITI</span>
+                <span class="info-card rounded schooling_details" id="graduate">Graduate</span>
+                <span class="info-card rounded schooling_details" id="p_graduate">Post Graduate</span>
             </div>
-            <div class="mb-3 " id="school_medium">
-                <label class="form-label" for="medium">School medium</label>
+            <div class=" visually-hidden" id="college_detail_div">
+                <div class="degree_div mb-3 visually-hidden" id="diploma_div">
+                    <label class="form-label compulsory " for="diploma_degree">Diploma Degree</label>
+                    <br>
+                    <select name="diploma_degree" id="diploma_degree">
+                        <option value="Diploma in Engineering">Diploma in Engineering</option>
+                        <option value="Diploma in Engineering (Civil)">Diploma in Engineering (Civil)</option>
+                        <option value="Diploma in Engineering (Mechanical)">Diploma in Engineering (Mechanical)</option>
+                        <option value="Diploma in Engineering (Electrical)">Diploma in Engineering (Electrical)</option>
+                        <option value="Diploma in Engineering (Electronics)">Diploma in Engineering (Electronics)</option>
+                        <option value="Diploma in Engineering (Computer Science)">Diploma in Engineering (Computer Science)</option>
+                        <option value="Diploma in Engineering (Information Technology)">Diploma in Engineering (Information Technology)</option>
+                        <option value="Diploma in Pharmacy">Diploma in Pharmacy</option>
+                        <option value="Diploma in Nursing">Diploma in Nursing</option>
+                        <option value="Diploma in Education">Diploma in Education</option>
+                        <option value="Diploma in Hotel Management">Diploma in Hotel Management</option>
+                        <option value="Diploma in Fashion Design">Diploma in Fashion Design</option>
+                        <option value="Diploma in Interior Design">Diploma in Interior Design</option>
+                        <option value="Diploma in Graphic Design">Diploma in Graphic Design</option>
+                        <option value="Diploma in Fine Arts">Diploma in Fine Arts</option>
+                        <option value="Diploma in Music">Diploma in Music</option>
+                        <option value="Diploma in Dance">Diploma in Dance</option>
+                        <option value="Diploma in Journalism">Diploma in Journalism</option>
+                        <option value="Diploma in Mass Communication">Diploma in Mass Communication</option>
+                        <option value="Diploma in Agriculture">Diploma in Agriculture</option>
+                        <option value="Diploma in Horticulture">Diploma in Horticulture</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="iti_div">
+                    <label class="form-label compulsory" for="iti_degree">ITI Degree</label>
+                    <br>
+                    <select name="iti_degree" id="iti_degree">
+                        <option value="">Select ITI Trade</option> 
+                        <option value="Fitter">Fitter</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Welder">Welder</option>
+                        <option value="Machinist">Machinist</option>
+                        <option value="Turner">Turner</option>
+                        <option value="Carpenter">Carpenter</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Mason">Mason</option>
+                        <option value="Painter">Painter</option>
+                        <option value="Draughtsman (Civil)">Draughtsman (Civil)</option>
+                        <option value="Draughtsman (Mechanical)">Draughtsman (Mechanical)</option>
+                        <option value="Electronics Mechanic">Electronics Mechanic</option>
+                        <option value="Refrigerator Mechanic">Refrigerator Mechanic</option>
+                        <option value="Computer Operator & Programming Assistant">Computer Operator & Programming Assistant</option>
+                        <option value="Secretary">Secretary</option>
+                        <option value="Stenographer">Stenographer</option>
+                        <option value="Tailoring">Tailoring</option>
+                        <option value="Beauty Culture">Beauty Culture</option>
+                        <option value="Motor Mechanic">Motor Mechanic</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="graudate_div">
+                    <label for="graduateDegree" class="form-label compulsory">Graduate Degree</label>
+                    <br>
+                    <select name="graduateDegree" id="graduateDegree">
+                        <option value="">Select Graduate Degree</option>
+                        <option value="Bachelor of Arts (B.A.)">Bachelor of Arts (B.A.)</option>
+                        <option value="Bachelor of Science (B.Sc.)">Bachelor of Science (B.Sc.)</option>
+                        <option value="Bachelor of Commerce (B.Com.)">Bachelor of Commerce (B.Com.)</option>
+                        <option value="Bachelor of Engineering (B.E.)">Bachelor of Engineering (B.E.)</option>
+                        <option value="Bachelor of Technology (B.Tech.)">Bachelor of Technology (B.Tech.)</option>
+                        <option value="Bachelor of Architecture (B.Arch.)">Bachelor of Architecture (B.Arch.)</option>
+                        <option value="Bachelor of Medicine, Bachelor of Surgery (MBBS)">Bachelor of Medicine, Bachelor of Surgery (MBBS)</option>
+                        <option value="Bachelor of Dental Surgery (BDS)">Bachelor of Dental Surgery (BDS)</option>
+                        <option value="Bachelor of Pharmacy (B.Pharm.)">Bachelor of Pharmacy (B.Pharm.)</option>
+                        <option value="Bachelor of Law (LL.B.)">Bachelor of Law (LL.B.)</option>
+                        <option value="Bachelor of Education (B.Ed.)">Bachelor of Education (B.Ed.)</option>
+                        <option value="Bachelor of Journalism and Mass Communication (BJMC)">Bachelor of Journalism and Mass Communication (BJMC)</option>
+                        <option value="Bachelor of Fine Arts (BFA)">Bachelor of Fine Arts (BFA)</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="post_graduate_div">
+                    <label for="postgraduateDegree" class="form-label compulsory">Postgraduate Degree</label>
+                    <br>
+                    <select name="postgraduateDegree" id="postgraduateDegree">
+                        <option value="">Select Postgraduate Degree</option>
+                        <option value="Master of Arts (M.A.)">Master of Arts (M.A.)</option>
+                        <option value="Master of Science (M.Sc.)">Master of Science (M.Sc.)</option>
+                        <option value="Master of Commerce (M.Com.)">Master of Commerce (M.Com.)</option>
+                        <option value="Master of Engineering (M.E.)">Master of Engineering (M.E.)</option>
+                        <option value="Master of Technology (M.Tech.)">Master of Technology (M.Tech.)</option>
+                        <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
+                        <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
+                        <option value="Master of Philosophy (M.Phil.)">Master of Philosophy (M.Phil.)</option>
+                        <option value="Doctor of Philosophy (Ph.D.)">Doctor of Philosophy (Ph.D.)</option>
+                        <option value="Master of Surgery (M.S.)">Master of Surgery (M.S.)</option>
+                        <option value="Master of Dental Surgery (MDS)">Master of Dental Surgery (MDS)</option>
+                        <option value="Master of Education (M.Ed.)">Master of Education (M.Ed.)</option>
+                        <option value="Master of Law (LL.M.)">Master of Law (LL.M.)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="Specialization" class="form-label compulsory">Specialization</label><br>
+                    <select name="specialization" id="Specialization">
+                      <option value="">Select Specialization</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Information Technology">Information Technology</option>
+                      <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Biotechnology">Biotechnology</option>
+                      <option value="Biomedical Engineering">Biomedical Engineering</option>
+                      <option value="Chemical Engineering">Chemical Engineering</option>
+                      <option value="Aerospace Engineering">Aerospace Engineering</option>
+                      <option value="Automobile Engineering">Automobile Engineering</option>
+                      <option value="Bioinformatics">Bioinformatics</option>
+                      <option value="Data Science">Data Science</option>
+                      <option value="Artificial Intelligence">Artificial Intelligence</option>
+                      <option value="Machine Learning">Machine Learning</option>
+                      <option value="Cybersecurity">Cybersecurity</option>
+                      <option value="Blockchain">Blockchain</option>
+                      <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                      <option value="Artificial Intelligence and Machine Learning">Artificial Intelligence and Machine Learning</option>
+                      <option value="Cloud Computing">Cloud Computing</option>
+                      <option value="Big Data Analytics">Big Data Analytics</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="college_name" class="form-label compulsory">College Name</label>
+                    <br>
+                    <input type="text" class="" id="college_name" name="college_name" placeholder="eg. St. Stephens">
+                </div>
+                <div class="d-flex">
+                    <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                        <label class="form-label compulsory">Start Date</label>
+                        <input type="text" id="college_start_date" placeholder="Choose date">
+                    </div>
+                    <div class="mb-3" id="not_working_date_div" style="width: 220px;">
+                        <label class="form-label compulsory">End Date</label>
+                        <input type="text" id="college_end_date" placeholder="Choose date">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 visually-hidden " id="school_medium">
+                <label class="form-label compulsory" for="medium">School medium</label>
                 <br>
                 <select name="school_medium" class="" id="medium" style="width: 150px;  max-height: 100px;">
                     <option value="English">English</option>
@@ -109,63 +242,193 @@
             </div>
             <p class="error" id="cmp_frm_err_2"></p>
         </div>
+
         <div class="detail_container" id="Experience">
-            <h2 class="text-center">Basic Details 3</h2>
-            <div class="mb-3">
-                <label for="birth_date" class="form-label compulsory">Birth Date</label>
-                <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
-                    onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label compulsory">Bio</label>
-                <textarea class="cutom_inp" id="exampleFormControlTextarea1"
-                    placeholder="Describe yourself in few words " rows="1"></textarea>
-            </div>
-            <div class="">
-                <label class="form-label compulsory">Gender</label>
+            <h2 class="text-center">Experience Details </h2>
+            <div class="mb-3" >
+                <label class="form-label compulsory " data-experience="" id="is_experience">
+                    Do you have work Experience?
+                </label>
                 <br>
-                <input type="radio" name="gender" id="male">
-                <label class="form-label compulsory" for="male">male</label>
-                <input type="radio" name="gender" id="female">
-                <label class="form-label compulsory" for="female">female</label>
+                <span class="info-card rounded" id="have_experience">Yes</span>
+                <span class="info-card rounded" id="no_experience">No</span>
             </div>
-            <label class="form-label compulsory" for="location">Please share your current address</label>
-            <div class="d-flex flex-column ">
-                <div class="input-group ">
-                    <input class="form-control" type="text" name="location" id="location" style="display: inline;">
-                    <button class="btn " id="get_loc" style="
-                            border: 2px solid;
-                            margin-left: 9px;
-                            border-radius: 4px;
-                            color: white;
-                            background: green;
-                            ">Pick Current Location</button>
+            <div class="visually-hidden" id="experience_div">
+                <div class="d-flex ">
+                <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                    <label class="form-label compulsory" for="jobTitle">Job Title:</label>
+                    <br>
+                    <input type="text" id="jobTitle" name="jobTitle" required style="width:100%"
+                    placeholder="e.g., Software Engineer">
                 </div>
-                <div id="city_suggestions" class="autocomplete-items "></div>
+                <div class="mb-3" style="width: 220px;">
+                <label for="jobRole" class="form-label compulsory">Job Role:</label>
+                <br>
+                <input type="text"  id="jobRole" name="jobRole" required style="width:100%"
+                placeholder="e.g., Full Stack Developer"> 
+                </div>
+                </div>
+                <div class="d-flex">
+                <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                    <label for="companyName" class="form-label compulsory">Company Name:</label>
+                    <br>
+                    <input type="text" id="companyName" name="companyName" required style="width:100%"
+                    placeholder="e.g., Google">
+                </div>
+                <div class="mb-3" style="width: 220px;">
+                    <label for="industry" class="form-label compulsory">Industry:</label>
+                    <br>
+                    <input type="text" id="industry" name="industry" required style="width:100%"
+                    placeholder="e.g., Technology">
+                </div>
+                </div>
+                <div class="mb-3" >
+                    <label class="form-label compulsory " data-current_working="" id="is_working">
+                        Are you currently working?
+                    </label>
+                    <br>
+                    <span class="info-card rounded" id="working">Yes</span>
+                    <span class="info-card rounded" id="not_working">No</span>
+                </div>
+                <div class="mb-3 visually-hidden " id="notice_period">
+                    <label class="form-label compulsory " id="notice_period_is"
+                    data-notice-period="">Notice Period</label>
+                    <br>
+                    <span class="info-card rounded notice_periods" id="no_notice_period">No notice period</span>
+                    <span class="info-card rounded notice_periods" id="less_than_15_day">Less than 15 days</span>
+                    <span class="info-card rounded notice_periods" id="1_month">1 month</span>
+                    <span class="info-card rounded notice_periods" id="2_months">2 months</span>
+                    <span class="info-card rounded notice_periods" id="3_or_more_months">3 or more months</span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label compulsory" id="current_salary" >
+                        Currenty Salary(Monthly)
+                    </label>
+                    <br>
+                    <input 
+                    type="text" 
+                    id="numberInput" 
+                    name="salary" 
+                    placeholder="Amount" 
+                    oninput="this.value = formatNumber(this.value)" 
+                    >
+
+                    <p
+                    style="font-size: small;
+                    background: #78deff45;
+                    color: #0f91bc;
+                    padding: 7px;
+                    display: inline;
+                    margin: 11px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"  height="15" viewBox="0,0,256,256"
+                        style="margin-right: 5px;
+                        margin-top: -2px;">
+                            <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                            </svg>
+                        Salary information is prvate, we use it only to show relevant jobs
+                    </p>
+                </div>
+                <div class="d-flex">
+                <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                    <label class="form-label compulsory">Start Date</label>
+                    <input type="text" id="exp_start_date" placeholder="Choose date">
+                </div>
+                <div class="mb-3" id="not_working_date_div" style="width: 220px;">
+                    <label class="form-label compulsory">End Date</label>
+                    <input type="text" id="exp_end_date" placeholder="Choose date">
+                </div>
+                <div class="mb-3" style="width: 220px;">
+                    <label class="form-label compulsory" for="total_experience_year">Total Experience (Years)</label>
+                    <input 
+                    type="text" 
+                    id="total_experience_year" 
+                    name="experience" 
+                    placeholder="Years" 
+                    maxlength="2" 
+                    oninput="this.value = Math.min(35, this.value.replace(/[^0-9]/g, ''))" 
+                >
+                
+                
+                </div>
+                </div>
             </div>
             <p class="error" id="cmp_frm_err_3"></p>
         </div>
+
         <div class="detail_container" id="Language">
-            <h2 class="text-center">Basic Details 4</h2>
+            <h2 class="text-center">Preferred Language</h2>
+            <div class="mb-3 english_div">
+                <label  class="form-label compulsory ">English</label>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="no_english" value="no_english" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="no_english">No English</label>
+                </div>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="basic" value="basic" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="basic">Basic
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="intermediate" value="intermediate" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="intermediate">Intermediate
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+                <div class="input-group custom_radio  ">
+                    <input type="radio" name="english" id="advanced" value="advanced" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="advanced">Advanced
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+            </div>
+            <label class="form-label" id="other_lan_div" data-other-lang="">
+                Add other language you can speak (Optional) 
+            </label>
+            <div id="lang_collection" >
+                <!-- <div class="lan-div lang-info">
+                    <span style="margin-left: 3px;">Hindi</span>
+                    <svg class="rotate_svg transition" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" class="add_cut_svg">
+                      <path fill="black" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+                    </svg>
+                </div> -->
+            </div>
+            <p class="error" id="cmp_frm_err_4"></p>
+        </div>
+
+        <div class="detail_container" id="Job_Type">
+            <h2 class="text-center">Basic Details 5</h2>
             <div class="mb-3">
-                <label for="birth_date" class="form-label compulsory">Birth Date</label>
+                <label for="birth_date" class="form-label compulsory ">Birth Date</label>
                 <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
                     onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label compulsory">Bio</label>
+                <label for="exampleFormControlTextarea1" class="form-label compulsory ">Bio</label>
                 <textarea class="cutom_inp" id="exampleFormControlTextarea1"
                     placeholder="Describe yourself in few words " rows="1"></textarea>
             </div>
             <div class="">
-                <label class="form-label compulsory">Gender</label>
+                <label class="form-label compulsory ">Gender</label>
                 <br>
                 <input type="radio" name="gender" id="male">
-                <label class="form-label compulsory" for="male">male</label>
+                <label class="form-label compulsory " for="male">male</label>
                 <input type="radio" name="gender" id="female">
-                <label class="form-label compulsory" for="female">female</label>
+                <label class="form-label compulsory " for="female">female</label>
             </div>
-            <label class="form-label compulsory" for="location">Please share your current address</label>
+            <label class="form-label compulsory " for="location">Please share your current address</label>
             <div class="d-flex flex-column ">
                 <div class="input-group ">
                     <input class="form-control" type="text" name="location" id="location" style="display: inline;">
@@ -179,29 +442,30 @@
                 </div>
                 <div id="city_suggestions" class="autocomplete-items "></div>
             </div>
-            <p class="error" id="cmp_frm_err_4"></p>
+            <p class="error" id="cmp_frm_err_5"></p>
         </div>
+
         <div class="detail_container" id="Resume">
             <h2 class="text-center">Basic Details 5</h2>
             <div class="mb-3">
-                <label for="birth_date" class="form-label compulsory">Birth Date</label>
+                <label for="birth_date" class="form-label compulsory ">Birth Date</label>
                 <input type="text" class="cutom_inp" id="birth_date" placeholder="Choose Date"
                     onfocus="(this.type='date')" onblur="(this.type='text')" type="text">
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label compulsory">Bio</label>
+                <label for="exampleFormControlTextarea1" class="form-label compulsory ">Bio</label>
                 <textarea class="cutom_inp" id="exampleFormControlTextarea1"
                     placeholder="Describe yourself in few words " rows="1"></textarea>
             </div>
             <div class="">
-                <label class="form-label compulsory">Gender</label>
+                <label class="form-label compulsory ">Gender</label>
                 <br>
                 <input type="radio" name="gender" id="male">
-                <label class="form-label compulsory" for="male">male</label>
+                <label class="form-label compulsory " for="male">male</label>
                 <input type="radio" name="gender" id="female">
-                <label class="form-label compulsory" for="female">female</label>
+                <label class="form-label compulsory " for="female">female</label>
             </div>
-            <label class="form-label compulsory" for="location">Please share your current address</label>
+            <label class="form-label compulsory " for="location">Please share your current address</label>
             <div class="d-flex flex-column ">
                 <div class="input-group ">
                     <input class="form-control" type="text" name="location" id="location" style="display: inline;">
@@ -220,8 +484,8 @@
         </form>
     </div>  
     <div class="buttons">
-        <button id="prev" disabled>Previous</button>
-        <button id="next">Next</button>
+        <button class="green_button" id="prev" disabled style="background-color: #5c5ce9db">Previous</button>
+        <button class="green_button" id="next">Next</button>
     </div>
 </div>
 
