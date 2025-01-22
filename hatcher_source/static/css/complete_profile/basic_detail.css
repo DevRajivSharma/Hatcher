@@ -11,7 +11,7 @@ body{
     margin: 30px auto;
     width: 80%;
     position: relative;
-    max-width: 900px`;
+    max-width: 900px;
   }
   .progress-bar {
     position: absolute;
@@ -49,16 +49,6 @@ body{
     background-color: #4caf50;
   }
 
-  .progress-step::after {
-    content: attr(data-step);
-    position: absolute;
-    text-align: center;
-    width: 93px;
-    top: 40px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-}
 
   .buttons {
     margin-top: 30px;
@@ -79,7 +69,8 @@ body{
     cursor: not-allowed;
   }
 form{
-    width: 600%;
+    width: 500%;
+    height: 100%;
     display: flex;
     transition: 0.5s;
 }
@@ -89,7 +80,6 @@ form{
     padding: 20px;
     width: 25%;
     border-radius: 8px;
-    height: 400px;
     overflow-y: auto;
 }
  textarea:focus {
@@ -215,4 +205,36 @@ select {
 .transition{
     transition: 0.5s;
     margin-top: -4px;
+}
+.checkbox_div{
+    padding: 9px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.group_checkbox{
+    height: 20px;
+    width: 35px;
+    position: relative;
+    top: 3px;
+    left: 10px;
+}
+
+.resume_img{
+    display: flex;
+    height: 200px;
+    width: 100%;
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+}
+.uplad_resume_svg{
+    width: 164px;
+}
+.resume_label{
+    margin: 5px auto;
+    width: fit-content;
+    padding: 2px 5px;
+    border: 2px solid black;
+    cursor: pointer;
 }

@@ -1,10 +1,8 @@
 from django.urls import path
 from .views import *
-appname = 'complete_profile'
+app_name = 'complete_profile'
 urlpatterns = [
-    path('basic_detail/',basic_detail,name='basic_detail'),
-    path('education/',education,name='education'),
-    path('experience/',experience,name='experience'),
-    path('language/',language,name='language'),
+    path('',basic_detail,name='basic_detail'),
     path('resume/',resume,name='resume'),
+    path('skip',skip,name='skip'),
 ]

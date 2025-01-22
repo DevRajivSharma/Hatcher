@@ -7,6 +7,7 @@ from employer.models import employer_table
 import random
 # Create your views here.
 def email_auth(request):
+    print('inside email_auth')
     if request.method == 'POST':
         receipent_type = request.POST.get('type')
         recipient_email = request.POST.get('email')  # Extract email from the request
@@ -26,16 +27,17 @@ def email_auth(request):
             if emp:
                 return JsonResponse({"message": "Email already exists", "status": "error"}, status=400)
         otp = random.randint(1000, 9999)  # Generate a 6-digit OTP
-        
+        print('otp is ',otp)
         # Save OTP to session (can be replaced with DB storage)
         request.session['email_verification_otp'] = otp
         request.session['email_to_verify'] = recipient_email
 
         # Send email with OTP
         subject = 'Email Verification'
-        message = f'Your OTP for verification is: {otp}'
+        message = f'Your  OTP for verification is: {otp} \n Dont Share with any one'
         try:
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [recipient_email])
+            print('Otp send to ',recipient_email)
             return JsonResponse({"message": "OTP sent successfully", "status": "success"})
         except Exception as e:
             return JsonResponse({"message": "Failed to send OTP", "status": "error"}, status=500)

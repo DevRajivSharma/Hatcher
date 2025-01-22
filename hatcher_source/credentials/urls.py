@@ -14,4 +14,5 @@ urlpatterns = [
     path('verify-otp/',verify_otp,name='verify_otp'),
     path('otp/',verify_otp,name='email_verify'),
     path('feddback/',feedback,name='feedback'),
+    path('complete_profile/',include('complete_profile.urls',namespace='complete_profile')),
 ]

@@ -8,7 +8,6 @@ urlpatterns = [
     path('search_city/',include('citydata.urls')),
     path('community_post/', include('community_post.urls', namespace='community_post')),
     path('hatcher-admin/', admin.site.urls),
-    path('profile/',include('complete_profile.urls'))
 ]
 
 if settings.DEBUG:

@@ -259,24 +259,32 @@ const languages = [
 const lang_collection = document.getElementById('lang_collection')
 
 languages.forEach(lan =>{
-  html = `<div class="lan-div lang-info">
+  html = `
+  <div class="lan-div lang-info">
                     <span style="margin-left: 3px;">${lan}</span>
                     <svg class="rotate_svg transition" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 16 16" class="add_cut_svg">
                       <path fill="black" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
                     </svg>
-                </div>`
+          </div>`
   lang_collection.insertAdjacentHTML('beforeend', html);
 })
 
 const lan_div = document.querySelectorAll('.lan-div')
 const other_lan_div = document.getElementById('other_lan_div')
+const other_lang_inp = document.getElementById('other_lang_inp')
 lan_div.forEach((lan,index)=>{
   lan.addEventListener('click',function(){
+
     current_lan = other_lan_div.getAttribute('data-other-lang')
     if (!current_lan == ''){
         current_lan = current_lan + ','
     }
     other_lan_div.setAttribute('data-other-lang',current_lan  + lan.querySelector('span').innerHTML)
+    curren_val =  other_lang_inp.value
+    if (!curren_val == ''){
+      curren_val = curren_val + ','
+    }
+    other_lang_inp.value = curren_val + lan.querySelector('span').innerHTML
     lan.classList.toggle('lang-info');
     lan.classList.toggle('active-lang-info');
     const svg = lan.querySelector('svg')
@@ -288,3 +296,132 @@ lan_div.forEach((lan,index)=>{
   })
 })
 
+
+
+const progressSteps = document.querySelectorAll(".progress-step");
+const progressBarFill = document.querySelector(".progress-bar-fill");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+const complete_profile_form = document.getElementById('complete_profile_form');
+const sections = document.querySelectorAll(".detail_container");
+const submit = document.getElementById('submit');
+let currentIndex = 0; // Tracks the currently visible section
+let currentStep = 1;
+
+function next_page() {
+if (currentIndex == 0){
+  // if (validate_basic_detail()){
+  if (true){
+    if (currentIndex < sections.length - 1) {
+      currentIndex++;
+      complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; 
+      return true;
+  }}
+  else{
+    return false;
+  }
+}
+else if (currentIndex < sections.length - 1) {
+  currentIndex++;
+  complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+  return true;
+}
+}
+
+function previous_page() {
+if (currentIndex > 0) {
+    currentIndex--;
+    complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; // Slide to the previous section
+}
+}
+
+function updateProgress() {
+  // Update active steps
+  progressSteps.forEach((step, index) => {
+    if (index < currentStep) {
+      step.classList.add("active");
+    } else {
+      step.classList.remove("active");
+    }
+  });
+
+  // Update progress bar fill
+  const progressPercentage = ((currentStep - 1) / (progressSteps.length - 1)) * 100;
+  progressBarFill.style.width = `${progressPercentage}%`;
+
+  // Enable/disable buttons
+  prevButton.disabled = currentStep === 1;
+  nextButton.disabled = currentStep === progressSteps.length;
+  if (currentStep === progressSteps.length) {
+    submit.classList.remove('visually-hidden');
+  }
+  else{
+    submit.classList.add('visually-hidden');
+  }
+}
+
+
+nextButton.addEventListener("click", () => {
+  if (next_page()){
+  if (currentStep < progressSteps.length) {
+    currentStep++;
+    updateProgress();
+  }
+}
+});
+
+prevButton.addEventListener("click", () => {
+  if (currentStep > 1) {
+    currentStep--;
+    updateProgress();
+  }
+  previous_page()
+});
+
+function validate_basic_detail() {
+  const errorElement = document.getElementById("cmp_frm_err_1");
+  errorElement.textContent = ""; // Clear previous error messages
+
+  // Get field values
+  const birthDate = document.getElementById("txtDate").value.trim();
+  const bio = document.getElementById("exampleFormControlTextarea1").value.trim();
+  const genderMale = document.getElementById("male").checked;
+  const genderFemale = document.getElementById("female").checked;
+  const location = document.getElementById("location").value.trim();
+
+  // Check required fields
+  if (!birthDate) {
+      errorElement.textContent = "Please enter your birth date.";
+      return false;
+  }
+
+  if (!bio) {
+      errorElement.textContent = "Please enter your bio.";
+      return false;
+  }
+
+  if (!genderMale && !genderFemale) {
+      errorElement.textContent = "Please select your gender.";
+      return false;
+  }
+
+  if (!location) {
+      errorElement.textContent = "Please enter your location.";
+      return false;
+  }
+
+  errorElement.textContent = ""; // All fields are valid
+  return true;
+}
+
+// Example: Attach validation to a form submission or button click
+document.getElementById("get_loc").addEventListener("click", (e) => {
+  e.preventDefault(); // Prevent default form submission
+  if (validateForm()) {
+      alert("All fields are valid!");
+  }
+});
+
+submit.addEventListener('click',()=>{
+  complete_profile_form.submit()
+})
