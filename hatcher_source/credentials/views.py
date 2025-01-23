@@ -25,6 +25,8 @@ def register(request):
             user_instance = user_table.objects.create(**data)
             user_instance.save()
             print('Registeration Done')
+            request.session['is_authenticated'] = True 
+            request.session['user_id'] = user.id 
             return redirect('complete_profile:basic_detail')
         except Exception as e:
             render(request, 'credentials/register.html', {'error': 'Invalid credentials'})
@@ -36,8 +38,8 @@ def login(request):
         # Validate email and password
         try:
             user = user_table.objects.get(email=email, password=password)
-            request.session['is_authenticated'] = True 
             print(user) # Set session flag
+            request.session['is_authenticated'] = True 
             request.session['user_id'] = user.id        # Store user ID in session (optional)
             print(user.id)
             return redirect('dashboard:home')  # Redirect to dashboard after login

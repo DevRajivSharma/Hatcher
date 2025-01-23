@@ -4,14 +4,40 @@ from django.conf import settings
 from django.http import JsonResponse
 from credentials.models import user_table
 from employer.models import employer_table
+import requests,json
 import random
 # Create your views here.
+
+def validate_email(email):
+    response = requests.get("https://emailvalidation.abstractapi.com/v1/?api_key=e99c10accc354433a8509425479e7eef&email="+email)
+    print(response.status_code)
+    data = json.loads(response.content)
+    is_disposable = data["is_disposable_email"]["value"]
+    is_invalid = (
+        data["deliverability"] == "UNDELIVERABLE"
+        or not data["is_smtp_valid"]["value"]
+        or float(data["quality_score"]) == 0.0
+    )
+    is_not_free = (
+        data["is_free_email"]["value"]
+    )
+    # Output results
+    if is_disposable:
+        print(f"The email {data['email']} is disposable.")
+        False
+    if is_not_free:
+        print(f"The email {data['email']} is not free.")
+    elif is_invalid:
+        print(f"The email {data['email']} is invalid.")
+        return False
+    else:
+        return True
+
 def email_auth(request):
     print('inside email_auth')
     if request.method == 'POST':
         receipent_type = request.POST.get('type')
         recipient_email = request.POST.get('email')  # Extract email from the request
-        print(receipent_type)
         if (receipent_type == 'user'):
             if not recipient_email:
                 
@@ -26,6 +52,28 @@ def email_auth(request):
             emp = employer_table.objects.filter(email=recipient_email)
             if emp:
                 return JsonResponse({"message": "Email already exists", "status": "error"}, status=400)
+            
+        response = requests.get("https://emailvalidation.abstractapi.com/v1/?api_key=e99c10accc354433a8509425479e7eef&email="+recipient_email)
+        print(response.status_code)
+        data = json.loads(response.content)
+        print(data["is_free_email"]["value"])
+        is_disposable = data["is_disposable_email"]["value"]
+        is_invalid = (
+            data["deliverability"] == "UNDELIVERABLE"
+            or not data["is_smtp_valid"]["value"]
+            or float(data["quality_score"]) == 0.0
+        )
+        is_not_free = (
+            not data["is_free_email"]["value"]
+        )
+        # Output results
+        if is_disposable or is_invalid:
+            error_msg = (f"Email is disposable or invalid.")
+            return JsonResponse({"message": error_msg, "status": "error"}, status=400)
+        if is_not_free:
+            error_msg = (f"Email is not free.")
+            return JsonResponse({"message": error_msg, "status": "error"}, status=400)
+        
         otp = random.randint(1000, 9999)  # Generate a 6-digit OTP
         print('otp is ',otp)
         # Save OTP to session (can be replaced with DB storage)

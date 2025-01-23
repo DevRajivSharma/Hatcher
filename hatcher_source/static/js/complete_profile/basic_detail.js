@@ -1,18 +1,22 @@
 
-$('#txtDate ').datepicker({
-  format: "dd/mm/yyyy"
+$('#birth_date').datepicker({
+  format: "yyyy-mm-dd",
+  endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)), // Set max date to 18 years ago
+  autoclose: true,
+  todayHighlight: true
 });
+
 $('#exp_start_date  ').datepicker({
-  format: "dd/mm/yyyy"
+  format: "yyyy-mm-dd"
 });
 $('#exp_end_date ').datepicker({
-  format: "dd/mm/yyyy"
+  format: "yyyy-mm-dd"
 });
 $('#college_end_date ').datepicker({
-  format: "dd/mm/yyyy"
+  format: "yyyy-mm-dd"
 });
 $('#college_start_date ').datepicker({
-  format: "dd/mm/yyyy"
+  format: "yyyy-mm-dd"
 });
 
 const button = document.querySelector("#get_loc");
@@ -132,51 +136,51 @@ const degreeDivs = document.querySelectorAll('.degree_div'); // Select all degre
 const college_detail_div = document.getElementById('college_detail_div');
 
 schoolingDetails.forEach((span) => {
-    span.addEventListener('click', function () {
-        // Show the school medium div
-        school_medium.classList.remove('visually-hidden');
-        
-        // Update the label with the selected education
-        education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
-        console.log(span.innerHTML);
+  span.addEventListener('click', function () {
+    // Show the school medium div
+    school_medium.classList.remove('visually-hidden');
 
-        // Remove 'active-info-card' class from all spans and add 'info-card' back
-        schoolingDetails.forEach(s => {
-            s.classList.remove('active-info-card');
-            s.classList.add('info-card');
-        });
+    // Update the label with the selected education
+    education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
+    console.log(span.innerHTML);
 
-        // Add 'active-info-card' class to the clicked span and remove 'info-card'
-        this.classList.remove('info-card');
-        this.classList.add('active-info-card');
-
-        // Hide all degree divs initially
-        degreeDivs.forEach(div => div.classList.add('visually-hidden'));
-
-        // Show the corresponding degree div based on the selected info-card
-        if (span.id === 'diploma') {
-            document.getElementById('diploma_div').classList.remove('visually-hidden');
-            college_detail_div.classList.remove('visually-hidden');
-        } else if (span.id === 'iti') {
-            document.getElementById('iti_div').classList.remove('visually-hidden');
-            college_detail_div.classList.remove('visually-hidden');
-        } else if (span.id === 'graduate') {
-            document.getElementById('graudate_div').classList.remove('visually-hidden');
-            college_detail_div.classList.remove('visually-hidden');
-        } else if (span.id === 'p_graduate') {
-            document.getElementById('post_graduate_div').classList.remove('visually-hidden');
-            college_detail_div.classList.remove('visually-hidden');
-        }
-        else{
-          college_detail_div.classList.add('visually-hidden');
-        }
+    // Remove 'active-info-card' class from all spans and add 'info-card' back
+    schoolingDetails.forEach(s => {
+      s.classList.remove('active-info-card');
+      s.classList.add('info-card');
     });
+
+    // Add 'active-info-card' class to the clicked span and remove 'info-card'
+    this.classList.remove('info-card');
+    this.classList.add('active-info-card');
+
+    // Hide all degree divs initially
+    degreeDivs.forEach(div => div.classList.add('visually-hidden'));
+
+    // Show the corresponding degree div based on the selected info-card
+    if (span.id === 'diploma') {
+      document.getElementById('diploma_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'iti') {
+      document.getElementById('iti_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'graduate') {
+      document.getElementById('graudate_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'p_graduate') {
+      document.getElementById('post_graduate_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    }
+    else {
+      college_detail_div.classList.add('visually-hidden');
+    }
+  });
 });
 
 function formatNumber(value) {
   // Remove non-numeric characters
   value = value.replace(/[^0-9]/g, '');
-  
+
   // Add commas for thousands
   return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
@@ -184,23 +188,23 @@ function formatNumber(value) {
 
 const have_experience = document.getElementById('have_experience')
 const no_experience = document.getElementById('no_experience')
-const experience_div =  document.getElementById('experience_div')
+const experience_div = document.getElementById('experience_div')
 const is_experience = document.getElementById('is_experience')
 
-have_experience.addEventListener('click',()=>{
+have_experience.addEventListener('click', () => {
   have_experience.classList.remove('info-card')
   have_experience.classList.add('active-info-card')
   no_experience.classList.remove('active-info-card')
   no_experience.classList.add('info-card')
-  is_experience.setAttribute('data-experience','Yes')
+  is_experience.setAttribute('data-experience', 'Yes')
   experience_div.classList.remove('visually-hidden')
 })
-no_experience.addEventListener('click',()=>{
+no_experience.addEventListener('click', () => {
   no_experience.classList.remove('info-card')
   no_experience.classList.add('active-info-card')
   have_experience.classList.remove('active-info-card')
   have_experience.classList.add('info-card')
-  is_experience.setAttribute('data-experience','No')
+  is_experience.setAttribute('data-experience', 'No')
   experience_div.classList.add('visually-hidden')
 })
 
@@ -211,42 +215,42 @@ const notice_period_is = document.getElementById('notice_period_is')
 const is_working = document.getElementById('is_working')
 const notice_periods = document.querySelectorAll('.notice_periods')
 
-working.addEventListener('click',()=>{
+working.addEventListener('click', () => {
   working.classList.remove('info-card')
   working.classList.add('active-info-card')
   not_working.classList.remove('active-info-card')
   not_working.classList.add('info-card')
-  is_working.setAttribute('data-current_working','Yes')
+  is_working.setAttribute('data-current_working', 'Yes')
   notice_period.classList.remove('visually-hidden')
 })
-not_working.addEventListener('click',()=>{
+not_working.addEventListener('click', () => {
   not_working.classList.remove('info-card')
   not_working.classList.add('active-info-card')
   working.classList.remove('active-info-card')
   working.classList.add('info-card')
-  is_working.setAttribute('data-current_working','No')
+  is_working.setAttribute('data-current_working', 'No')
   notice_period.classList.add('visually-hidden')
 })
 
 notice_periods.forEach((span) => {
   span.addEventListener('click', function () {
 
-      notice_period_is.setAttribute('data-notice-period',span.innerHTML)
-      // Update the label with the selected education
-      education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
-      console.log(span.innerHTML);
+    notice_period_is.setAttribute('data-notice-period', span.innerHTML)
+    // Update the label with the selected education
+    education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
+    console.log(span.innerHTML);
 
-      // Remove 'active-info-card' class from all spans and add 'info-card' back
-      notice_periods.forEach(s => {
-          s.classList.remove('active-info-card');
-          s.classList.add('info-card');
-      });
+    // Remove 'active-info-card' class from all spans and add 'info-card' back
+    notice_periods.forEach(s => {
+      s.classList.remove('active-info-card');
+      s.classList.add('info-card');
+    });
 
-      // Add 'active-info-card' class to the clicked span and remove 'info-card'
-      this.classList.remove('info-card');
-      this.classList.add('active-info-card');
+    // Add 'active-info-card' class to the clicked span and remove 'info-card'
+    this.classList.remove('info-card');
+    this.classList.add('active-info-card');
 
-})
+  })
 })
 
 const languages = [
@@ -258,7 +262,7 @@ const languages = [
 
 const lang_collection = document.getElementById('lang_collection')
 
-languages.forEach(lan =>{
+languages.forEach(lan => {
   html = `
   <div class="lan-div lang-info">
                     <span style="margin-left: 3px;">${lan}</span>
@@ -272,16 +276,16 @@ languages.forEach(lan =>{
 const lan_div = document.querySelectorAll('.lan-div')
 const other_lan_div = document.getElementById('other_lan_div')
 const other_lang_inp = document.getElementById('other_lang_inp')
-lan_div.forEach((lan,index)=>{
-  lan.addEventListener('click',function(){
+lan_div.forEach((lan, index) => {
+  lan.addEventListener('click', function () {
 
     current_lan = other_lan_div.getAttribute('data-other-lang')
-    if (!current_lan == ''){
-        current_lan = current_lan + ','
+    if (!current_lan == '') {
+      current_lan = current_lan + ','
     }
-    other_lan_div.setAttribute('data-other-lang',current_lan  + lan.querySelector('span').innerHTML)
-    curren_val =  other_lang_inp.value
-    if (!curren_val == ''){
+    other_lan_div.setAttribute('data-other-lang', current_lan + lan.querySelector('span').innerHTML)
+    curren_val = other_lang_inp.value
+    if (!curren_val == '') {
       curren_val = curren_val + ','
     }
     other_lang_inp.value = curren_val + lan.querySelector('span').innerHTML
@@ -305,34 +309,85 @@ const nextButton = document.getElementById("next");
 const complete_profile_form = document.getElementById('complete_profile_form');
 const sections = document.querySelectorAll(".detail_container");
 const submit = document.getElementById('submit');
+submit.addEventListener('click',()=>{
+  complete_profile_form.submit()
+})
 let currentIndex = 0; // Tracks the currently visible section
 let currentStep = 1;
 
 function next_page() {
-if (currentIndex == 0){
-  // if (validate_basic_detail()){
-  if (true){
-    if (currentIndex < sections.length - 1) {
-      currentIndex++;
-      complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; 
-      return true;
-  }}
-  else{
-    return false;
+  if (currentIndex == 0) {
+    // if (validate_basic_detail()){
+    if (true) {
+      if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
   }
-}
-else if (currentIndex < sections.length - 1) {
-  currentIndex++;
-  complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
-  return true;
-}
+  else if (currentIndex == 1) {
+    // if (validateEducationForm()) {
+      if (true){
+      if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+  else if (currentIndex == 2) {
+    // if (validateExperienc()) {
+      if (true){
+      if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+  else if (currentIndex == 3) {
+    // if (validateLanguage()) {
+      if (true){
+      if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+  else if (currentIndex == 4) {
+    if (validateJobPrefference()) {
+      // if (true){
+      if (currentIndex < sections.length - 1) {
+        currentIndex++;
+        complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+  }
 }
 
 function previous_page() {
-if (currentIndex > 0) {
+  if (currentIndex > 0) {
     currentIndex--;
     complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`; // Slide to the previous section
-}
+  }
 }
 
 function updateProgress() {
@@ -355,19 +410,19 @@ function updateProgress() {
   if (currentStep === progressSteps.length) {
     submit.classList.remove('visually-hidden');
   }
-  else{
+  else {
     submit.classList.add('visually-hidden');
   }
 }
 
 
 nextButton.addEventListener("click", () => {
-  if (next_page()){
-  if (currentStep < progressSteps.length) {
-    currentStep++;
-    updateProgress();
+  if (next_page()) {
+    if (currentStep < progressSteps.length) {
+      currentStep++;
+      updateProgress();
+    }
   }
-}
 });
 
 prevButton.addEventListener("click", () => {
@@ -377,6 +432,9 @@ prevButton.addEventListener("click", () => {
   }
   previous_page()
 });
+
+
+// Validation Funtions ********************
 
 function validate_basic_detail() {
   const errorElement = document.getElementById("cmp_frm_err_1");
@@ -391,37 +449,195 @@ function validate_basic_detail() {
 
   // Check required fields
   if (!birthDate) {
-      errorElement.textContent = "Please enter your birth date.";
-      return false;
+    errorElement.textContent = "Please enter your birth date.";
+    return false;
   }
 
   if (!bio) {
-      errorElement.textContent = "Please enter your bio.";
-      return false;
+    errorElement.textContent = "Please enter your bio.";
+    return false;
   }
 
   if (!genderMale && !genderFemale) {
-      errorElement.textContent = "Please select your gender.";
-      return false;
+    errorElement.textContent = "Please select your gender.";
+    return false;
   }
 
   if (!location) {
-      errorElement.textContent = "Please enter your location.";
-      return false;
+    errorElement.textContent = "Please enter your location.";
+    return false;
   }
 
   errorElement.textContent = ""; // All fields are valid
   return true;
 }
+function validateEducationForm() {
+  let isValid = true; // Flag to track validity
+  let hasDegree = false;
+  const errorElement = document.querySelector(".error_p"); // Error display element
+  const requiredInputs = document.querySelectorAll('#Educaiton input');
 
-// Example: Attach validation to a form submission or button click
-document.getElementById("get_loc").addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent default form submission
-  if (validateForm()) {
-      alert("All fields are valid!");
+  const educationLevel = document.querySelector('input[name="education_level"]:checked'); // Check selected education level
+  const schoolMedium = document.getElementById("medium");
+  errorElement.classList.remove('visually-hidden')
+  // Check if highest education level is selected
+  if (!educationLevel) {
+    console.log('educationLevel not filled')
+    isValid = false;
+    errorElement.classList.remove('visually-hidden')
+    document.querySelector('input[name="education_level"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return isValid;
   }
-});
+  // console.log(educationLevel.value)
+  const selectedEducation = educationLevel.value; // Get the selected education level value
+  // Validate school medium if education level is "10" or "12"
 
-submit.addEventListener('click',()=>{
-  complete_profile_form.submit()
-})
+   if (selectedEducation === "diploma") {
+    hasDegree = true
+    const diploma_degree = document.getElementById('diploma_degree');
+    if (diploma_degree.value === "") {
+      isValid = false;
+      diploma_degree.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      errorElement.classList.remove('visually-hidden')
+      return isValid
+    }
+  }
+  else if (selectedEducation === "iti") {
+    hasDegree = true
+    const iti_degree = document.getElementById('iti_degree');
+    if (iti_degree.value === "") {
+      isValid = false;
+      iti_degree.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      errorElement.classList.remove('visually-hidden')
+      return isValid
+    }
+  }
+  else if (selectedEducation === "graduate") {
+    hasDegree = true
+    const graduate_degree = document.getElementById('graduateDegree');
+    if (graduate_degree.value === "") {
+      isValid = false;
+      graduate_degree.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      errorElement.classList.remove('visually-hidden')
+      return isValid
+    }
+  }
+  else if (selectedEducation === "p_graduate") {
+    hasDegree = true
+    const p_graduate_degree = document.getElementById('postgraduateDegree');
+    if (p_graduate_degree.value === "") {
+      isValid = false;
+      p_graduate_degree.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      errorElement.classList.remove('visually-hidden')
+      return isValid
+    }
+  }
+ if (hasDegree){
+  const Specialization = document.getElementById('Specialization')
+  if (Specialization.value === "") {
+    isValid = false;
+    Specialization.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    errorElement.classList.remove('visually-hidden')
+    return isValid
+  }
+
+  requiredInputs.forEach((inp) => {
+    if (inp.value === "") {
+      isValid = false;
+      errorElement.textContent = 'Please fill the required fields.';
+    }
+  })
+ }
+
+ if (!schoolMedium || !schoolMedium.value.trim()) {
+  console.log('medium not filled')
+  isValid = false;
+  schoolMedium.focus(); // Focus the field
+  errorElement.classList.remove('visually-hidden')
+  return isValid;
+}
+  errorElement.classList.add('visually-hidden')
+  return isValid; // Return the validity status
+}
+
+function validateExperienc(){
+  isValid = true
+  const experience = document.querySelector('#Experience input[name ="work_experience"]:checked');
+  const current_working = document.querySelector('#Experience input[name ="current_working"]:checked');
+  const notice_period = document.querySelector('#notice_period input[name ="notice_period"]:checked');
+  const error_p = document.querySelector('.error_p');
+  const jobTitle = document.getElementById('jobTitle');
+  const jobRole = document.getElementById('jobRole');
+  const companyName = document.getElementById('companyName');
+  const industry = document.getElementById('industry');
+  const salary = document.getElementById('numberInput');
+  const exp_start_date = document.getElementById('exp_start_date');
+  const exp_end_date = document.getElementById('exp_end_date');
+  const total_experience_year = document.getElementById('total_experience_year');
+  if (!experience) {
+    isValid = false
+    error_p.classList.remove('visually-hidden');
+    return isValid
+  }
+  if (experience.value === "have_experience"){
+      if (jobTitle.value === "" || jobRole.value ==="" || companyName.value === "" || industry.value === "") {
+        isValid = false;
+        error_p.classList.remove('visually-hidden');
+        return isValid
+      }
+      if (current_working.value === "working"){
+        if (!notice_period){
+          isValid = false
+          error_p.classList.remove('visually-hidden');
+          return isValid
+        }
+      }
+      if (salary.value === "" || exp_start_date.value === "" || exp_end_date.value === "" || total_experience_year.value === "") {
+        isValid = false
+        error_p.classList.remove('visually-hidden');
+        return isValid
+      }
+
+
+  }
+  error_p.classList.add('visually-hidden')
+  return isValid;
+
+}
+
+function validateLanguage(){
+  const english = document.querySelector('#Language input[name ="english"]:checked');
+  isValid = true
+  if (!english) {
+    isValid = false
+    document.querySelector('.error_p').classList.remove('visually-hidden');
+    return isValid
+  }
+  document.querySelector('.error_p').classList.add('visually-hidden');
+  return isValid;
+}
+function validateJobPrefference(){
+  const divs = document.querySelectorAll('#job_prefference div');
+  const error_p = document.querySelector('.error_p');
+  for (const div of divs) {
+    const checkboxes = div.querySelectorAll('input[type="checkbox"]');
+    let atLeastOneChecked = false;
+
+    for (const checkbox of checkboxes) {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+        break; 
+      }
+    }
+
+    if (!atLeastOneChecked) {
+      error_p.classList.remove('visually-hidden'); 
+      return false; 
+    } else {
+      error_p.classList.add('visually-hidden'); 
+    }
+  }
+
+  return true; 
+}
+

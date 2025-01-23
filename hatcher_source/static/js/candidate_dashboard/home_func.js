@@ -211,79 +211,130 @@ function updateJobListings(jobs) {
       });
     }
   }
-function updateAllFilter(all_filter){
-        let exp_next
-        if (all_filter.experience != 'Fresher'){
-           if (all_filter.experience = 1){
-            exp_next = 'year'
-           }
-           else{
-             exp_next = 'years'
-           }
-        }
-        else{
-          exp_next = ''
-        }
-        let filter_card = '';
+  function updateAllFilter(all_filter) {
+    let exp_next;
+    if (all_filter.experience !== 'Fresher') {
+      exp_next = all_filter.experience === '1' ? 'year' : 'years';
+    } else {
+      exp_next = '';
+    }
+  
+    let filter_card = '';
+  
+    // Handle each filter condition
+    if (all_filter.experience && all_filter.experience !== '-1') {
+      filter_card += `
+        <div class="applied-filter">
+          <span style="margin-right: 6px;margin-left: 3px;">${all_filter.experience} ${exp_next}</span>
+          <svg class="filter-svg" data-radio-id="experience_slider" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+            <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+          </svg>
+        </div>
+      `;
+    }
+  
+    if (all_filter.job_type && all_filter.job_type !== '-1') {
+      const jobTypes = all_filter.job_type.split(',');
+      jobTypes.forEach(jobType => {
+        filter_card += `
+          <div class="applied-filter">
+            <span style="margin-right: 6px; margin-left: 3px;">${jobType.trim()}</span>
+            <svg class="job-filter-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+              <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+            </svg>
+          </div>
+        `;
+      });
+    }
+  
+    if (all_filter.salary && all_filter.salary !== '-1') {
+      filter_card += `
+        <div class="applied-filter">
+          <span style="margin-right: 6px;margin-left: 3px;">min-salary &#8377;${all_filter.salary}</span>
+          <svg class="filter-svg" data-radio-id="all_salary" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+            <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+          </svg>
+        </div>
+      `;
+    }
+  
+    if (all_filter.posted_in && all_filter.posted_in !== '-1') {
+      filter_card += `
+        <div class="applied-filter">
+          <span style="margin-right: 6px;margin-left: 3px;">${all_filter.posted_in}</span>
+          <svg class="filter-svg" data-radio-id="posted-all" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+            <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+          </svg>
+        </div>
+      `;
+    }
+  
+    if (all_filter.work_type && all_filter.work_type !== '-1') {
+      const workTypes = all_filter.work_type.split(',');
+      workTypes.forEach(workType => {
+        filter_card += `
+          <div class="applied-filter">
+            <span style="margin-right: 6px; margin-left: 3px;">${workType.trim()}</span>
+            <svg class="work-filter-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+              <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+            </svg>
+          </div>
+        `;
+      });
+    }
+  
+    // Insert the updated filter card into the DOM
+    const filterContainer = document.getElementById('all-applied-filter');
+    filterContainer.innerHTML = '';
+    filterContainer.insertAdjacentHTML('beforeend', filter_card);
+  
+    // Re-add event listeners to new SVG elements with classes
+    // Select all job filter SVGs and add the event listener
+    document.querySelectorAll('.job-filter-svg').forEach(svg => {
+      svg.addEventListener('click', (event) => {
+        const labelText = event.target.closest('.applied-filter').querySelector('span').textContent.trim();
+        clickJobTypeCheckboxByLabel(labelText);
+      });
+    });
+  
+    // Select all work filter SVGs and add the event listener
+    document.querySelectorAll('.work-filter-svg').forEach(svg => {
+      svg.addEventListener('click', (event) => {
+        const labelText = event.target.closest('.applied-filter').querySelector('span').textContent.trim();
+        clickWorkTypeCheckboxByLabel(labelText);
+      });
+    });
+  
+    // Handle the common filter SVGs (like experience, salary, posted_in)
+    document.querySelectorAll('.filter-svg').forEach(svg => {
+      svg.addEventListener('click', (event) => {
+        clear_filter(svg.getAttribute('data-radio-id'))
+      });
+    });
+  }
+  
 
-        if (all_filter.experience && all_filter.experience !== '-1') {
-          filter_card += `
-            <div class="applied-filter">
-              <span style=" margin-right: 6px;margin-left: 3px;">${all_filter.experience} ${exp_next}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-              </svg>
-            </div>
-          `;
-        }
-        
-        if (all_filter.job_type && all_filter.job_type !== '-1') {
-          filter_card += `
-            <div class="applied-filter">
-              <span style=" margin-right: 6px;margin-left: 3px;">${all_filter.job_type}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-              </svg>
-            </div>
-          `;
-        }
-        
-        if (all_filter.salary && all_filter.salary !== '-1') {
-          filter_card += `
-            <div class="applied-filter">
-              <span style=" margin-right: 6px;margin-left: 3px;">min-salary &#8377;${all_filter.salary}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-              </svg>
-            </div>
-          `;
-        }
-        
-        if (all_filter.posted_in && all_filter.posted_in !== '-1') {
-          filter_card += `
-            <div class="applied-filter">
-              <span style=" margin-right: 6px;margin-left: 3px;"> ${all_filter.posted_in} </span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-              </svg>
-            </div>
-          `;
-        }
-        
-        if (all_filter.work_type && all_filter.work_type !== '-1') {
-          filter_card += `
-            <div class="applied-filter">
-              <span style=" margin-right: 6px;margin-left: 3px;">${all_filter.work_type}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-                <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-              </svg>
-            </div>
-          `;
-        }
-        
-        document.getElementById('all-applied-filter').innerHTML=''
-        document.getElementById('all-applied-filter').insertAdjacentHTML('beforeend',filter_card)
-    
+function uncheckAll_Jobtype() {
+  // Get all checkboxes inside the #job_type_filter container
+  const checkboxes = document.querySelectorAll('#job_type_filter input[type="checkbox"]');
+  
+  // Loop through each checkbox and uncheck it
+  checkboxes.forEach(checkbox => {
+    if(checkbox.checked){
+      checkbox.click();
+    }
+  });
+}
+function uncheck_Worktype() {
+  // Select all checkboxes inside the #work_type_filter container
+  const checkboxes = document.querySelectorAll('#work_type_filter input[type="checkbox"]');
+
+  // Loop through each checkbox and set its checked property to false
+  checkboxes.forEach(checkbox => {
+    if(checkbox.checked){
+      checkbox.click();
+    }
+  });
 }
 export function clear_all(){
   document.getElementById('posted-all').click();
@@ -298,6 +349,83 @@ export function clear_all(){
       i.classList.add("visually-hidden")
     }
   })
+  uncheckAll_Jobtype()
+  uncheck_Worktype()
+  applyFilters()
   // applyFilters()
   document.getElementById('all-applied-filter').innerHTML=''
+}
+function clear_filter(filter_id){
+  if (filter_id == 'experience_slider'){
+    document.getElementById('experience_slider').value=6;
+    document.querySelectorAll(".exp_val").forEach((i,index)=>{
+      console.log(index)
+      if (index == 6){
+        i.classList.remove("visually-hidden")
+      }
+      else{
+        i.classList.add("visually-hidden")
+      }
+    })
+    applyFilters()
+  }
+  else{
+    document.getElementById(filter_id).click()
+  }
+
+}
+
+function clickWorkTypeCheckboxByLabel(labelText) {
+  // Find all labels in the filter
+  const labels = document.querySelectorAll('#work_type_filter label');
+
+  // Loop through each label and check if the text matches the provided labelText
+  labels.forEach(label => {
+    if (label.textContent.trim() === labelText) {
+      // Find the corresponding checkbox using the `for` attribute
+      const checkboxId = label.getAttribute('for');
+      const checkbox = document.getElementById(checkboxId);
+
+      // Trigger a click event on the checkbox
+      if (checkbox) {
+        checkbox.click();
+      }
+    }
+  });
+}
+
+function clickJobTypeCheckboxByLabel(labelText) {
+  // Find all labels in the job_type_filter container
+  const labels = document.querySelectorAll('#job_type_filter label');
+
+  // Loop through each label and check if the text matches the provided labelText
+  labels.forEach(label => {
+    if (label.textContent.trim().toLowerCase() === labelText.toLowerCase()) {
+      // Find the corresponding checkbox using the `for` attribute
+      const checkboxId = label.getAttribute('for');
+      const checkbox = document.getElementById(checkboxId);
+
+      // Trigger a click event on the checkbox
+      if (checkbox) {
+        checkbox.click();
+      }
+    }
+  });
+}
+
+export function handleWorkTypeClick(event) {
+  // Get the corresponding span text for work type
+  const workTypeLabel = event.target.closest('.applied-filter').querySelector('span').textContent.trim();
+
+  // Call the function to click the checkbox based on the label text
+  clickWorkTypeCheckboxByLabel(workTypeLabel);
+}
+
+// Function to handle click for job type filter
+export function handleJobTypeClick(event) {
+  // Get the corresponding span text for job type
+  const jobTypeLabel = event.target.closest('.applied-filter').querySelector('span').textContent.trim();
+
+  // Call the function to click the checkbox based on the label text
+  clickJobTypeCheckboxByLabel(jobTypeLabel);
 }

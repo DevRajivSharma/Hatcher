@@ -51,7 +51,7 @@ body{
 
 
   .buttons {
-    margin-top: 30px;
+    margin-top: 10px;
   }
 
  .green_button {
@@ -98,20 +98,21 @@ form{
     border: 1px solid #80808066;
     outline: none;
 }
-.autocomplete-items{
+.autocomplete-items {
     margin-top: 46px;
     position: absolute;
     border: 1px solid rgb(204, 204, 204);
     background-color: rgb(255, 255, 255);
     z-index: 1;
     width: 237px;
-    height: 209px;
+    max-height: 209px;
     overflow-y: auto;
 }
 .autocomplete-items:empty{
     display: none;
 }
 .autocomplete-item{
+    cursor: pointer;
     font-size: 17px;
     padding: 5px;
 }
@@ -122,10 +123,14 @@ form{
     content: ' *';
     color: red;
 }
-.error{
+.error {
     color: red;
+    position: absolute;
     font-size: small;
     text-align: center;
+    margin: 0;
+    bottom: 20%;
+    left: 45%;
 }
 .info-card {
     display: inline-block;

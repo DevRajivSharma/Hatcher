@@ -71,7 +71,7 @@ def job_search(request):
 
 def job_search_ajax(request):
     if request.method == "GET":
-    #     time.sleep(1)
+        time.sleep(0.5)
         search_query = request.session.get('search_query', {})
         keyword = search_query.get('keyword', '')
         location = search_query.get('location', '')
@@ -93,6 +93,7 @@ def job_search_ajax(request):
             posted_in_send = 'Last 7 days'
         else:
             posted_in_send = ''
+        print(job_type)
         request.session['all_filter'] = {
             'experience' : experience,
             'job_type': job_type,
