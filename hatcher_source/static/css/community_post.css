@@ -4,3 +4,16 @@
 .not-liked {
     color: #dddfe4;  /* Gray color for not liked */
 }
+.container1{
+    width: 60%;
+}
+.container2{
+    width: 40%;
+}
+.container1 > card {
+    max-width: 792px;
+}
+.all_button{
+    width: 30%;
+    margin: auto;
+}

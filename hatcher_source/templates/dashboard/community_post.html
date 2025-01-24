@@ -8,9 +8,9 @@
 {% block content %}
 
 <div class="container border search_div d-flex justify-content-center" id="search-div">
-  <form action="{% url 'community_post:post_filter' %}" id="form" method="get" class="d-flex flex-row "
+  <form action="{% url 'community_post:post_filter' %}" id="form" method="post" class="d-flex flex-row "
     style="width: 90%;">
-    {{ csrftoken }}
+     {% csrf_token %} 
     <input type="text" placeholder="Search any ......" name="search_keyword" class="form-control" required />
     <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line"
       class="align-self-center" />
@@ -21,20 +21,26 @@
 </div>
 
 <!-- Display the user's data after form submission -->
-<a href="{% url 'community_post:add_post' %}">
-  <button type="button" class="btn btn-primary">
-    Add Post
-  </button>
-</a>
 
 
+<div class=" all_button d-flex justify-content-between" id="all_button">
+  <a href="{% url 'community_post:add_post' %}">
+    <button type="button" class="btn btn-primary">
+      Add Post
+    </button>
+  </a>
+  <a href="{% url 'community_post:add_post' %}">
+    <button type="button" class="btn btn-primary">
+      Add Post
+    </button>
+  </a>
+</div>
 
-
-<div class="container-sm">
+<div class="main-container container d-flex flex-row justify-content-center p-0 ">
+<div class="container1">
   {% if posts %}
   {% for post in posts %}
-  <div class="card" style=" width: 80%;
-      margin: 20px auto;">
+  <div class="card mb-3" >
     <div class="card-body">
       <!-- Display user profile image -->
       <div class="d-flex align-items-center mb-2">
@@ -63,11 +69,13 @@
         {% endif %}
       </p>
     </div>
+
   </div>
   {% endfor %}
   {% else %}
   <p>No posts available at the moment.</p>
   {% endif %}
+</div>
 </div>
 {% endblock content %}
 

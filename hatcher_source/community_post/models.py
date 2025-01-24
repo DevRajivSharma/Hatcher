@@ -12,6 +12,17 @@ class Post(models.Model):
         return f"Post by {self.user.email}({self.user.first_name} {self.user.last_name})"
     def is_liked_by_user(self, user):
         return self.likes.filter(user=user).exists()
+    @property
+    def timesince(self):
+        """
+        Dynamically calculates and returns the time passed since 'updated_at'
+        in a human-readable format.
+        """
+        now = datetime.now()
+        if is_aware(self.updated_at):
+            now = make_aware(now, get_current_timezone())
+        time_diff = timesince(self.updated_at, now)
+        return f"{time_diff.split(', ')[0]} ago"  # Return the first time unit (e.g., '2 days ago')
 
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")

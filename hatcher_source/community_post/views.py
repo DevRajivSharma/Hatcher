@@ -10,7 +10,7 @@ def post_list(request):
     user_id = request.session.get('user_id')
     user = user_table.objects.get(id=user_id)
     liked_posts =  Post.objects.filter(likes__user=user).all()
-    liked_post_ids = liked_posts.values_list('id', flat=True)  # Get a list of liked post IDs
+    liked_post_ids = liked_posts.values_list('id', flat=True)  
     print(f'liked post id list is :{liked_post_ids}')
     return render(request, 'dashboard/community_post.html', {'user':user, 'posts': posts, 'liked_post_ids': liked_post_ids})
 def add_post(request):
@@ -68,9 +68,13 @@ def toggle_like(request, post_id):
 def post_filter(request):
     user_id = request.session.get('user_id')
     if request.method == "POST":
+        user = user_table.objects.get(id=user_id)
         post_by_user = Post.objects.filter(user__id = user_id)
         post_user_liked = Post.objects.filter()
         search_keyword = request.POST.get('search_keyword')
+        liked_posts =  Post.objects.filter(likes__user=user).all()
+        liked_post_ids = liked_posts.values_list('id', flat=True)  
         if search_keyword:
             post_by_search_keyword= Post.objects.filter(content__icontains = search_keyword) | Post.objects.filter(user__first_name__icontains = search_keyword) | Post.objects.filter(user__last_name__icontains = search_keyword)
+            return render(request, 'dashboard/community_post.html', {'user':user, 'posts': post_by_search_keyword, 'liked_post_ids': liked_post_ids})
         
