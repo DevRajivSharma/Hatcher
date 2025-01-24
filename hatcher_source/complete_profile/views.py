@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from dashboard.middlewares import auth
 from datetime import datetime,date
 # Create your views here.
-from .models import UserDetail
+from .models import UserDetail,userResume
 from credentials.models import user_table
 @auth
 def basic_detail(request):
@@ -97,7 +97,19 @@ def basic_detail(request):
 
 @auth
 def resume(request):
-    return render(request,'profile/resume.html')
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('resume')
+        if uploaded_file:  # Ensure a file was uploaded
+            user_id = request.session.get('user_id')
+            user = user_table.objects.get(id=user_id)
+            userResume_instance, created = userResume.objects.get_or_create(user=user)
+            
+            # Assign the uploaded file to the FileField
+            userResume_instance.resume_file = uploaded_file
+            userResume_instance.save()
+
+            return redirect('dashboard:home')
+    return render(request, 'profile/resume.html')
 
 @auth
 def skip(request):

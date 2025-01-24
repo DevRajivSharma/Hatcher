@@ -1,138 +1,159 @@
 {% extends '../blocks/profile_base.html' %}
 {% block css %}
 {% load static %}
-<style type="text/css" media="
-">
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-.container {
-  height: 100vh;
-  width: 100%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  background-color: #fcfcfc;
-}
-
-.card {
-  border-radius: 10px;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
-  width: 600px;
-  height: 260px;
-  background-color: #ffffff;
-  padding: 10px 30px 40px;
-}
-
-.card h3 {
-  font-size: 22px;
-  font-weight: 600;
-  
-}
-
-.drop_box {
-  margin: 10px 0;
-  padding: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border: 3px dotted #a3a3a3;
-  border-radius: 5px;
-}
-
-.drop_box h4 {
-  font-size: 16px;
-  font-weight: 400;
-  color: #2e2e2e;
-}
-
-.drop_box p {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-size: 12px;
-  color: #a3a3a3;
-}
-
-.btn {
-  text-decoration: none;
-  background-color: #005af0;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  outline: none;
-  transition: 0.3s;
-}
-
-.btn:hover{
-  text-decoration: none;
-  background-color: #ffffff;
-  color: #005af0;
-  padding: 10px 20px;
-  border: none;
-  outline: 1px solid #010101;
-}
-.form input {
-  margin: 10px 0;
-  width: 100%;
-  background-color: #e2e2e2;
-  border: none;
-  outline: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-}
-</style>
+<style>
+  .green_button {
+      border: 2px solid;
+      margin-left: 9px;
+      border-radius: 4px;
+      padding: 4px 14px;
+      color: white;
+      background: green;
+      font-weight: 700;
+      cursor: pointer;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .card-body{
+    background: #cbc9ff36;
+    padding: 23px 50px;
+  }
+  </style>
 {% endblock css %}
 
 {% block content %}
-<div class="container">
-    <div class="card">
-      <h3>Upload Files</h3>
-      <div class="drop_box">
-        <header>
-          <h4>Select File here</h4>
-        </header>
-        <p>Files Supported: PDF, TEXT, DOC , DOCX</p>
-        <input type="file" hidden accept=".doc,.docx,.pdf" id="fileID" style="display:none;">
-        <button class="btn">Choose File</button>
-      </div>
+
+<div class="container" style="width: fit-content;
+    margin: auto;">
+  <div class="card ">
+    <div class="card-body  d-flex flex-column align-items-center ">
+      <h5 class="">Upload your resume!</h5>
+      <p class="">Receive 2x job offers after uploading</p>
+      <p style="font-size: small;
+      background: #78deff45;
+      color: #0f91bc;
+      padding: 0 7px;
+      width: fit-content;
+      border: 1px solid #8080805c;
+      border-radius: 3px;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+          margin-top: -2px;">
+              <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+              </svg>
+              Takes less than a min to upload
+      </p>
+      <img src="/media/logos/folder_icon.png" id="icon" alt="Folder Icon" > 
+
+      <p style="margin-bottom: 0;" id="type_define" >Upload .pdf or .docx file only</p>
+      <p style="font-size: small;
+      background: #b1ecae45;
+      color: #32a601;
+      padding: 0 7px;
+      font-weight: 600;
+      width: fit-content;
+      border: 1px solid #8080805c;
+      border-radius: 3px;"
+      class="visually-hidden"
+      id="file_type_desc">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+          margin-top: -2px;">
+              <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+              </svg>
+              
+      </p>
+      <p style="font-size: small;
+      background: #ffecec;
+      color: #ff0000bd;
+      padding: 0 7px;
+      width: fit-content;
+      border: 1px solid #8080805c;
+      border-radius: 3px;
+      margin-top: 8px;"
+      id="fileInfo">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+          margin-top: -2px;">
+              <g fill="#ff0000bd" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+              </svg>
+              (Max file size: 5 MB)
+      </p>
+
+      <ul style="list-style-type:none">
+        <li class="text-start">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+            <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+            </svg>
+         Unlock jobs from top companies faster</li>
+        <li class=""> 
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+            <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+            </svg>
+            Get direct calls from top HRs</li>
+        <li class="">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+            <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+            </svg>
+          Get jobs specifically suited for your role and experience level</li>
+      </ul>
+
+      <form action="{% url 'complete_profile:resume' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="button">
+          <a href="{% url 'complete_profile:skip' %}">
+        <button type="button" class="green_button" style="background-color: white;
+        color: green;
+        border: 1px solid green;">Skip</button></a>
+        
+        <input type="file" name="resume" id="resume" class="visually-hidden" accept=".pdf,.docx" required>
+        <label for="resume" id="resume_label" class="green_button">Select</label>
+        <button type="submit" id="submit" class="green_button visually-hidden"
+        style="background: #0083f7;"
+        >Submit</button>
+        </div>
+      </form>
   
     </div>
   </div>
-  {% endblock content %}
+</div>
 
-  {% block javascript %}
-  {% load static %}
-  <script type="text/javascript" charset="utf-8">
-      const dropArea = document.querySelector(".drop_box"),
-    button = dropArea.querySelector("button"),
-    dragText = dropArea.querySelector("header"),
-    input = dropArea.querySelector("input");
-  let file;
-  var filename;
-  
-  button.onclick = () => {
-    input.click();
-  };
-  
-  input.addEventListener("change", function (e) {
-    var fileName = e.target.files[0].name;
-    let filedata = `
-      <form action="" method="post">
-      <div class="form">
-      <h4>${fileName}</h4>
-      <input type="email" placeholder="Enter email upload file">
-      <button class="btn">Upload</button>
-      </div>
-      </form>`;
-    dropArea.innerHTML = filedata;
+{% endblock content %}
+
+{% block javascript %}
+{% load static %}
+<script>
+  const fileInput = document.getElementById("resume");
+  const fileInfo = document.getElementById("fileInfo");
+  const file_type_desc = document.getElementById("file_type_desc");
+  const resume_label = document.getElementById("resume_label");
+  const submit = document.getElementById("submit");
+  const type_define = document.getElementById("type_define");
+
+  fileInput.addEventListener("change", function () {
+    if (this.files && this.files.length > 0) {
+      const file = this.files[0];
+      const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+      if (file.size > maxSize) {
+        fileInfo.textContent = "Error: File size exceeds 5 MB. Please select a smaller file.";
+        fileInput.value = ""; // Clear the input
+        resume_label.innerText = 'Select';
+        submit.classList.add('visually-hidden');
+      } else {
+        type_define.classList.add('visually-hidden')
+        fileInfo.classList.add('visually-hidden')
+        file_type_desc.textContent = `${file.name}`;
+        file_type_desc.classList.remove('visually-hidden');
+        resume_label.innerText = 'Replace';
+        submit.classList.remove('visually-hidden');
+      }
+    } else {
+      fileInfo.textContent = "(Max file size: 5 MB)";
+      file_type_desc.classList.remove('visually-hidden');
+      resume_label.innerText = 'Select';
+      submit.classList.add('visually-hidden');
+    }
   });
-  </script>
-  {% endblock javascript %}
+</script>
+{% endblock javascript %}

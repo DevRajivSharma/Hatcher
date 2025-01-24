@@ -52,3 +52,8 @@ class UserDetail(models.Model):
             self.age = None  # or you can leave it as is
 
         super().save(*args, **kwargs)  # Call the original save method
+class userResume(models.Model):
+    user = models.OneToOneField(user_table ,on_delete=models.CASCADE, related_name='resume')
+    resume_file = models.FileField(upload_to='resume',null=True)
+    def __str__(self):
+        return f"{self.user}'s Resume"
