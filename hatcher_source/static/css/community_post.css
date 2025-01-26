@@ -5,7 +5,8 @@
     color: #dddfe4;  /* Gray color for not liked */
 }
 .container1{
-    width: 60%;
+    width: 100%;
+    margin: 20px 0 0 25px;
 }
 .container2{
     width: 40%;
@@ -16,4 +17,72 @@
 .all_button{
     width: 30%;
     margin: auto;
+}
+.main-container{
+    margin: auto;
+    width: 90%;
+    max-width: 1000px;
+    margin-bottom: 100px;
+}
+.tool_container{
+    position: sticky;
+    top: 80px;
+    width: 51% !important;
+    height: fit-content;
+    max-width: 300px;
+    margin-top: 20px;
+}
+.tool_container div {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+.tool_container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 23px 0;
+    color: #333;
+}
+.profile-image-container {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.green_button {
+    border: 2px solid;
+    margin-left: 9px;
+    border-radius: 4px;
+    padding: 4px 14px;
+    color: white;
+    background: green;
+    cursor: pointer;
+}
+.pencil-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    cursor: pointer;
+}
+.pencil-icon:hover {
+    opacity: 1;
+}
+.delete_action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+.delete_action svg {
+    width: 20px;
+    height: 20px;
+    margin-top: -20px;
+    color: red;
 }

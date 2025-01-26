@@ -30,7 +30,7 @@
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
 
         setup: function(editor) {
-	  	var max = 2;
+	  	var max = 1000;
 	    editor.on('submit', function(event) {
 		  var numChars = tinymce.activeEditor.plugins.wordcount.body.getWordCount();
 		  if (numChars > max) {

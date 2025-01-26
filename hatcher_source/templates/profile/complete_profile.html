@@ -26,7 +26,7 @@
                     <label for="birth_date" class="form-label compulsory ">Birth Date</label>
                     <br>
                     
-                        <input type="text" name="birth_date" id="birth_date" placeholder="Choose date" />
+                        <input type="text" name="birth_date" value="{{user_detail.birth_date}}" id="birth_date" placeholder="Choose date" />
                 
                 </div>
                 <div class="mb-3">
@@ -37,9 +37,9 @@
                 <div class="mb-2">
                     <label class="form-label compulsory ">Gender</label>
                     <br>
-                    <input type="radio" name="gender" id="male">
+                    <input type="radio" name="gender" id="male" value="Male">
                     <label class="" for="male" value="male" >male</label>
-                    <input type="radio" name="gender" value="female" id="female">
+                    <input type="radio" name="gender" value="Female" id="female">
                     <label class="" for="female">female</label>
                 </div>
                 <label class="form-label compulsory " for="location">Please share your current address</label>
@@ -247,16 +247,15 @@
                     <div class="d-flex">
                         <div class="mb-3" style="width: 220px; margin-right:10px;">
                             <label class="form-label compulsory">Start Date</label>
-                            <input type="text" id="college_start_date" placeholder="Choose date">
+                            <input type="text" name="college_start_date" id="college_start_date" placeholder="Choose date">
                         </div>
                         <div class="mb-3" id="not_working_date_div" style="width: 220px;">
                             <label class="form-label compulsory">End Date</label>
-                            <input type="text" id="college_end_date" placeholder="Choose date">
+                            <input type="text" name="college_end_date" id="college_end_date" placeholder="Choose date">
                         </div>
                     </div>
                 </div>
                 
-
                 <div class="mb-3 visually-hidden " id="school_medium">
                     <label class="form-label compulsory" for="medium">School medium</label>
                     <br>
@@ -362,27 +361,27 @@
                     
                         <input type="radio" class="visually-hidden" name="notice_period" value="no_notice_period" id="no_notice_period_radio">
                         <label for="no_notice_period_radio">
-                            <span class="info-card rounded notice_periods" id="no_notice_period">No notice period</span>
+                            <span class="info-card rounded notice_periods" id="no_notice_period">Instant</span>
                         </label>
                     
                         <input type="radio" class="visually-hidden" name="notice_period" value="less_than_15_day" id="less_than_15_day_radio">
                         <label for="less_than_15_day_radio">
-                            <span class="info-card rounded notice_periods" id="less_than_15_day">Less than 15 days</span>
+                            <span class="info-card rounded notice_periods" id="less_than_15_day">15 Days or less</span>
                         </label>
                     
                         <input type="radio" class="visually-hidden" name="notice_period" value="1_month" id="1_month_radio">
                         <label for="1_month_radio">
-                            <span class="info-card rounded notice_periods" id="1_month">1 month</span>
+                            <span class="info-card rounded notice_periods" id="1_month">1 Month</span>
                         </label>
                     
                         <input type="radio" class="visually-hidden" name="notice_period" value="2_months" id="2_months_radio">
                         <label for="2_months_radio">
-                            <span class="info-card rounded notice_periods" id="2_months">2 months</span>
+                            <span class="info-card rounded notice_periods" id="2_months">2 Months</span>
                         </label>
                     
                         <input type="radio" class="visually-hidden" name="notice_period" value="3_or_more_months" id="3_or_more_months_radio">
                         <label for="3_or_more_months_radio">
-                            <span class="info-card rounded notice_periods" id="3_or_more_months">3 or more months</span>
+                            <span class="info-card rounded notice_periods" id="3_or_more_months">3 Months or more</span>
                         </label>
                     </div>
 
@@ -511,8 +510,8 @@
                     <label class="form-label compulsory ">Preferred Workplace</label>
                     <br>
                     <div class="checkbox_div">
-                    <label for="work_form_home" class="check_label" style="width: 92%;">Work from Homet</label>
-                    <input type="checkbox" name="work_form_home" value="work_form_home"  class="group_checkbox"  id="work_form_home" >
+                    <label for="work_form_home" class="check_label" style="width: 92%;">Work from Home</label>
+                    <input type="checkbox" name="work_from_home" value="work_form_home"  class="group_checkbox"  id="work_form_home" >
                     </div>
                     <div class="checkbox_div">
                     <label for="work_from_office" class="check_label" style="width: 92%;">Work from Office</label>

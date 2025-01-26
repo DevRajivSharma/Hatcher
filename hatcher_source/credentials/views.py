@@ -6,7 +6,6 @@ from dashboard.models import *
 from .middleware import check_session
 load_dotenv()
 
-@check_session
 def landing_page(request):
     return render(request,'credentials/landing_page.html')
 
@@ -14,7 +13,6 @@ def register(request):
     if request.method == "POST":
         print('inside register')
         user = request.POST
-        profile_image = request.FILES.get('Profile_Image')
         data = {
             'first_name': user.get('FirstName'),
             'last_name': user.get('LastName'),
@@ -26,11 +24,12 @@ def register(request):
             user_instance.save()
             print('Registeration Done')
             request.session['is_authenticated'] = True 
-            request.session['user_id'] = user.id 
+            request.session['user_id'] = user_instance.id 
             return redirect('complete_profile:basic_detail')
         except Exception as e:
             render(request, 'credentials/register.html', {'error': 'Invalid credentials'})
     return render(request, 'credentials/register.html',)
+
 def login(request):
     if request.method == "POST":
         email = request.POST.get('Email')
@@ -52,6 +51,7 @@ def logout(request):
     return render(request, 'credentials/login.html')
 
 def feedback(request):
+    
     if request.method == "POST":
         feedback = request.POST
         data = {

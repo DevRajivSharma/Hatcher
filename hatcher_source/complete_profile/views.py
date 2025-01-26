@@ -1,3 +1,4 @@
+from pyexpat.errors import messages
 from django.shortcuts import render,redirect
 from dashboard.middlewares import auth
 from datetime import datetime,date
@@ -6,19 +7,26 @@ from .models import UserDetail,userResume
 from credentials.models import user_table
 @auth
 def basic_detail(request):
+    user_id = request.session.get('user_id')
+    user = user_table.objects.get(id=user_id)
+    user_detail, created = UserDetail.objects.get_or_create(user=user)
     if request.method == 'POST':
         data = request.POST
-        print('Inside')
-        print(data)
-        user_id = request.session.get('user_id')
-        user = user_table.objects.get(id=user_id)
-        user_detail, created = UserDetail.objects.get_or_create(user=user)
+        user_detail = UserDetail.objects.get(user=user)
 
-        # Only update attributes if they are present in data and not empty
+        # Parse and update boolean fields
+        boolean_fields = [
+            'student', 'current_working', 'english', 'day_shift', 
+            'night_shift', 'work_from_home', 'work_from_office', 
+            'field_job', 'full_time', 'part_time', 'hourly'
+        ]
+        for field in boolean_fields:
+            user_detail.__setattr__(field, field in data)
+
+        # Update other fields
         if 'birth_date' in data and data['birth_date']:
-            birth_date_str = data['birth_date']
             try:
-                user_detail.birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+                user_detail.birth_date = datetime.strptime(data['birth_date'], '%Y-%m-%d').date()
             except ValueError:
                 print("Invalid date format. Please use 'yyyy-mm-dd'.")
 
@@ -28,18 +36,10 @@ def basic_detail(request):
             user_detail.gender = data['gender']
         if 'location' in data and data['location']:
             user_detail.location = data['location']
-        if 'student' in data and data['student']:
-            user_detail.student = data['student'] == 'true'
         if 'education_level' in data and data['education_level']:
             user_detail.education_level = data['education_level']
-        if 'diploma_degree' in data and data['diploma_degree']:
-            user_detail.diploma_degree = data['diploma_degree']
-        if 'iti_degree' in data and data['iti_degree']:
-            user_detail.iti_degree = data['iti_degree']
         if 'graduateDegree' in data and data['graduateDegree']:
             user_detail.graduate_degree = data['graduateDegree']
-        if 'postgraduateDegree' in data and data['postgraduateDegree']:
-            user_detail.postgraduate_degree = data['postgraduateDegree']
         if 'specialization' in data and data['specialization']:
             user_detail.specialization = data['specialization']
         if 'college_name' in data and data['college_name']:
@@ -56,43 +56,42 @@ def basic_detail(request):
             user_detail.company_name = data['companyName']
         if 'industry' in data and data['industry']:
             user_detail.industry = data['industry']
-        if 'current_working' in data and data['current_working']:
-            user_detail.current_working = data['current_working'] == 'true'
         if 'notice_period' in data and data['notice_period']:
             user_detail.notice_period = data['notice_period']
         if 'salary' in data and data['salary']:
-            user_detail.salary = data['salary']
+            try:
+                user_detail.salary = int(data['salary'].replace(",", ""))
+            except ValueError:
+                print("Invalid salary format.")
         if 'work_start_date' in data and data['work_start_date']:
-            user_detail.work_start_date = data['work_start_date']
+            try:
+                user_detail.work_start_date = datetime.strptime(data['work_start_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work start date format.")
+        if 'college_start_date' in data and data['college_start_date']:
+            try:
+                user_detail.college_start_date = datetime.strptime(data['college_start_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work start date format.")
+        if 'college_end_date' in data and data['college_end_date']:
+            try:
+                user_detail.college_end_date = datetime.strptime(data['college_end_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work start date format.")
         if 'work_end_date' in data and data['work_end_date']:
-            user_detail.work_end_date = data['work_end_date']
+            try:
+                user_detail.work_end_date = datetime.strptime(data['work_end_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work end date format.")
         if 'experience' in data and data['experience']:
             user_detail.experience = data['experience']
-        if 'english' in data and data['english']:
-            user_detail.english = data['english'] == 'true'
         if 'other_language' in data and data['other_language']:
             user_detail.other_languages = data['other_language']
-        if 'day_shift' in data and data['day_shift']:
-            user_detail.day_shift = data['day_shift'] == 'true'
-        if 'night_shift' in data and data['night_shift']:
-            user_detail.night_shift = data['night_shift'] == 'true'
-        if 'work_form_home' in data and data['work_form_home']:
-            user_detail.work_from_home = data['work_form_home'] == 'true'
-        if 'work_from_office' in data and data['work_from_office']:
-            user_detail.work_from_office = data['work_from_office'] == 'true'
-        if 'field_job' in data and data['field_job']:
-            user_detail.field_job = data['field_job'] == 'true'
-        if 'full_time' in data and data['full_time']:
-            user_detail.full_time = data['full_time'] == 'true'
-        if 'part_time' in data and data['part_time']:
-            user_detail.part_time = data['part_time'] == 'true'
-        if 'hourly' in data and data['hourly']:
-            user_detail.hourly = data['hourly'] == 'true'
 
         user_detail.save()
         return redirect('complete_profile:resume')
 
-    return render(request, 'profile/complete_profile.html')
+    return render(request, 'profile/complete_profile.html',context={'user_detail':user_detail})
 
 
 @auth
@@ -114,3 +113,29 @@ def resume(request):
 @auth
 def skip(request):
     return redirect('dashboard:home')
+
+def edit_job_preference(request):
+    
+    return redirect('dashboard:profile')
+
+def delete_resume(request, resume_id):
+    if request.method == "POST":
+        user_resume = userResume.objects.get(id=resume_id)
+        user_resume.resume_file.delete()  # Deletes the file from the storage
+        user_resume.delete()  # Deletes the record from the database
+        return redirect('dashboard:profile')
+    return redirect('profile')  # Replace with your profile view name
+
+def update_profile_image(request):
+    if request.method == 'POST':
+        print('Inside update profile image')
+        image = request.FILES.get('profile_image')
+        if image:
+            print('Got Image')
+            print(image)
+            user_id = request.session.get('user_id')
+            user = user_table.objects.get(id=user_id)
+            user.user_profile_image = image
+            user.save()
+            return redirect('dashboard:profile')
+        return redirect('dashboard:profile')

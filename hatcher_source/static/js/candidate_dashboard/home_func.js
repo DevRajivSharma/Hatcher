@@ -202,7 +202,7 @@ function updateJobListings(jobs) {
                   <div class="info-card rounded">${job.job_type}</div>
                   <div class="info-card rounded">${job.experience}</div>
                 </div>
-                <p class="card-updated"><small class="text-body-secondary">${job.updated_at}</small></p>
+                <p class="card-updated"><small class="text-body-secondary">${timeDifferenceInWeeksAndDays(job.updated_at)}</small></p>
               </div>
             </div>
           </div>
@@ -428,4 +428,21 @@ export function handleJobTypeClick(event) {
 
   // Call the function to click the checkbox based on the label text
   clickJobTypeCheckboxByLabel(jobTypeLabel);
+}
+function timeDifferenceInWeeksAndDays(timestamp) {
+  // Parse the given timestamp
+  const givenDate = new Date(timestamp);
+  const currentDate = new Date();
+
+  // Calculate the difference in milliseconds
+  const diffInMs = Math.abs(currentDate - givenDate);
+
+  // Convert milliseconds to days
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+  // Calculate weeks and remaining days
+  const weeks = Math.floor(diffInDays / 7);
+  const days = diffInDays % 7;
+
+  return `${weeks} week${weeks !== 1 ? 's' : ''}, ${days} day${days !== 1 ? 's' : ''}`;
 }

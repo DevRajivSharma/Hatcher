@@ -1,6 +1,6 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
-    background: #c8c6ef36;
+    background: #f7f8f9;
     
 }
 .navbar {
@@ -69,10 +69,13 @@ body{
     bottom: 43px;
 }
 /* Footer Css */
-.footer_mentions{
+.footer_mentions {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background: #333;
+    color: white;
+    padding:50px 0;
 }
 .footer_content{
     display: flex;

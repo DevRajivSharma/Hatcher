@@ -301,7 +301,7 @@ lan_div.forEach((lan, index) => {
 })
 
 
-
+// Progress Step 
 const progressSteps = document.querySelectorAll(".progress-step");
 const progressBarFill = document.querySelector(".progress-bar-fill");
 const prevButton = document.getElementById("prev");
@@ -317,8 +317,8 @@ let currentStep = 1;
 
 function next_page() {
   if (currentIndex == 0) {
-    // if (validate_basic_detail()){
-    if (true) {
+    if (validate_basic_detail()){
+    // if (true) {
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
@@ -330,8 +330,8 @@ function next_page() {
     }
   }
   else if (currentIndex == 1) {
-    // if (validateEducationForm()) {
-      if (true){
+    if (validateEducationForm()) {
+      // if (true){
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
@@ -343,8 +343,8 @@ function next_page() {
     }
   }
   else if (currentIndex == 2) {
-    // if (validateExperienc()) {
-      if (true){
+    if (validateExperienc()) {
+      // if (true){
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
@@ -356,8 +356,8 @@ function next_page() {
     }
   }
   else if (currentIndex == 3) {
-    // if (validateLanguage()) {
-      if (true){
+    if (validateLanguage()) {
+      // if (true){
       if (currentIndex < sections.length - 1) {
         currentIndex++;
         complete_profile_form.style.marginLeft = `-${currentIndex * 100}%`;
@@ -441,7 +441,7 @@ function validate_basic_detail() {
   errorElement.textContent = ""; // Clear previous error messages
 
   // Get field values
-  const birthDate = document.getElementById("txtDate").value.trim();
+  const birthDate = document.getElementById("birth_date").value.trim();
   const bio = document.getElementById("exampleFormControlTextarea1").value.trim();
   const genderMale = document.getElementById("male").checked;
   const genderFemale = document.getElementById("female").checked;

@@ -9,7 +9,7 @@ from employer.models import *
 from django.db.models import Q
 from django.utils import timezone
 from datetime import timedelta
-
+from complete_profile.models import *
 # import requests,json
 @auth
 def home(request):
@@ -155,5 +155,8 @@ def job_detail(request, job_id):
 def profile(request):
     user_id = request.session.get('user_id')
     user_instance = user_table.objects.get(id=user_id)
-    return render(request, 'dashboard/profile.html', context={'user': user_instance})
+    user_detail = UserDetail.objects.get(user=user_instance)
+    user_resume = userResume.objects.get(user = user_instance)
+    
+    return render(request, 'dashboard/profile.html', context={'user': user_instance,'user_detail' : user_detail,'user_resume':user_resume})
     

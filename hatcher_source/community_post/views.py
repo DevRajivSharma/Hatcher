@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from dashboard.models import *
 from credentials.models import *
 from community_post.models import *
+from complete_profile.models import *
+from django.template.loader import render_to_string
 def post_list(request): 
     posts = Post.objects.select_related('user').all()        
     # Precompute whether the user has liked each post
@@ -13,6 +15,8 @@ def post_list(request):
     liked_post_ids = liked_posts.values_list('id', flat=True)  
     print(f'liked post id list is :{liked_post_ids}')
     return render(request, 'dashboard/community_post.html', {'user':user, 'posts': posts, 'liked_post_ids': liked_post_ids})
+
+
 def add_post(request):
     if request.method == 'POST':    
         # Get the content from the form
@@ -41,6 +45,78 @@ def add_post(request):
 
     # If it's a GET request, just redirect to the post list page
     return render(request,'dashboard/add_post.html')
+
+def edit_post(request, post_id):
+    if request.method == 'POST':
+        # Get the updated content from the form
+        updated_content = request.POST.get('updated_post')
+        user_id = request.session.get('user_id')
+        user = user_table.objects.get(id=user_id)
+        user_detail = UserDetail.objects.get(user = user)
+        if not user_id:
+            return JsonResponse({"error": "User not logged in."}, status=400)
+
+        try:
+            # Fetch the post by ID
+            post = Post.objects.get(id=post_id, user_id=user_id)  # Ensure the post belongs to the logged-in user
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Post not found or you are not authorized to edit it."}, status=404)
+
+        if updated_content:
+            # Update the content of the post
+            post.content = updated_content
+            post.save()  # Save the updated post to the database
+
+            return redirect('community_post:post_list')  # Redirect to the post list page
+
+        else:
+            return JsonResponse({"error": "Updated content cannot be empty."}, status=400)
+
+def my_post(request):
+    print('Inside my post')
+    user_id = request.session.get('user_id')
+    user = user_table.objects.get(id=user_id)
+    my_posts = Post.objects.filter(user=user)
+    print(my_post)
+    liked_posts = Post.objects.filter(likes__user=user)
+    liked_post_ids = liked_posts.values_list('id', flat=True)
+
+    # Render partial HTML for the posts
+    post_html = render_to_string('partial/community.html', {
+        'user': user,
+        'posts': my_posts,
+        'liked_post_ids': liked_post_ids,
+    })
+    # Return JSON response
+    return HttpResponse(post_html, content_type='text/html')
+
+def delete_post(request):
+    user_id = request.session.get('user_id')
+    user = user_table.objects.get(id=user_id)
+    post_id = request.GET.get('post_id')
+    if not post_id:
+        return JsonResponse({"error": "Post ID is missing"}, status=400)
+    try:
+        post = Post.objects.get(id=post_id)
+        if post.user != user:
+            return JsonResponse({"error": "You are not authorized to delete this post"}, status=403)
+        post.delete()
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found"}, status=404)
+    
+    my_posts = Post.objects.filter(user=user)
+    liked_posts = Post.objects.filter(likes__user=user)
+    liked_post_ids = liked_posts.values_list('id', flat=True)
+
+    # Render partial HTML for the posts
+    post_html = render_to_string('partial/community.html', {
+        'user': user,
+        'posts': my_posts,
+        'liked_post_ids': liked_post_ids,
+    })
+    # Return JSON response
+    return HttpResponse(post_html, content_type='text/html')
+
 @csrf_exempt
 def toggle_like(request, post_id):
     user_id = request.session.get('user_id')

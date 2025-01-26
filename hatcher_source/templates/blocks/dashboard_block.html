@@ -55,7 +55,7 @@
         </div> -->
 
         <div style="/* width: 110px; */border: 1px solid #e5d9d9;padding: 5px;border-radius: 34px;/* height: 50px; */margin-right: 59px;" id="toggle_profile_box" class="d-flex flex-row align-items-center">
-          <img src="/media/user_profile_image/WIN_20241115_16_28_17_Pro.jpg" alt="Profile Image" style="border-radius: 50%;
+          <img src="{{ user.user_profile_image.url }}" alt="Profile Image" style="border-radius: 50%;
           height: 35px;
           width: 35px;
           object-fit: cover;
@@ -106,8 +106,6 @@
   <br>
   <br>
   <br>
-  <br>
-  <br>
   {% block content %}
 
 
@@ -120,14 +118,7 @@
 
 
   <!-- Footer -->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <hr>
-  <br>
-  <br>
+
   <div class="footer_mentions">
     <div class="footer_content">
       <!-- <span style="font-size: x-large;">Hatcher</span> -->

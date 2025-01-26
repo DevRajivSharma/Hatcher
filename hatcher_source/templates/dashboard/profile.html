@@ -1,16 +1,1957 @@
 {% extends '../blocks/dashboard_block.html' %}
+{% load profile_custom_filters %}
 {% block title %}Home{% endblock title %}
 {% block css %}
 {% load static %}
 
+<style>
+    .main_container{
+    margin: auto;
+    width: 90%;
+    max-width: 1154px;}
+    .container2{
+        margin: 0 25px;
+        margin: 20px 0 0 25px;
+    }
+    .container1{
+        width: 40% !important;
+    }
+    .main_contianer_title {
+    width: 90%;
+    max-width: 1154px;
+    margin: auto;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+    .main_contianer_line {
+    width: 90%;
+    max-width: 1154px;
+    margin: auto;
+    height: 0.5px;
+    background: gray;
+}
+.add_sticky {
+    position: sticky;
+    top: 54px;
+    z-index: 1000;
+    background: #fff;
+    padding-top: 12px;
+}
+</style>
+<style>
+            .quick-links {
+            position: sticky;
+            top: 132px;
+            width: 51% !important;
+            height: fit-content;
+            max-width: 300px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            padding: 20px;
+            margin-top: 20px;
+        }
 
+        .quick-links h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 23px 0;
+            color: #333;
+        }
+
+        .quick-links-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: large;
+    font-weight: 500;
+}
+        .quick-links-list li {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        .quick-links-list a {
+    text-decoration: none;
+    color: #3f3b3b;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+        .quick-links-list a:hover {
+            color: #000;
+        }
+
+        .profile-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-link {
+            color: #4285f4;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .add-link:hover {
+            text-decoration: underline;
+        }
+</style>
+<style>
+    /* Previous styles remain unchanged */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .card {
+        border-radius: 17px !important;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .edit-icon {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+
+    .edit-icon:hover {
+        opacity: 1;
+    }
+
+    .add-button {
+        color: #4285f4;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .preference-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .preference-item {
+        margin-bottom: 16px;
+    }
+
+    .preference-label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    .preference-value {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .education-item {
+        margin-bottom: 24px;
+    }
+
+    .education-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .education-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .skill-tag {
+        background-color: #f0f0f0;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .skill-tag:hover {
+        background-color: #e0e0e0;
+    }
+
+    .pencil-icon {
+        width: 16px;
+        height: 16px;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    .pencil-icon:hover {
+        opacity: 1;
+    }
+
+
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #4285f4;
+    }
+
+        .file-info {
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .upload-date {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .action-button svg {
+            width: 20px;
+            height: 20px;
+            color: #666;
+        }
+
+        .action-button:hover svg {
+            color: #333;
+        }
+
+        .update-button {
+            background-color: transparent;
+            border: 1px solid #4285f4;
+            color: #4285f4;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .update-button:hover {
+            background-color: #f0f7ff;
+        }
+
+        .supported-formats {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .work-experience {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .work-experience svg {
+            width: 16px;
+            height: 16px;
+            color: #ff4444;
+        }
+
+        .achievement-item {
+            margin-bottom: 16px;
+        }
+
+        .achievement-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .achievement-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        .description{
+            font-size: 14px;
+            color: #666;
+        }
+</style>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .profile-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        width: 90%;
+        max-width: 1154px;
+        margin: 0 auto;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 50px;
+    }
+
+    .profile-header {
+        display: flex;
+        gap: 24px;
+    }
+
+    .profile-image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.profile-image {
+    width: 150px; /* Adjust size */
+    height: 150px; /* Adjust size */
+    border-radius: 50%; /* Make image circular */
+    object-fit: cover; /* Maintain aspect ratio */
+    transition: all 0.3s ease;
+}
+
+/* Edit icon styles */
+    .edit-icon {
+        position: absolute;
+        top: 53px;
+        right: 58px;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        padding: 5px;
+        border-radius: 50%;
+        display: none; /* Hide the edit icon by default */
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+/* Show edit icon on hover */
+    .profile-image-container:hover .edit-icon {
+        display: block;
+    }
+
+    .edit-icon .profile-pencil-icon {
+        width: 24px; /* Adjust the size of the SVG */
+        height: 24px; /* Adjust the size of the SVG */
+        stroke: white; /* Icon color */
+    }
+
+/* Optional: Make the profile image scale slightly on hover */
+.profile-image-container:hover .profile-image {
+    transform: scale(1.05); /* Zoom in a little */
+}
+
+
+    .profile-info {
+        flex-grow: 1;
+    }
+
+    .profile-name {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .pencil-icon {
+        width: 16px;
+        height: 16px;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    .pencil-icon:hover {
+        opacity: 1;
+    }
+
+    .profile-education {
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    .profile-college {
+        color: #666;
+        margin-bottom: 24px;
+    }
+
+    .profile-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .detail-item svg {
+        width: 16px;
+        height: 16px;
+        color: #666;
+    }
+
+    .verified-icon {
+        width: 16px;
+        height: 16px;
+        color: #2E7D32 !important;
+    }
+</style>
+<!-- Add new styles for modals -->
+<style>
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .modal {
+    display: none;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 90% !important;
+    max-width: 650px;
+    height: fit-content !important;
+    max-height: 600px !important;
+    }
+    .modal{
+        overflow-y: scroll; /* Ensures scrolling is enabled */
+        scrollbar-width: none; /* For Firefox */
+        }
+    .modal::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .modal-close svg {
+        width: 20px;
+        height: 20px;
+        color: #666;
+    }
+
+    .modal-content {
+        margin-bottom: 24px;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .modal-button {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .modal-button-secondary {
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    .modal-button-primary {
+        background-color: #4285f4;
+        color: white;
+    }
+
+    .checkbox_div{
+    padding: 9px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    }
+    .group_checkbox{
+        height: 20px;
+        width: 35px;
+        position: relative;
+        top: 3px;
+        left: 10px;
+    }
+    label{
+    font-weight: 600;
+}
+
+.info-card {
+    display: inline-block;
+    padding: 0px 8px;
+    font-size: 16px;
+    font-weight: 350;
+    margin: 4px;
+    border: 1px solid gray;
+    cursor: pointer;
+    min-width: max-content;
+}
+.active-info-card {
+    display: inline-block;
+    padding: 0px 8px;
+    background: #b2ffb23b;
+    font-size: 16px;
+    color: green;
+    font-weight: 350;
+    margin: 4px;
+    border: 1px solid green;
+    cursor: pointer;
+    min-width: max-content;
+}
+</style>
+<!-- KeySKill style -->
+<style>
+        .skills-input-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .selected-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 100px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .remove-skill {
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .remove-skill:hover {
+            color: #333;
+        }
+
+        .skills-input {
+            width: 100%;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .skills-input::placeholder {
+            color: #999;
+        }
+
+        .suggested-section {
+            margin-bottom: 24px;
+        }
+
+        .suggested-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .suggested-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggested-skill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 100px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .suggested-skill:hover {
+            background: #f8f9fa;
+        }
+
+</style>
+<!-- Language modal -->
+<style>
+    .custom_radio>input[type="radio"] {
+    filter: hue-rotate(252deg); 
+}
+.radio_p{
+    margin: 0;
+    color: gray;
+}
+.english_div{
+    border: 1px solid green;
+    padding: 20px;
+    border-radius: 11px;
+}
+
+    .lang-info {
+    padding: 0 7px;
+    border: 1px solid gray;
+    border-radius: 17px;
+    font-size: 15px;
+    color: black;
+    width: fit-content;
+    margin-bottom: 4px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 13px;
+    margin-bottom: 8px;
+}
+.active-lang-info {
+    padding: 0 7px;
+    background: #e8ffe8;
+    border: 2px solid green;
+    border-radius: 17px;
+    font-size: 15px;
+    color: #003c96;
+    width: fit-content;
+    margin-bottom: 4px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 13px;
+    margin-bottom: 8px;
+}
+.add_cut_svg{
+    margin-top: -2px;
+}
+.rotate_svg{
+    rotate:-45deg ;
+}
+.transition{
+    transition: 0.5s;
+    margin-top: -4px;
+}
+</style>
 {% endblock css %}
 {% block content %}
 
+<div class="profile-card">
+    <div class="profile-header">
+        <form id="change_profile_img_form" method="POST" action="{% url 'complete_profile:update_profile_image'%}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="profile_image" id="profile_image_inp" style="display: none;" accept="image/*">
+            <label for="profile_image_inp">
+            <div class="profile-image-container">
+            <img src="{{ user.user_profile_image.url }}" alt="{{user.first_name}} {{user.last_name}}" class="profile-image">
+            <!-- Edit icon that will be shown on hover -->
+
+                
+                <div class="edit-icon">
+                    <svg class="profile-pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                    </svg>
+                </div>
+            
+            </div>
+        </label>
+        </form>
+        
+        <div class="profile-info">
+            <h1 class="profile-name">
+                {{ user.first_name }} {{ user.last_name }}
+                <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+            </h1>
+            <div class="profile-education">
+                {{user_detail.student}}
+                {% if user_detail.student %}
+                    Student | 
+                {% else %}
+                    {{user_detail.education_level}} |
+                {% endif %}
+                {% if user_detail.diploma_degree %}
+                   {{ user_detail.diploma_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.iti_degree %} 
+                    {{ user_detail.iti_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.graduate_degree %}
+                    {{ user_detail.graduate_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.postgraduate_degree %}
+                    {{ user_detail.postgraduate_degree }} in {{user_detail.specialization}}
+                {% endif %}
+                
+
+            </div>
+            <div class="profile-college">{{user_detail.college_name}} |
+                {{user_detail.college_start_date|formatted_start_end}} - {{user_detail.college_end_date|formatted_start_end}}</div>
+            
+            <div class="profile-details">
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {{user_detail.location}}
+                </div>
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    {{ user_detail.gender }}
+                </div>
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    {{ user.email }}
+                    <svg class="verified-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="detail-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {{ user_detail.birth_date|formatted_birth_date }}
+
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center" style="width: 350px;">
+            <img src="/media/logos/update_profile.webp" style="width: 176px;" alt="">
+            <div class="description" style="font-weight: 500;
+            color: black;
+            text-align: center;">
+                Update your profile  to make your profile more attractive and engaging.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main_container_header">
+    <h4 class="main_contianer_title">View & Edit</h4>
+    <hr class="main_contianer_line">
+</div>
+<div class="main_container mb-3 d-flex">
+    <div class="container1 quick-links">
+        <h2>Quick links</h2>
+        <ul class="quick-links-list">
+            <li><a href="#preference">Preference</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#key-skills">Key skills</a></li>
+            <li><a href="#languages">Languages</a></li>
+            <li><a href="#internships">Internships</a></li>
+            <!-- <li><a href="#projects">Projects</a></li> -->
+            <li class="profile-summary">
+                <a href="#profile-summary">Profile summary</a>
+            </li>
+            <li><a href="#accomplishments">Accomplishments</a></li>
+            <!-- <li><a href="#competitive-exams">Competitive exams</a></li> -->
+            <li><a href="#employment">Employment</a></li>
+            <!-- <li><a href="#academic-achievements">Academic achievements</a></li> -->
+            <li><a href="#resume">Resume</a></li>
+        </ul>
+    </div>
+    <div class="container2">
+        <!-- Career Preferences Section -->
+        <div class="card" id="preference">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Your career preferences
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            <div class="preference-grid">
+                <div class="preference-item">
+                    <div class="preference-label">Preferred Shift</div>
+                    <div class="preference-value">
+                        {% if user_detail.night_shift and user_detail.day_shift %}
+                        Night Shift, Day Shift
+                    {% elif user_detail.night_shift %}
+                        Night Shift
+                    {% elif user_detail.day_shift %}
+                        Day Shift
+                    {% endif %}
+                    
+                    </div>
+                </div>
+                <div class="preference-item">
+                    <div class="preference-label">Preferred Workplace</div>
+                    <div class="preference-value">
+                        {% if user_detail.work_from_home and user_detail.work_from_office and user_detail.field_job %}
+                        Work from Home, Work from Office, Field Job
+                    {% elif user_detail.work_from_home and user_detail.work_from_office %}
+                        Work from Home, Work from Office
+                    {% elif user_detail.work_from_home and user_detail.field_job %}
+                        Work from Home, Field Job
+                    {% elif user_detail.work_from_office and user_detail.field_job %}
+                        Work from Office, Field Job
+                    {% elif user_detail.work_from_home %}
+                        Work from Home
+                    {% elif user_detail.work_from_office %}
+                        Work from Office
+                    {% elif user_detail.field_job %}
+                        Field Job
+                    {% endif %}
+                    
+                    </div>
+                </div>
+                <div class="preference-item">
+                    <div class="preference-label">Preferred Employment Type</div>
+                    <div class="preference-value">
+                        {% if user_detail.full_time and user_detail.part_time and user_detail.hourly %}
+                        Full Time, Part Time, Hourly
+                    {% elif user_detail.full_time and user_detail.part_time %}
+                        Full Time, Part Time
+                    {% elif user_detail.full_time and user_detail.hourly %}
+                        Full Time, Hourly
+                    {% elif user_detail.part_time and user_detail.hourly %}
+                        Part Time, Hourly
+                    {% elif user_detail.full_time %}
+                        Full Time
+                    {% elif user_detail.part_time %}
+                        Part Time
+                    {% elif user_detail.hourly %}
+                        Hourly
+                    {% endif %}
+                    
+                    </div>
+                </div>
+                {% if user_detail.current_working %}
+                <div class="preference-item">
+                    <div class="preference-label">Availability to work</div>
+                    <div class="preference-value">{{user_detail.notice_period|replace_underscore}}</div>
+                </div>
+                {% endif %}
+
+                <div class="preference-item">
+                    <div class="preference-label">Preferred location</div>
+                    <div class="preference-value">{{user_detail.location}}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="card" id="education">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <a href="#" class="add-button">Add</a>
+            </div>
+            <div class="education-item">
+                <h3 class="education-title">
+                    B.Sc from Ramniranjan Jhunjhunwala College, Mumbai
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h3>
+                <div class="education-subtitle">Graduating in 2025, Full Time</div>
+            </div>
+            <div class="education-item">
+                <h3 class="education-title">
+                    Class XII
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h3>
+                <div class="education-subtitle">Maharashtra, English</div>
+                <div class="education-subtitle">Scored 86%, Passed out in 2021</div>
+            </div>
+            <div class="education-item">
+                <h3 class="education-title">
+                    Class X
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h3>
+                <div class="education-subtitle">Maharashtra, English</div>
+                <div class="education-subtitle">Scored 74%, Passed out in 2019</div>
+            </div>
+        </div>
+
+        <!-- Key Skills Section -->
+        <div class="card" id="key-skills">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Key skills
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            {% if skills %}
+            <div class="skills-container">
+                {% for skill in skills %}
+                <span class="skill-tag">{{skill}}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="description">
+                Recruiters look for candidates with specific keyskills. Add them here to appear in searches.
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card" id="languages">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Language
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            <div class="item">
+                <div >
+                    English
+                </div>
+                <div class="achievement-subtitle">Can speak, read and write</div>
+            </div>
+        </div>
+
+        <!-- Internships Section -->
+        <div class="card" id="internships">
+            <div class="section-header">
+                <h2 class="section-title">Internships</h2>
+                <a href="#" class="add-button" data-modal="internship">Add</a>
+            </div>
+            <div class="description">
+                Talk about the company you interned at, what projects you undertook and what special skills you learned
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <!-- <div class="card" id="projects">
+            <div class="section-header">
+                <h2 class="section-title">Projects</h2>
+                <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+            </div>
+            {% if projects %}
+            <div class="skills-container">
+                {% for skill in skills %}
+                <span class="skill-tag">{{skill}}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="description">
+                Recruiters look for candidates with specific keyskills. Add them here to appear in searches.
+            </div>
+            {% endif %}
+        </div> -->
+
+        <!-- Profile Summary -->
+        <div class="card" id="profile-summary">
+            {% if user_detail.bio %}
+            <div class="section-header">
+                <h2 class="section-title">
+                    Profile Summary
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            {% else %}
+            <div class="section-header">
+                <h2 class="section-title">Profile Summary</h2>
+                <a href="#" class="add-button" data-modal="language">Add</a>
+            </div>
+            {% endif %}
+            <div class="item">
+                <div class="achievement-subtitle">
+                    {% if user_detail.bio %}
+                    {{user_detail.bio}}
+                    {% else %} 
+                    Your Profile Summary should mention the highlights of your career and education, what your professional interests are, and what kind of a career you are looking for. Write a meaningful summary of more than 50 characters.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
 
+        <div class="card" id="employment">
+            {% if user_detail.experience %}
+            <div class="section-header">
+                <h2 class="section-title">
+                    Employment
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            <div>
+            <div style="display: inline-block;">
+                {{user_detail.company_name}}
+            </div>
+            <div class="description" style="display: inline-block; font-size: small;">
+                {{user_detail.work_start_date|formatted_start_end}} - {{user_detail.work_end_date |formatted_start_end}}
+            </div>
+        </div>
+            <div class="description">
+                {{user_detail.job_title}} |
+                {{user_detail.job_role}}
+            </div>
+            {% else %}
+            <div class="section-header">
+                <h2 class="section-title">Employment</h2>
+                <a href="#" class="add-button" data-modal="language">Add</a>
+            </div>
+
+            <div class="description">
+                Talk about the company you worked at, your designation and describe what all you did there
+            </div>
+            {% endif %}
+            <div class="work-experience">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                {% if user_detail.experience %}
+                My total work experience is  {{user_detail.experience}} year
+                {% else %}
+                Fresher
+                {% endif %}
+            </div>
+        </div>
+        <!-- Resume Section -->
+        <div class="card" id="resume">
+            <div class="section-header">
+                <h2 class="section-title">Resume</h2>
+            </div>
+            <div class="description">
+                Your resume is the first impression you make on potential employers. Craft it carefully to secure your desired job or internship.
+            </div>
+            <div class="file-info">
+                <div class="file-details">
+                    {% if user_resume.resume_file %}
+                        <div>
+                            <div class="file-name">{{ user_resume.resume_file.name|basename }}</div>
+                            <div class="upload-date">Uploaded on {{ user_resume.updat}}</div>
+                        </div>
+                        <div class="file-actions">
+                            <!-- Download Button -->
+                            <a href="{{ user_resume.resume_file.url }}" download="{{ user_resume.resume_file.name|basename }}" class="action-button" title="Download">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                            </a>
+                            <!-- Delete Button -->
+                            <form method="POST" action="{% url 'complete_profile:delete_resume' user_resume.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="action-button" title="Delete">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <p>No resume uploaded.</p>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'complete_profile:resume' %}"><button class="update-button">
+                   {% if user_resume.resume_file %}
+                   Update resume
+                   {% else %}
+                   Upload resume
+                   {% endif %} 
+                </button>
+            </a>
+                <div class="supported-formats">
+                    Supported formats: doc, docx, rtf, pdf, up to 5MB
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <!-- Career Preferences Modal -->
+    <div class="modal" id="preferenceModal">
+        <div class="modal-header">
+            <h3 class="modal-title">Career preferences</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{% url 'complete_profile:edit_job_preference' %}">
+            <div class="detail_container" id="job_prefference">
+                <div class="mb-3">
+                    <label class="form-label compulsory ">Preferred Shift</label>
+                    
+                    <div class="checkbox_div">
+                    <label for="night_shift" class="check_label" style="width: 92%;">Night Shift</label>
+                    <input type="checkbox" class="group_checkbox" name="night_shift" value="night_shift"  id="night_shift" >
+                    </div>
+                    <div class="checkbox_div">
+                    <label for="day_shift" class="check_label" style="width: 92%;">Day Shift</label>
+                    <input type="checkbox" name="day_shift" value="day_shift" class="group_checkbox"  id="day_shift" >
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label compulsory ">Preferred Workplace</label>
+                    
+                    <div class="checkbox_div">
+                    <label for="work_form_home" class="check_label" style="width: 92%;">Work from Home</label>
+                    <input type="checkbox" name="work_from_home" value="work_form_home"  class="group_checkbox"  id="work_form_home" >
+                    </div>
+                    <div class="checkbox_div">
+                    <label for="work_from_office" class="check_label" style="width: 92%;">Work from Office</label>
+                    <input type="checkbox" name="work_from_office" value="work_from_office" class="group_checkbox"  id="work_from_office" >
+                    </div>
+                    <div class="checkbox_div">
+                    <label for="field_job" class="check_label" style="width: 92%;">Field Job</label>
+                    <input type="checkbox" name="field_job" value="field_job" class="group_checkbox"  id="field_job" >
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label compulsory ">Preferred Employment Type</label>
+                    
+                    <div class="checkbox_div">
+                    <label for="full_time" class="check_label" style="width: 92%;">Full Time</label>
+                    <input type="checkbox" name="full_time" value="full_time" class="group_checkbox"  id="full_time" >
+                    </div>
+                    <div class="checkbox_div">
+                    <label for="part_time" class="check_label" style="width: 92%;">Part Time</label>
+                    <input type="checkbox" name="part_time" value="part_time" class="group_checkbox"  id="part_time" >
+                    </div>
+                    <div class="checkbox_div">
+                    <label for="hourly" class="check_label" style="width: 92%;">Hourly</label>
+                    <input type="checkbox" name="hourly" value="hourly" class="group_checkbox"  id="hourly" >
+                    </div>
+                </div>
+                <p class="error" id="cmp_frm_err_5"></p>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Education Modal -->
+    <div class="modal" id="educationModal">
+        <div class="modal-header">
+            <h3 class="modal-title">Career preferences</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="">
+        <div class="detail_container" id="Educaiton">
+            <div class="mb-3" >
+                <label class="form-label compulsory " data-educating="" id="is_student_data">
+                    Are you pursuing your education?
+                </label>
+                <input type="radio" name="student" value="yes" id="student_radio" style="display: none;">
+                <input type="radio" name="student" value="no" id="not_student_radio" style="display: none;">
+                <br>
+                <label for="student_radio"><span class="info-card rounded" id="student">Yes</span></label>
+                <label for="not_student_radio"><span class="info-card rounded" id="non_student">No</span></label>
+            </div>
+            <div class="mb-3 visually-hidden" id="schooling_detail">
+                <label class="form-label compulsory" id="education_depend_label" data-higest-education="">
+                    Select your highest level of education:
+                </label>
+                <br>
+                <!-- Hidden Inputs and Labels -->
+                <input type="radio" name="education_level" value="10_below_10" id="10_below_10_radio" style="display: none;">
+                <label for="10_below_10_radio">
+                    <span class="info-card rounded schooling_details" id="10_below_10">10th or Below 10th</span>
+                </label>
+            
+                <input type="radio" name="education_level" value="12_pass" id="12_pass_radio" style="display: none;">
+                <label for="12_pass_radio">
+                    <span class="info-card rounded schooling_details" id="12_pass">12th Pass</span>
+                </label>
+            
+                <input type="radio" name="education_level" value="diploma" id="diploma_radio" style="display: none;">
+                <label for="diploma_radio">
+                    <span class="info-card rounded schooling_details" id="diploma">Diploma</span>
+                </label>
+            
+                <input type="radio" name="education_level" value="iti" id="iti_radio" style="display: none;">
+                <label for="iti_radio">
+                    <span class="info-card rounded schooling_details" id="iti">ITI</span>
+                </label>
+            
+                <input type="radio" name="education_level" value="graduate" id="graduate_radio" style="display: none;">
+                <label for="graduate_radio">
+                    <span class="info-card rounded schooling_details" id="graduate">Graduate</span>
+                </label>
+            
+                <input type="radio" name="education_level" value="p_graduate" id="p_graduate_radio" style="display: none;">
+                <label for="p_graduate_radio">
+                    <span class="info-card rounded schooling_details" id="p_graduate">Post Graduate</span>
+                </label>
+            </div>
+            
+            <div class="visually-hidden" id="college_detail_div">
+                <div class="degree_div mb-3 visually-hidden" id="diploma_div">
+                    <label class="form-label compulsory" for="diploma_degree">Diploma Degree</label>
+                    <br>
+                    <select name="diploma_degree" id="diploma_degree">
+                        <option value="" disabled selected>Select Diploma Degree</option>
+                        <option value="Diploma in Engineering">Diploma in Engineering</option>
+                        <option value="Diploma in Engineering (Civil)">Diploma in Engineering (Civil)</option>
+                        <option value="Diploma in Engineering (Mechanical)">Diploma in Engineering (Mechanical)</option>
+                        <option value="Diploma in Engineering (Electrical)">Diploma in Engineering (Electrical)</option>
+                        <option value="Diploma in Engineering (Electronics)">Diploma in Engineering (Electronics)</option>
+                        <option value="Diploma in Engineering (Computer Science)">Diploma in Engineering (Computer Science)</option>
+                        <option value="Diploma in Engineering (Information Technology)">Diploma in Engineering (Information Technology)</option>
+                        <option value="Diploma in Pharmacy">Diploma in Pharmacy</option>
+                        <option value="Diploma in Nursing">Diploma in Nursing</option>
+                        <option value="Diploma in Education">Diploma in Education</option>
+                        <option value="Diploma in Hotel Management">Diploma in Hotel Management</option>
+                        <option value="Diploma in Fashion Design">Diploma in Fashion Design</option>
+                        <option value="Diploma in Interior Design">Diploma in Interior Design</option>
+                        <option value="Diploma in Graphic Design">Diploma in Graphic Design</option>
+                        <option value="Diploma in Fine Arts">Diploma in Fine Arts</option>
+                        <option value="Diploma in Music">Diploma in Music</option>
+                        <option value="Diploma in Dance">Diploma in Dance</option>
+                        <option value="Diploma in Journalism">Diploma in Journalism</option>
+                        <option value="Diploma in Mass Communication">Diploma in Mass Communication</option>
+                        <option value="Diploma in Agriculture">Diploma in Agriculture</option>
+                        <option value="Diploma in Horticulture">Diploma in Horticulture</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="iti_div">
+                    <label class="form-label compulsory" for="iti_degree">ITI Degree</label>
+                    <br>
+                    <select name="iti_degree" id="iti_degree">
+                        <option value="" disabled selected>Select ITI Trade</option>
+                        <option value="Fitter">Fitter</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Welder">Welder</option>
+                        <option value="Machinist">Machinist</option>
+                        <option value="Turner">Turner</option>
+                        <option value="Carpenter">Carpenter</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Mason">Mason</option>
+                        <option value="Painter">Painter</option>
+                        <option value="Draughtsman (Civil)">Draughtsman (Civil)</option>
+                        <option value="Draughtsman (Mechanical)">Draughtsman (Mechanical)</option>
+                        <option value="Electronics Mechanic">Electronics Mechanic</option>
+                        <option value="Refrigerator Mechanic">Refrigerator Mechanic</option>
+                        <option value="Computer Operator & Programming Assistant">Computer Operator & Programming Assistant</option>
+                        <option value="Secretary">Secretary</option>
+                        <option value="Stenographer">Stenographer</option>
+                        <option value="Tailoring">Tailoring</option>
+                        <option value="Beauty Culture">Beauty Culture</option>
+                        <option value="Motor Mechanic">Motor Mechanic</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="graudate_div">
+                    <label for="graduateDegree" class="form-label compulsory">Graduate Degree</label>
+                    <br>
+                    <select name="graduateDegree" id="graduateDegree">
+                        <option value="" disabled selected>Select Graduate Degree</option>
+                        <option value="Bachelor of Arts (B.A.)">Bachelor of Arts (B.A.)</option>
+                        <option value="Bachelor of Science (B.Sc.)">Bachelor of Science (B.Sc.)</option>
+                        <option value="Bachelor of Commerce (B.Com.)">Bachelor of Commerce (B.Com.)</option>
+                        <option value="Bachelor of Engineering (B.E.)">Bachelor of Engineering (B.E.)</option>
+                        <option value="Bachelor of Technology (B.Tech.)">Bachelor of Technology (B.Tech.)</option>
+                        <option value="Bachelor of Architecture (B.Arch.)">Bachelor of Architecture (B.Arch.)</option>
+                        <option value="Bachelor of Medicine, Bachelor of Surgery (MBBS)">Bachelor of Medicine, Bachelor of Surgery (MBBS)</option>
+                        <option value="Bachelor of Dental Surgery (BDS)">Bachelor of Dental Surgery (BDS)</option>
+                        <option value="Bachelor of Pharmacy (B.Pharm.)">Bachelor of Pharmacy (B.Pharm.)</option>
+                        <option value="Bachelor of Law (LL.B.)">Bachelor of Law (LL.B.)</option>
+                        <option value="Bachelor of Education (B.Ed.)">Bachelor of Education (B.Ed.)</option>
+                        <option value="Bachelor of Journalism and Mass Communication (BJMC)">Bachelor of Journalism and Mass Communication (BJMC)</option>
+                        <option value="Bachelor of Fine Arts (BFA)">Bachelor of Fine Arts (BFA)</option>
+                    </select>
+                </div>
+                <div class="degree_div mb-3 visually-hidden" id="post_graduate_div">
+                    <label for="postgraduateDegree" class="form-label compulsory">Postgraduate Degree</label>
+                    <br>
+                    <select name="postgraduateDegree" id="postgraduateDegree">
+                        <option value="" disabled selected>Select Postgraduate Degree</option>
+                        <option value="Master of Arts (M.A.)">Master of Arts (M.A.)</option>
+                        <option value="Master of Science (M.Sc.)">Master of Science (M.Sc.)</option>
+                        <option value="Master of Commerce (M.Com.)">Master of Commerce (M.Com.)</option>
+                        <option value="Master of Engineering (M.E.)">Master of Engineering (M.E.)</option>
+                        <option value="Master of Technology (M.Tech.)">Master of Technology (M.Tech.)</option>
+                        <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
+                        <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
+                        <option value="Master of Philosophy (M.Phil.)">Master of Philosophy (M.Phil.)</option>
+                        <option value="Doctor of Philosophy (Ph.D.)">Doctor of Philosophy (Ph.D.)</option>
+                        <option value="Master of Surgery (M.S.)">Master of Surgery (M.S.)</option>
+                        <option value="Master of Dental Surgery (MDS)">Master of Dental Surgery (MDS)</option>
+                        <option value="Master of Education (M.Ed.)">Master of Education (M.Ed.)</option>
+                        <option value="Master of Law (LL.M.)">Master of Law (LL.M.)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="Specialization" class="form-label compulsory">Specialization</label><br>
+                    <select name="specialization" id="Specialization">
+                        <option value="" disabled selected>Select Specialization</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Biotechnology">Biotechnology</option>
+                        <option value="Biomedical Engineering">Biomedical Engineering</option>
+                        <option value="Chemical Engineering">Chemical Engineering</option>
+                        <option value="Aerospace Engineering">Aerospace Engineering</option>
+                        <option value="Automobile Engineering">Automobile Engineering</option>
+                        <option value="Bioinformatics">Bioinformatics</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Blockchain">Blockchain</option>
+                        <option value="Internet of Things (IoT)">Internet of Things (IoT)</option>
+                        <option value="Artificial Intelligence and Machine Learning">Artificial Intelligence and Machine Learning</option>
+                        <option value="Cloud Computing">Cloud Computing</option>
+                        <option value="Big Data Analytics">Big Data Analytics</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="college_name" class="form-label compulsory">College Name</label>
+                    <br>
+                    <input type="text" class="" id="college_name" name="college_name" placeholder="eg. St. Stephens">
+                </div>
+                <div class="d-flex">
+                    <div class="mb-3" style="width: 220px; margin-right:10px;">
+                        <label class="form-label compulsory">Start Date</label>
+                        <input type="text" name="college_start_date" id="college_start_date" placeholder="Choose date">
+                    </div>
+                    <div class="mb-3" id="not_working_date_div" style="width: 220px;">
+                        <label class="form-label compulsory">End Date</label>
+                        <input type="text" name="college_end_date" id="college_end_date" placeholder="Choose date">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3 visually-hidden " id="school_medium">
+                <label class="form-label compulsory" for="medium">School medium</label>
+                <br>
+                <select name="school_medium" class="" id="medium" style="width: 150px;  max-height: 100px;">
+                    <option value="" disabled selected>Select Medium</option>
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Marathi">Marathi</option>
+                    <option value="Bengali">Bengali</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Telugu">Telugu</option>
+                    <option value="Gujarati">Gujarati</option>
+                    <option value="Kannada">Kannada</option>
+                    <option value="Malayalam">Malayalam</option>
+                    <option value="Punjabi">Punjabi</option>
+                    <option value="Urdu">Urdu</option>
+                    <option value="Odia">Odia</option>
+                    <option value="Assamese">Assamese</option>
+                    <option value="Nepali">Nepali</option>
+                    <option value="Sanskrit">Sanskrit</option>
+                    <option value="Manipuri">Manipuri</option>
+                    <option value="Khasi">Khasi</option>
+                    <option value="Bodo">Bodo</option>
+                    <option value="Dogri">Dogri</option>
+                    <option value="Maithili">Maithili</option>
+                    <option value="Santali">Santali</option>
+                    <option value="Sindhi">Sindhi</option>
+                    <option value="Konkani">Konkani</option>
+                </select>
+            </div>
+            <p class="error" id="cmp_frm_err_2"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+        </div>       
+    </form>
+    </div>
+
+    <!-- Key Skills Modal -->
+    <div class="modal" id="key-skillsModal">
+        <div class="modal-header">
+            <h3 class="modal-title">Career preferences</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="">
+            <div class="skills-input-container">
+                <div class="selected-skills" id="selectedSkills">
+                    <div class="skill-tag">
+                        Pycharm
+                        <span class="remove-skill">×</span>
+                    </div>
+                    <div class="skill-tag">
+                        Django
+                        <span class="remove-skill">×</span>
+                    </div>
+                    <div class="skill-tag">
+                        Django Rest API
+                        <span class="remove-skill">×</span>
+                    </div>
+                    <div class="skill-tag">
+                        Python
+                        <span class="remove-skill">×</span>
+                    </div>
+                </div>
+                <input type="text" class="skills-input" placeholder="Enter your key skills" id="skillsInput">
+            </div>
+
+            <div class="suggested-section">
+                <h3 class="suggested-title">Based on your current selection</h3>
+                <div class="suggested-skills">
+                    <button class="suggested-skill">
+                        <span class="add-icon">+</span>
+                        Python
+                    </button>
+                    <button class="suggested-skill">
+                        <span class="add-icon">+</span>
+                        Python Development
+                    </button>
+                    <button class="suggested-skill">
+                        <span class="add-icon">+</span>
+                        Python Software D...
+                    </button>
+                    <button class="suggested-skill">
+                        <span class="add-icon">+</span>
+                        Python Data
+                    </button>
+                    <button class="suggested-skill">
+                        <span class="add-icon">+</span>
+                        Python And Django...
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+            </div> 
+        </form>
+    </div>
+
+    <!-- Languages Modal -->
+    <div class="modal" id="languagesModal">
+
+        <div class="modal-header">
+            <h3 class="modal-title">Languages known</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="">
+        <div class="detail_container" id="Language">
+            <div class="mb-3 english_div">
+                <label  class="form-label compulsory ">English</label>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="no_english" value="no_english" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="no_english">No English</label>
+                </div>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="basic" value="basic" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="basic">Basic
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+                <div class="input-group custom_radio mb-3 ">
+                    <input type="radio" name="english" id="intermediate" value="intermediate" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="intermediate">Intermediate
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+                <div class="input-group custom_radio  ">
+                    <input type="radio" name="english" id="advanced" value="advanced" style="
+                        margin: 0px 10px 0 10px;
+                        width: 18px;
+                    ">
+                    <label class="form-check-label" for="advanced">Advanced
+                        <p class="radio_p">You can understand/speak basic sentences</p>
+                    </label>
+                </div>
+            </div>
+            <label class="form-label" id="other_lan_div" data-other-lang="">
+                Add other language you can speak (Optional) 
+            </label>
+            <div id="lang_collection" >
+                <input type="text" name="other_language" id="other_lang_inp" value="" style="display: none;">
+            </div>
+            <p class="error" id="cmp_frm_err_4"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+        </div> 
+    </form>
+    </div>
+
+    <!-- Internships Modal -->
+    <div class="modal" id="internshipsModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+
+    <!-- Projects Modal -->
+    <div class="modal" id="projectsModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+
+    <!-- Profile Summary Modal -->
+    <div class="modal" id="profile-summaryModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+
+    <!-- Competitive Exams Modal -->
+    <div class="modal" id="competitive-examsModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+
+    <!-- Employment Modal -->
+    <div class="modal" id="employmentModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+
+    <!-- Academic Achievements Modal -->
+    <div class="modal" id="academic-achievementsModal">
+        <!-- Similar structure as Career Preferences Modal -->
+    </div>
+</div>
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
 
+<script>
+const header = document.querySelector('.main_container_header');
+const stickyThreshold = 360; // The position where the sticky behavior starts
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY >= stickyThreshold) {
+        header.classList.add('add_sticky');
+    } else {
+        header.classList.remove('add_sticky');
+    }
+});
+
+</script>
+<!-- Add new script for modal functionality -->
+<script>
+    // Modal functionality
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modals = document.querySelectorAll('.modal');
+    const editButtons = document.querySelectorAll('.pencil-icon, .add-button');
+    const closeButtons = document.querySelectorAll('.modal-close, .modal-button-secondary');
+    const saveButtons = document.querySelectorAll('.modal-button-primary');
+
+    function openModal(modalId) {
+        modalOverlay.style.display = 'block';
+        document.getElementById(modalId).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+        modalOverlay.style.display = 'none';
+        document.getElementById(modalId).style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modalId = e.target.closest('.card').id + 'Modal';
+            openModal(modalId);
+        });
+    });
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.closest('.modal').id;
+            closeModal(modalId);
+        });
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modals.forEach(modal => {
+                closeModal(modal.id);
+            });
+        }
+    });
+
+    saveButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.closest('.modal').id;
+            const formId = modalId.replace('Modal', 'Form');
+            const form = document.getElementById(formId);
+            if (form) {
+                const formData = new FormData(form);
+                // Here you would typically send the form data to the server
+                console.log('Saving data for', modalId, Object.fromEntries(formData));
+            }
+            closeModal(modalId);
+        });
+    });
+
+    // Add keyboard support for modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            modals.forEach(modal => {
+                if (modal.style.display === 'block') {
+                    closeModal(modal.id);
+                }
+            });
+        }
+    });
+</script>
+<!-- Educaiton modal -->
+ <script>
+    const is_student = document.getElementById('student');
+const no_student = document.getElementById('non_student');
+const education_depend_label = document.getElementById('education_depend_label');
+const schooling_detail = document.getElementById('schooling_detail');
+const is_student_data = document.getElementById('is_student_data');
+const school_medium = document.getElementById('school_medium');
+function student() {
+  schooling_detail.classList.remove(
+    'visually-hidden',
+  )
+  school_medium.classList.add('visually-hidden');
+  is_student.classList.remove('info-card');
+  is_student.classList.add('active-info-card');
+  no_student.classList.remove('active-info-card');
+  no_student.classList.add('info-card');
+  education_depend_label.innerHTML = 'What are you currently pursuing ?';
+}
+function non_student() {
+  schooling_detail.classList.remove(
+    'visually-hidden',
+  )
+  school_medium.classList.add('visually-hidden');
+  no_student.classList.remove('info-card');
+  no_student.classList.add('active-info-card');
+  is_student.classList.remove('active-info-card');
+  is_student.classList.add('info-card');
+  education_depend_label.innerHTML = 'Select your highest education level';
+}
+function setEducationStatus(status) {
+  const label = document.getElementById('is_student_data');
+  label.setAttribute('data-educating', status);
+}
+is_student.addEventListener('click', () => {
+  setEducationStatus('Yes');
+  student();
+})
+no_student.addEventListener('click', () => {
+  setEducationStatus('No');
+  non_student();
+})
+
+
+const schoolingDetails = document.querySelectorAll('.schooling_details');
+const degreeDivs = document.querySelectorAll('.degree_div'); // Select all degree divs
+const college_detail_div = document.getElementById('college_detail_div');
+
+schoolingDetails.forEach((span) => {
+  span.addEventListener('click', function () {
+    // Show the school medium div
+    school_medium.classList.remove('visually-hidden');
+
+    // Update the label with the selected education
+    education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
+    console.log(span.innerHTML);
+
+    // Remove 'active-info-card' class from all spans and add 'info-card' back
+    schoolingDetails.forEach(s => {
+      s.classList.remove('active-info-card');
+      s.classList.add('info-card');
+    });
+
+    // Add 'active-info-card' class to the clicked span and remove 'info-card'
+    this.classList.remove('info-card');
+    this.classList.add('active-info-card');
+
+    // Hide all degree divs initially
+    degreeDivs.forEach(div => div.classList.add('visually-hidden'));
+
+    // Show the corresponding degree div based on the selected info-card
+    if (span.id === 'diploma') {
+      document.getElementById('diploma_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'iti') {
+      document.getElementById('iti_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'graduate') {
+      document.getElementById('graudate_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    } else if (span.id === 'p_graduate') {
+      document.getElementById('post_graduate_div').classList.remove('visually-hidden');
+      college_detail_div.classList.remove('visually-hidden');
+    }
+    else {
+      college_detail_div.classList.add('visually-hidden');
+    }
+  });
+});
+ </script>
+ <!-- Key Skills modal -->
+ <script>
+    const skillsInput = document.getElementById('skillsInput');
+    const selectedSkillsContainer = document.getElementById('selectedSkills');
+
+    // Store selected skills
+    let selectedSkills = ['Pycharm', 'Django', 'Django Rest API', 'Python'];
+
+
+
+    // Handle adding new skills
+    skillsInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && skillsInput.value.trim()) {
+            const newSkill = skillsInput.value.trim();
+            if (!selectedSkills.includes(newSkill)) {
+                addSkill(newSkill);
+                skillsInput.value = '';
+            }
+        }
+    });
+
+    // Add skill function
+    function addSkill(skill) {
+        selectedSkills.push(skill);
+        const skillTag = document.createElement('div');
+        skillTag.className = 'skill-tag';
+        skillTag.innerHTML = `
+            ${skill}
+            <span class="remove-skill">×</span>
+        `;
+        selectedSkillsContainer.appendChild(skillTag);
+
+        // Add remove event listener
+        const removeButton = skillTag.querySelector('.remove-skill');
+        removeButton.addEventListener('click', () => removeSkill(skillTag, skill));
+    }
+
+    // Remove skill function
+    function removeSkill(element, skill) {
+        element.remove();
+        selectedSkills = selectedSkills.filter(s => s !== skill);
+    }
+
+    // Add event listeners for existing remove buttons
+    document.querySelectorAll('.remove-skill').forEach(button => {
+        button.addEventListener('click', () => {
+            const skillTag = button.parentElement;
+            const skill = skillTag.textContent.trim().slice(0, -1); // Remove × symbol
+            removeSkill(skillTag, skill);
+        });
+    });
+
+    // Add event listeners for suggested skills
+    document.querySelectorAll('.suggested-skill').forEach(button => {
+        button.addEventListener('click', () => {
+            const skill = button.textContent.trim().slice(1); // Remove + symbol
+            if (!selectedSkills.includes(skill)) {
+                addSkill(skill);
+            }
+        });
+    });
+
+
+    // Handle keyboard events
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+<!-- Lagnguage modal -->
+ <script>
+    const languages = [
+  "Hindi", "Telugu", "Bengali", "Kannada", "Marathi", "Tamil",
+  "Oriya", "Gujarati", "Malayalam", "Urdu", "Punjabi", "Assamese",
+  "Nepali", "Kashmiri", "Maithili", "Rajasthani", "Haryanvi", "French",
+  "German", "Spanish", "Japanese", "Mandarin"
+];
+
+const lang_collection = document.getElementById('lang_collection')
+
+languages.forEach(lan => {
+  html = `
+  <div class="lan-div lang-info">
+                    <span style="margin-left: 3px;">${lan}</span>
+                    <svg class="rotate_svg transition" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 16 16" class="add_cut_svg">
+                      <path fill="black" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
+                    </svg>
+          </div>`
+  lang_collection.insertAdjacentHTML('beforeend', html);
+})
+
+const lan_div = document.querySelectorAll('.lan-div')
+const other_lan_div = document.getElementById('other_lan_div')
+const other_lang_inp = document.getElementById('other_lang_inp')
+lan_div.forEach((lan, index) => {
+  lan.addEventListener('click', function () {
+
+    current_lan = other_lan_div.getAttribute('data-other-lang')
+    if (!current_lan == '') {
+      current_lan = current_lan + ','
+    }
+    other_lan_div.setAttribute('data-other-lang', current_lan + lan.querySelector('span').innerHTML)
+    curren_val = other_lang_inp.value
+    if (!curren_val == '') {
+      curren_val = curren_val + ','
+    }
+    other_lang_inp.value = curren_val + lan.querySelector('span').innerHTML
+    lan.classList.toggle('lang-info');
+    lan.classList.toggle('active-lang-info');
+    const svg = lan.querySelector('svg')
+    svg.classList.toggle('rotate_svg')
+    const path = lan.querySelector('svg path');
+    const currentFill = path.getAttribute('fill');
+    const newFill = currentFill === 'black' ? '#003C96' : 'black';
+    path.setAttribute('fill', newFill);
+  })
+})
+ </script>
+ <script>
+    const change_profile_img_form = document.getElementById('change_profile_img_form')
+    const profile_image_inp = document.getElementById('profile_image_inp')
+    profile_image_inp.addEventListener('change',()=>{
+        change_profile_img_form.submit()
+    })
+ </script>
 {% endblock javascripts %}
