@@ -37,6 +37,7 @@
     background: #fff;
     padding-top: 12px;
 }
+
 </style>
 <style>
             .quick-links {
@@ -213,61 +214,7 @@
         background-color: #e0e0e0;
     }
 
-    .pencil-icon {
-        width: 16px;
-        height: 16px;
-        opacity: 0.6;
-        cursor: pointer;
-    }
 
-    .pencil-icon:hover {
-        opacity: 1;
-    }
-
-
-
-    .form-group {
-        margin-bottom: 16px;
-    }
-
-    .form-label {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 14px;
-        color: #333;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 8px 12px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 14px;
-    }
-
-    .form-input:focus {
-        outline: none;
-        border-color: #4285f4;
-    }
-
-        .file-info {
-            border: 1px dashed #ccc;
-            border-radius: 8px;
-            padding: 24px;
-            text-align: center;
-        }
-
-        .file-details {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .file-name {
-            font-size: 14px;
-            color: #333;
-        }
 
         .upload-date {
             font-size: 12px;
@@ -414,11 +361,6 @@
         display: block;
     }
 
-    .edit-icon .profile-pencil-icon {
-        width: 24px; /* Adjust the size of the SVG */
-        height: 24px; /* Adjust the size of the SVG */
-        stroke: white; /* Icon color */
-    }
 
 /* Optional: Make the profile image scale slightly on hover */
 .profile-image-container:hover .profile-image {
@@ -440,16 +382,7 @@
         gap: 8px;
     }
 
-    .pencil-icon {
-        width: 16px;
-        height: 16px;
-        opacity: 0.6;
-        cursor: pointer;
-    }
 
-    .pencil-icon:hover {
-        opacity: 1;
-    }
 
     .profile-education {
         color: #666;
@@ -760,21 +693,9 @@
 
 <div class="profile-card">
     <div class="profile-header">
-        <form id="change_profile_img_form" method="POST" action="{% url 'complete_profile:update_profile_image'%}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="file" name="profile_image" id="profile_image_inp" style="display: none;" accept="image/*">
-            <label for="profile_image_inp">
+        <form id="change_profile_img_form" >
             <div class="profile-image-container">
             <img src="{{ user.user_profile_image.url }}" alt="{{user.first_name}} {{user.last_name}}" class="profile-image">
-            <!-- Edit icon that will be shown on hover -->
-
-                
-                <div class="edit-icon">
-                    <svg class="profile-pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                    </svg>
-                </div>
-            
             </div>
         </label>
         </form>
@@ -782,9 +703,7 @@
         <div class="profile-info">
             <h1 class="profile-name">
                 {{ user.first_name }} {{ user.last_name }}
-                <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
+               
             </h1>
             <div class="profile-education">
                 {% if user_detail.student %}
@@ -850,7 +769,7 @@
     </div>
 </div>
 <div class="main_container_header">
-    <h4 class="main_contianer_title">View & Edit</h4>
+    <h4 class="main_contianer_title">View </h4>
     <hr class="main_contianer_line">
 </div>
 <div class="main_container mb-3 d-flex">
@@ -879,9 +798,7 @@
             <div class="section-header">
                 <h2 class="section-title">
                     Your career preferences
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                    
                 </h2>
             </div>
             <div class="preference-grid">
@@ -958,23 +875,18 @@
         <div class="card" id="education">
             <div class="section-header">
                 <h2 class="section-title">Education</h2>
-                <a href="#" class="add-button">Add</a>
             </div>
             <div class="education-item">
                 <h3 class="education-title">
                     B.Sc from Ramniranjan Jhunjhunwala College, Mumbai
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+     
                 </h3>
                 <div class="education-subtitle">Graduating in 2025, Full Time</div>
             </div>
             <div class="education-item">
                 <h3 class="education-title">
                     Class XII
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                  
                 </h3>
                 <div class="education-subtitle">Maharashtra, English</div>
                 <div class="education-subtitle">Scored 86%, Passed out in 2021</div>
@@ -982,9 +894,7 @@
             <div class="education-item">
                 <h3 class="education-title">
                     Class X
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                  
                 </h3>
                 <div class="education-subtitle">Maharashtra, English</div>
                 <div class="education-subtitle">Scored 74%, Passed out in 2019</div>
@@ -996,9 +906,7 @@
             <div class="section-header">
                 <h2 class="section-title">
                     Key skills
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                   
                 </h2>
             </div>
             {% if skills %}
@@ -1018,9 +926,7 @@
             <div class="section-header">
                 <h2 class="section-title">
                     Language
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                   
                 </h2>
             </div>
             <div class="item">
@@ -1035,49 +941,26 @@
         <div class="card" id="internships">
             <div class="section-header">
                 <h2 class="section-title">Internships</h2>
-                <a href="#" class="add-button" data-modal="internship">Add</a>
             </div>
             <div class="description">
                 Talk about the company you interned at, what projects you undertook and what special skills you learned
             </div>
         </div>
 
-        <!-- Projects Section -->
-        <!-- <div class="card" id="projects">
-            <div class="section-header">
-                <h2 class="section-title">Projects</h2>
-                <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-            </div>
-            {% if projects %}
-            <div class="skills-container">
-                {% for skill in skills %}
-                <span class="skill-tag">{{skill}}</span>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div class="description">
-                Recruiters look for candidates with specific keyskills. Add them here to appear in searches.
-            </div>
-            {% endif %}
-        </div> -->
-
+ 
         <!-- Profile Summary -->
         <div class="card" id="profile-summary">
             {% if user_detail.bio %}
             <div class="section-header">
                 <h2 class="section-title">
                     Profile Summary
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+
                 </h2>
             </div>
             {% else %}
             <div class="section-header">
                 <h2 class="section-title">Profile Summary</h2>
-                <a href="#" class="add-button" data-modal="language">Add</a>
+                <
             </div>
             {% endif %}
             <div class="item">
@@ -1097,9 +980,7 @@
             <div class="section-header">
                 <h2 class="section-title">
                     Employment
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                   
                 </h2>
             </div>
             <div>
@@ -1117,7 +998,7 @@
             {% else %}
             <div class="section-header">
                 <h2 class="section-title">Employment</h2>
-                <a href="#" class="add-button" data-modal="language">Add</a>
+                <
             </div>
 
             <div class="description">
@@ -1141,15 +1022,18 @@
                 <h2 class="section-title">Resume</h2>
             </div>
             <div class="description">
-                Your resume is the first impression you make on potential employers. Craft it carefully to secure your desired job or internship.
+                A concise resume showcasing academic background, professional experience, skills, achievements, and certifications tailored to the employer’s needs, highlighting the candidate’s ability to contribute effectively to organizational goals.
             </div>
             <div class="file-info">
-                <div class="file-details">
+                <div class="file-details" style="
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 13px;">
+                    
                     {% if user_resume.resume_file %}
-                    hello
                         <div>
                             <div class="file-name">{{ user_resume.resume_file.name|basename }}</div>
-                            <div class="upload-date">Uploaded on {{ user_resume.updat}}</div>
+                            <div class="upload-date text-start">Uploaded on {{ user_resume.updated_at}}</div>
                         </div>
                         <div class="file-actions">
                             <!-- Download Button -->
@@ -1158,31 +1042,10 @@
                                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
                             </a>
-                            <!-- Delete Button -->
-                            <form method="POST" action="{% url 'complete_profile:delete_resume' user_resume.id %}" style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="action-button" title="Delete">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </form>
                         </div>
                     {% else %}
                         <p>No resume uploaded.</p>
                     {% endif %}
-                </div>
-
-                <a href="{% url 'complete_profile:resume' %}"><button class="update-button">
-                   {% if user_resume.resume_file %}
-                   Update resume
-                   {% else %}
-                   Upload resume
-                   {% endif %} 
-                </button>
-            </a>
-                <div class="supported-formats">
-                    Supported formats: doc, docx, rtf, pdf, up to 5MB
                 </div>
             </div>
         </div>
@@ -1624,35 +1487,7 @@
     </form>
     </div>
 
-    <!-- Internships Modal -->
-    <div class="modal" id="internshipsModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
 
-    <!-- Projects Modal -->
-    <div class="modal" id="projectsModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
-
-    <!-- Profile Summary Modal -->
-    <div class="modal" id="profile-summaryModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
-
-    <!-- Competitive Exams Modal -->
-    <div class="modal" id="competitive-examsModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
-
-    <!-- Employment Modal -->
-    <div class="modal" id="employmentModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
-
-    <!-- Academic Achievements Modal -->
-    <div class="modal" id="academic-achievementsModal">
-        <!-- Similar structure as Career Preferences Modal -->
-    </div>
 </div>
 {% endblock content %}
 {% block javascripts %}
@@ -1671,287 +1506,4 @@ window.addEventListener('scroll', () => {
 });
 
 </script>
-<!-- Add new script for modal functionality -->
-<script>
-    // Modal functionality
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modals = document.querySelectorAll('.modal');
-    const editButtons = document.querySelectorAll('.pencil-icon, .add-button');
-    const closeButtons = document.querySelectorAll('.modal-close, .modal-button-secondary');
-    const saveButtons = document.querySelectorAll('.modal-button-primary');
-
-    function openModal(modalId) {
-        modalOverlay.style.display = 'block';
-        document.getElementById(modalId).style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(modalId) {
-        modalOverlay.style.display = 'none';
-        document.getElementById(modalId).style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-    editButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modalId = e.target.closest('.card').id + 'Modal';
-            openModal(modalId);
-        });
-    });
-
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.closest('.modal').id;
-            closeModal(modalId);
-        });
-    });
-
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-            modals.forEach(modal => {
-                closeModal(modal.id);
-            });
-        }
-    });
-
-    saveButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.closest('.modal').id;
-            const formId = modalId.replace('Modal', 'Form');
-            const form = document.getElementById(formId);
-            if (form) {
-                const formData = new FormData(form);
-                // Here you would typically send the form data to the server
-                console.log('Saving data for', modalId, Object.fromEntries(formData));
-            }
-            closeModal(modalId);
-        });
-    });
-
-    // Add keyboard support for modals
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            modals.forEach(modal => {
-                if (modal.style.display === 'block') {
-                    closeModal(modal.id);
-                }
-            });
-        }
-    });
-</script>
-<!-- Educaiton modal -->
- <script>
-    const is_student = document.getElementById('student');
-const no_student = document.getElementById('non_student');
-const education_depend_label = document.getElementById('education_depend_label');
-const schooling_detail = document.getElementById('schooling_detail');
-const is_student_data = document.getElementById('is_student_data');
-const school_medium = document.getElementById('school_medium');
-function student() {
-  schooling_detail.classList.remove(
-    'visually-hidden',
-  )
-  school_medium.classList.add('visually-hidden');
-  is_student.classList.remove('info-card');
-  is_student.classList.add('active-info-card');
-  no_student.classList.remove('active-info-card');
-  no_student.classList.add('info-card');
-  education_depend_label.innerHTML = 'What are you currently pursuing ?';
-}
-function non_student() {
-  schooling_detail.classList.remove(
-    'visually-hidden',
-  )
-  school_medium.classList.add('visually-hidden');
-  no_student.classList.remove('info-card');
-  no_student.classList.add('active-info-card');
-  is_student.classList.remove('active-info-card');
-  is_student.classList.add('info-card');
-  education_depend_label.innerHTML = 'Select your highest education level';
-}
-function setEducationStatus(status) {
-  const label = document.getElementById('is_student_data');
-  label.setAttribute('data-educating', status);
-}
-is_student.addEventListener('click', () => {
-  setEducationStatus('Yes');
-  student();
-})
-no_student.addEventListener('click', () => {
-  setEducationStatus('No');
-  non_student();
-})
-
-
-const schoolingDetails = document.querySelectorAll('.schooling_details');
-const degreeDivs = document.querySelectorAll('.degree_div'); // Select all degree divs
-const college_detail_div = document.getElementById('college_detail_div');
-
-schoolingDetails.forEach((span) => {
-  span.addEventListener('click', function () {
-    // Show the school medium div
-    school_medium.classList.remove('visually-hidden');
-
-    // Update the label with the selected education
-    education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
-    console.log(span.innerHTML);
-
-    // Remove 'active-info-card' class from all spans and add 'info-card' back
-    schoolingDetails.forEach(s => {
-      s.classList.remove('active-info-card');
-      s.classList.add('info-card');
-    });
-
-    // Add 'active-info-card' class to the clicked span and remove 'info-card'
-    this.classList.remove('info-card');
-    this.classList.add('active-info-card');
-
-    // Hide all degree divs initially
-    degreeDivs.forEach(div => div.classList.add('visually-hidden'));
-
-    // Show the corresponding degree div based on the selected info-card
-    if (span.id === 'diploma') {
-      document.getElementById('diploma_div').classList.remove('visually-hidden');
-      college_detail_div.classList.remove('visually-hidden');
-    } else if (span.id === 'iti') {
-      document.getElementById('iti_div').classList.remove('visually-hidden');
-      college_detail_div.classList.remove('visually-hidden');
-    } else if (span.id === 'graduate') {
-      document.getElementById('graudate_div').classList.remove('visually-hidden');
-      college_detail_div.classList.remove('visually-hidden');
-    } else if (span.id === 'p_graduate') {
-      document.getElementById('post_graduate_div').classList.remove('visually-hidden');
-      college_detail_div.classList.remove('visually-hidden');
-    }
-    else {
-      college_detail_div.classList.add('visually-hidden');
-    }
-  });
-});
- </script>
- <!-- Key Skills modal -->
- <script>
-    const skillsInput = document.getElementById('skillsInput');
-    const selectedSkillsContainer = document.getElementById('selectedSkills');
-
-    // Store selected skills
-    let selectedSkills = ['Pycharm', 'Django', 'Django Rest API', 'Python'];
-
-
-
-    // Handle adding new skills
-    skillsInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && skillsInput.value.trim()) {
-            const newSkill = skillsInput.value.trim();
-            if (!selectedSkills.includes(newSkill)) {
-                addSkill(newSkill);
-                skillsInput.value = '';
-            }
-        }
-    });
-
-    // Add skill function
-    function addSkill(skill) {
-        selectedSkills.push(skill);
-        const skillTag = document.createElement('div');
-        skillTag.className = 'skill-tag';
-        skillTag.innerHTML = `
-            ${skill}
-            <span class="remove-skill">×</span>
-        `;
-        selectedSkillsContainer.appendChild(skillTag);
-
-        // Add remove event listener
-        const removeButton = skillTag.querySelector('.remove-skill');
-        removeButton.addEventListener('click', () => removeSkill(skillTag, skill));
-    }
-
-    // Remove skill function
-    function removeSkill(element, skill) {
-        element.remove();
-        selectedSkills = selectedSkills.filter(s => s !== skill);
-    }
-
-    // Add event listeners for existing remove buttons
-    document.querySelectorAll('.remove-skill').forEach(button => {
-        button.addEventListener('click', () => {
-            const skillTag = button.parentElement;
-            const skill = skillTag.textContent.trim().slice(0, -1); // Remove × symbol
-            removeSkill(skillTag, skill);
-        });
-    });
-
-    // Add event listeners for suggested skills
-    document.querySelectorAll('.suggested-skill').forEach(button => {
-        button.addEventListener('click', () => {
-            const skill = button.textContent.trim().slice(1); // Remove + symbol
-            if (!selectedSkills.includes(skill)) {
-                addSkill(skill);
-            }
-        });
-    });
-
-
-    // Handle keyboard events
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
-</script>
-<!-- Lagnguage modal -->
- <script>
-    const languages = [
-  "Hindi", "Telugu", "Bengali", "Kannada", "Marathi", "Tamil",
-  "Oriya", "Gujarati", "Malayalam", "Urdu", "Punjabi", "Assamese",
-  "Nepali", "Kashmiri", "Maithili", "Rajasthani", "Haryanvi", "French",
-  "German", "Spanish", "Japanese", "Mandarin"
-];
-
-const lang_collection = document.getElementById('lang_collection')
-
-languages.forEach(lan => {
-  html = `
-  <div class="lan-div lang-info">
-                    <span style="margin-left: 3px;">${lan}</span>
-                    <svg class="rotate_svg transition" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 16 16" class="add_cut_svg">
-                      <path fill="black" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
-                    </svg>
-          </div>`
-  lang_collection.insertAdjacentHTML('beforeend', html);
-})
-
-const lan_div = document.querySelectorAll('.lan-div')
-const other_lan_div = document.getElementById('other_lan_div')
-const other_lang_inp = document.getElementById('other_lang_inp')
-lan_div.forEach((lan, index) => {
-  lan.addEventListener('click', function () {
-
-    current_lan = other_lan_div.getAttribute('data-other-lang')
-    if (!current_lan == '') {
-      current_lan = current_lan + ','
-    }
-    other_lan_div.setAttribute('data-other-lang', current_lan + lan.querySelector('span').innerHTML)
-    curren_val = other_lang_inp.value
-    if (!curren_val == '') {
-      curren_val = curren_val + ','
-    }
-    other_lang_inp.value = curren_val + lan.querySelector('span').innerHTML
-    lan.classList.toggle('lang-info');
-    lan.classList.toggle('active-lang-info');
-    const svg = lan.querySelector('svg')
-    svg.classList.toggle('rotate_svg')
-    const path = lan.querySelector('svg path');
-    const currentFill = path.getAttribute('fill');
-    const newFill = currentFill === 'black' ? '#003C96' : 'black';
-    path.setAttribute('fill', newFill);
-  })
-})
- </script>
- <script>
-    const change_profile_img_form = document.getElementById('change_profile_img_form')
-    const profile_image_inp = document.getElementById('profile_image_inp')
-    profile_image_inp.addEventListener('change',()=>{
-        change_profile_img_form.submit()
-    })
- </script>
 {% endblock javascripts %}

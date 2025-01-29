@@ -7,6 +7,7 @@ class UserDetail(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+    applying_for = models.CharField(max_length=255, null=True, blank=True)
     gender = models.CharField(max_length=10, null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
     student = models.BooleanField(default=False)

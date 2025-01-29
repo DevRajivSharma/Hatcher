@@ -22,6 +22,7 @@
             {% csrf_token %}         .
             <div class="detail_container" id="basic_detail">
                 <h2 class="text-center">Basic Details</h2>
+                <div class="d-flex justify-content-between">
                 <div class="mb-3">
                     <label for="birth_date" class="form-label compulsory ">Birth Date</label>
                     <br>
@@ -30,10 +31,21 @@
                 
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label compulsory ">Bio</label>
-                    <textarea class="cutom_inp" name="bio" id="exampleFormControlTextarea1"
-                        placeholder="Describe yourself in few words " rows="1"></textarea>
+                    <label for="applying_for" class="form-label compulsory ">
+                       Applying Job Title
+                    </label>
+                    <br>
+                    <input type="text" placeholder="eg . FullStach Developer"  name="applying_for" id="applying_for">
                 </div>
+                </div>
+                <div class="mb-3">
+                    <label for="bio" class="form-label compulsory ">
+                        Profile summary
+                    </label>
+                    <textarea class="cutom_inp" name="bio" id="bio"
+                        placeholder="Describe yourself in few words " rows="2"></textarea>
+                </div>
+
                 <div class="mb-2">
                     <label class="form-label compulsory ">Gender</label>
                     <br>
@@ -302,7 +314,7 @@
                         <span class="info-card rounded" id="have_experience">Yes</span>
                     </label>
                 
-                    <input type="radio" name="work_experience" value="no_experience" id="no_experience_radio" style="display: none;">
+                    <input type="radio" name="work_experience" value=0 id="no_experience_radio" style="display: none;">
                     <label for="no_experience_radio">
                         <span class="info-card rounded" id="no_experience">No</span>
                     </label>
@@ -571,8 +583,5 @@
 {% block javascript %}
 {% load static %}
 <script src="{% static 'js/complete_profile/basic_detail.js' %}"></script>
-<script>
 
- 
-  </script>
 {% endblock javascript %}

@@ -69,6 +69,7 @@ class Job(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     experience = models.CharField(max_length=100,null=True,choices=EXPERIENCE_CHOICES)
     perks = models.CharField(max_length=100,null=True)
+    current_application = models.IntegerField(default=0,null=True)
     def __str__(self):
         return self.title 
     @property

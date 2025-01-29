@@ -1,0 +1,235 @@
+{% extends '../blocks/emp_dashboard.html' %}
+{% block title %}Home{% endblock title %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/job_detail.css' %}">
+<style>
+    .add_pad{
+    cursor: pointer;
+}
+</style>
+{% endblock css %}
+{% block content %}
+<div class="main-container " style="width: 50%;">
+
+
+  <div class="container-1">
+    {% if posted_jobs %}
+
+    {% for job in posted_jobs %}
+    <div class="add_pad" onclick="job_details_page('{{job.id}}')" style="margin-bottom: 16px;">
+      <div class="card card_id_contain" style="border-radius: 14px;; border: none;">
+        <div class="card-body">
+          <div class="job_cards mb-2 d-flex justify-content-between">
+            <div class="job_cards d-flex">
+              <img src="/media/{{job.company__image}}" class="cmp_img" width="35px" height="35px" alt="image 127">
+              <div class="d-flex flex-column" style="margin-left: 10px;">
+                <span style="
+                    line-height: 27px;
+                    font-size: 26px;
+                    ">
+                  {{job.title}}
+                </span>
+                <span style="color: gray;font-size: 16px;">
+                  {{job.company__name}}
+                </span>
+              </div>
+            </div>
+            <div >
+              <p>Current application {{job.current_application}}</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
+              <img width="19px" height="auto"
+                src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Location_icon.webp" alt="">
+              <span style="color: gray;font-size: 16px;margin-left: 5px;">{{job.location}}</span>
+            </div>
+            <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
+              <img width="19px" height="auto"
+                src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
+              {% if job.salary_minimum %}
+              <span style="color: gray;font-size: 16px;margin-left: 5px;">
+                <img src="/media/logos/rupee.png" alt=""
+                  width="15">{{job.salary_minimum}}-<img src="/media/logos/rupee.png" alt=""
+                  width="15">{{job.salary_maximum}} monthly
+              </span>
+              {% else %}
+              <span style="color: gray;font-size: 16px;margin-left: 5px;">Not Disclosed</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="d-flex " style="margin-top: 10px;">
+            <!-- <div class="info-card rounded ">{{job.title}}</div> -->
+            {% if job.req_skill__imp_skill %}
+            <div class="info-card rounded ">{{job.req_skill__imp_skill}}</div>
+            {% endif %}
+
+            {% if job.work_type %}
+            <div class="info-card rounded ">{{job.work_type}}</div>
+            {% endif %}
+
+            {% if job.job_type %}
+            <div class="info-card rounded ">{{job.job_type}}</div>
+            {% endif %}
+
+            {% if job.experience %}
+            <div class="info-card rounded ">{{job.experience}}</div>
+            {% endif %}
+
+            {% if job.perks %}
+            <div class="info-card rounded ">{{job.perks}}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="card mb-3">
+        <svg width="120" class="card-img-top" height="120" viewBox="0 0 120 120" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <g id="Frame 1171279533">
+            <g id="Group 1171278524">
+              <g id="Group 1171278514">
+                <g id="Group 1171278508">
+                  <path id="Vector 594"
+                    d="M109.77 24.3732L108.016 23.3014C107.803 23.1713 107.524 23.2512 107.413 23.4744L104.972 28.3522C104.873 28.5502 104.942 28.7912 105.131 28.9066L106.1 29.4982C106.289 29.6136 106.535 29.5651 106.666 29.3866L109.892 24.9891C110.04 24.7878 109.983 24.5033 109.77 24.3732Z"
+                    fill="#CB2F4B"></path>
+                  <rect id="Rectangle 13594" x="104.074" y="29.8838" width="1.91808" height="1.91808" rx="0.42624"
+                    transform="rotate(31.421 104.074 29.8838)" fill="#CB2F4B"></rect>
+                </g>
+                <g id="Group 1171278512">
+                  <path id="Vector 594_2"
+                    d="M112.992 30.6628L112.032 29.2065C111.916 29.0297 111.673 28.9905 111.506 29.1216L107.872 31.9863C107.724 32.1026 107.69 32.3126 107.794 32.4694L108.324 33.2732C108.427 33.4301 108.634 33.4816 108.799 33.3918L112.863 31.1795C113.049 31.0783 113.109 30.8396 112.992 30.6628Z"
+                    fill="#CB2F4B"></path>
+                  <rect id="Rectangle 13594_2" x="106.63" y="32.8389" width="1.62746" height="1.62746" rx="0.361659"
+                    transform="rotate(56.5979 106.63 32.8389)" fill="#CB2F4B"></rect>
+                </g>
+                <g id="Group 1171278513">
+                  <path id="Vector 594_3"
+                    d="M101.785 23.4631L103.479 23.8804C103.685 23.9311 103.803 24.1468 103.735 24.3475L102.253 28.7312C102.193 28.9092 102.006 29.0115 101.824 28.9665L100.889 28.7362C100.706 28.6913 100.589 28.5141 100.618 28.3285L101.342 23.7577C101.375 23.5486 101.58 23.4125 101.785 23.4631Z"
+                    fill="#CB2F4B"></path>
+                  <rect id="Rectangle 13594_3" width="1.62746" height="1.62746" rx="0.361659"
+                    transform="matrix(-0.970964 -0.239224 -0.239224 0.970964 101.864 30.1865)" fill="#CB2F4B"></rect>
+                </g>
+              </g>
+              <g id="Group 1171276985">
+                <g id="Group 1171276956">
+                  <circle id="Ellipse 176" cx="96.5852" cy="42.241" r="6.68345" transform="rotate(153.792 96.5852 42.241)"
+                    fill="white" stroke="#4D3951" stroke-width="0.768828"></circle>
+                  <path id="Vector 90" d="M99.9512 43.2109L94.9012 42.0204" stroke="white" stroke-width="0.235595"></path>
+                  <path id="Vector 91" d="M101.642 42.3789L94.9088 40.7038" stroke="white" stroke-width="0.235595"></path>
+                  <rect id="Rectangle 21" x="92.7969" y="47.3242" width="11.9019" height="1.73569" rx="0.495911"
+                    transform="rotate(132.767 92.7969 47.3242)" fill="#4D3951"></rect>
+                </g>
+                <path id="Vector 82"
+                  d="M78.6216 20.943C82.8347 22.5446 87.0854 27.4504 89.3637 30.6751C89.7593 31.235 90.5847 31.2816 91.0213 30.7531L97.0777 23.4216C97.2911 23.1632 97.369 22.8149 97.2385 22.5062C95.2963 17.9124 84.9379 11.3213 84.199 11.3213C83.6634 11.3213 80.2627 15.9992 78.0062 19.2258C77.5843 19.8291 77.9335 20.6814 78.6216 20.943Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+                <path id="Vector 97"
+                  d="M97.0356 99.8367V69.5649H104.891L97.0356 51.1719H66.3806L49.7119 57.1113V97.346L66.3806 99.8367H97.0356Z"
+                  fill="#F4F2F6"></path>
+                <g id="Group 1171276952">
+                  <path id="Vector 74" d="M17.422 44.4297L21.9538 50.346L16.949 54.4285L13.1171 46.7647L17.422 44.4297Z"
+                    fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                  <path id="Vector 75"
+                    d="M12.9273 46.7651C7.22097 49.1654 6.27692 45.962 8.04447 45.0255L17.0113 41.2925L17.4777 42.4472L17.9441 43.6019L18.7442 45.504L13.5021 48.2979L12.9273 46.7651Z"
+                    fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                  <path id="Vector 76"
+                    d="M8.99486 44.6253L17.418 41.1595L17.0198 39.9375C4.5233 44.7307 6.4358 44.7265 7.37043 46.765C7.37408 46.2231 7.22914 45.2908 8.99486 44.6253Z"
+                    stroke="#4D3951" stroke-width="0.766375"></path>
+                </g>
+                <path id="Vector 67"
+                  d="M50.1819 97.2411L66.7649 99.8367V52.2561C66.7649 51.7271 66.2416 51.3571 65.7428 51.5337L50.7831 56.8291C50.482 56.9357 50.2786 57.2177 50.2726 57.537L49.5342 96.4694C49.5269 96.8523 49.8035 97.1819 50.1819 97.2411Z"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 60"
+                  d="M50.7309 39.983C54.0172 37.3274 60.9773 36.7284 64.274 36.8033C64.089 33.1043 65.1976 32.4603 66.0942 31.8838C66.1578 31.8429 66.2281 31.8103 66.3012 31.7908C70.8499 30.5765 74.634 36.4464 76.3444 39.6772C77.9052 42.6255 80.4613 47.4395 80.932 48.326C80.9821 48.4203 81.0512 48.5027 81.1352 48.5687L82.5788 49.703C83.151 50.1526 82.8331 51.0719 82.1053 51.0719H66.5028C66.3919 51.0719 66.2824 51.096 66.1817 51.1425L60.7486 53.6501C60.4183 53.8025 60.0263 53.7017 59.8105 53.4088L50.6321 40.9525C50.4074 40.6475 50.4361 40.2212 50.7309 39.983Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 69" d="M41.8587 91.7906L44.1579 84.7016L50.0973 86.2343L46.0738 93.7065L41.8587 91.7906Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 59"
+                  d="M60.6344 53.5691C59.5118 47.5948 58.2682 42.1389 52.0326 39.0677C51.9459 39.0249 51.8452 39.0089 51.7495 39.0226C44.8736 40.0108 41.0771 44.6813 39.9585 46.7346C39.9466 46.7564 39.9336 46.7765 39.9186 46.7964C36.0954 51.8795 33.9291 54.5602 31.3958 56.5078C31.2086 56.6517 30.9456 56.6369 30.7716 56.4773L21.4917 47.9694C21.3155 47.8079 21.0484 47.7959 20.8586 47.9412C18.1734 49.9971 17.0121 51.117 15.3362 52.6261C15.1611 52.7838 15.119 53.0421 15.242 53.2431C17.8392 57.4884 23.9426 64.7426 30.8674 67.9403C31.0014 68.0021 31.1445 68.0316 31.2914 68.0179C35.7194 67.6062 44.3832 60.581 47.7967 55.771L41.5481 86.4283C41.5093 86.6186 41.585 86.8151 41.7463 86.9233C44.9698 89.086 49.4207 89.1749 51.5737 88.9152C51.7715 88.8913 51.929 88.7451 51.9771 88.5517L60.6283 53.7798C60.6455 53.7109 60.6475 53.6389 60.6344 53.5691Z"
+                  fill="#8C8594" stroke="black" stroke-width="0.566038" stroke-linecap="round"></path>
+                <path id="Vector 61"
+                  d="M71.7774 38.7648V47.7745C71.7774 48.1682 71.4791 48.4979 71.0873 48.5371L67.7154 48.8743C67.3316 48.9126 66.9791 48.6598 66.8924 48.284L64.2041 36.6348"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 62" d="M61.127 42.0781C61.9159 45.3914 62.8783 52.3021 60.417 53.4381" stroke="#4D3951"
+                  stroke-width="0.766375"></path>
+                <path id="Vector 63" d="M67.9912 48.9404V50.5971" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 64" d="M71.7451 48.4893C71.9029 49.1993 72.5498 50.7613 73.8751 51.3292" stroke="#4D3951"
+                  stroke-width="0.766375"></path>
+                <path id="Vector 65" d="M81.0069 48.7051L78.877 51.0717" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 66"
+                  d="M66.7646 51.1719V99.8367H98.9524C99.3757 99.8367 99.7188 99.4936 99.7188 99.0703V68.9901"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 68"
+                  d="M72.9292 68.6804L67.1241 52.1928C66.9486 51.6942 67.3185 51.1719 67.847 51.1719H99.6191C99.9308 51.1719 100.211 51.3606 100.329 51.6493L107.042 68.1369C107.247 68.6409 106.876 69.1923 106.332 69.1923H73.6521C73.3269 69.1923 73.0372 68.9871 72.9292 68.6804Z"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 70"
+                  d="M46.4551 94.0906C52.7777 97.1561 49.4445 100.1 47.6703 99.1759L39.5076 93.9118L40.1936 92.8724L40.8796 91.8331L41.9916 90.0948L46.9191 92.8724L46.4551 94.0906Z"
+                  fill="white" stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 71"
+                  d="M46.8012 98.6179L39.1671 93.6498L38.387 94.6712C49.4257 102.24 48.1811 100.996 49.329 99.07C48.8808 99.3746 48.3512 99.694 46.8012 98.6179Z"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 72"
+                  d="M47.6054 95.047L46.47 96.3241M48.9466 95.8134L47.8112 97.0905M47.6054 95.047L46.47 96.3241M48.9466 95.8134L47.8112 97.0905"
+                  stroke="#4D3951" stroke-width="0.766375"></path>
+                <path id="Vector 73" d="M11.6021 45.6167L11.7305 47.3207M10.0067 45.9593L10.1351 47.6632" stroke="#4D3951"
+                  stroke-width="0.766375"></path>
+                <g id="Group 1171276954">
+                  <path id="Vector 80"
+                    d="M60.3896 101.752L61.5392 100.603L75.1424 107.883C65.1795 108.956 61.156 104.243 60.3896 101.752Z"
+                    fill="#C8C2C9"></path>
+                  <path id="Vector 79"
+                    d="M85.1179 102.385C79.1152 102.421 74.4422 97.811 72.5292 94.979C72.4098 94.8022 72.1762 94.7416 71.9889 94.8437L62.1102 100.232C61.9258 100.333 61.8488 100.559 61.9402 100.748C64.8155 106.698 72.7996 108.486 76.6109 108.644C76.6895 108.647 76.7643 108.627 76.8315 108.586L85.4443 103.357C85.833 103.121 85.5726 102.382 85.1179 102.385Z"
+                    fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+                </g>
+                <g id="Group 1171276953">
+                  <path id="Vector 78"
+                    d="M106.811 109.036C103.439 109.342 96.0174 107.567 92.8242 106.737C92.8242 105.817 94.9956 104.054 96.0813 103.288L106.811 109.036Z"
+                    fill="#C8C2C9"></path>
+                  <path id="Vector 77"
+                    d="M102.183 90.6668C104.597 96.8791 108.968 100.79 111.801 102.556C112.415 102.938 112.541 103.825 112.005 104.311L107.071 108.797C106.901 108.951 106.684 109.045 106.455 109.052C99.9893 109.255 94.2618 103.468 91.7551 99.9468C91.4762 99.5551 91.5366 99.0219 91.8798 98.6851L100.458 90.2655C100.997 89.7364 101.91 89.9627 102.183 90.6668Z"
+                    fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+                </g>
+                <g id="Group 1171276955">
+                  <path id="Vector 83"
+                    d="M94.2172 64.7467L95.1282 62.9144C100.44 63.8326 102.337 72.8025 103.031 76.3317C101.587 72.1503 96.5535 66.5289 94.2172 64.7467Z"
+                    fill="#C8C2C9"></path>
+                  <path id="Vector 81"
+                    d="M102.958 75.4002C102.591 71.3757 97.8668 65.6562 95.3178 63.0587C95.2211 62.9601 95.2492 62.7968 95.3727 62.7351L101.564 59.6393C101.61 59.6163 101.664 59.6119 101.713 59.6268C110.133 62.1723 113.625 68.8411 114.408 72.1444C114.441 72.2848 114.318 72.4112 114.174 72.3985C111.747 72.1831 106.11 74.3278 103.251 75.5769C103.119 75.6342 102.971 75.5428 102.958 75.4002Z"
+                    fill="white" stroke="#4D3951" stroke-width="0.768828"></path>
+                </g>
+                <path id="Vector 99" d="M63.6433 31.2457C64.2302 30.3097 65.6574 29.4803 66.8766 29.6015" stroke="#4D3951"
+                  stroke-width="0.766375" stroke-linecap="round"></path>
+                <path id="Vector 100" d="M19.0588 38.911C18.484 37.7614 17.3344 37.5698 15.9933 37.953" stroke="#4D3951"
+                  stroke-width="0.766375" stroke-linecap="round"></path>
+                <path id="Vector 101" d="M97.3398 38.5283C98.4894 38.9115 100.022 39.8695 100.405 42.1686"
+                  stroke="#4D3951" stroke-width="0.808569" stroke-linecap="round"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <div class="card-body">
+          <h5 class="card-title text-center">No jobs Found</h5>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock content %}
+{% block javascripts %}
+{% load static %}
+<script>
+       function job_details_page (jobId) {
+        const url = "{% url 'employer:applicants_user' 0 %}".replace('0', jobId); // Construct the URL
+        window.location.href = url; // Redirect to the URL
+      }
+</script>
+{% endblock javascripts %}

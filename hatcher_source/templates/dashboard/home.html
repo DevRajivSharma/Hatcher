@@ -1,28 +1,20 @@
 {% extends '../blocks/dashboard_block.html' %}
 {% block title %}Home{% endblock title %}
+{% load profile_custom_filters %}
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/home_responive.css' %}">
 {% load custom_filters %}
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
 
 
-<div class="container border search_div d-flex justify-content-center" id="search-div">
-  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="width: 90%;">
+<div class=" mb-3 d-flex align-items-center " style="height: 90px;" id="search-div">
+  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="margin:auto; width: 70%;gap: 10px;">
     {{ csrftoken }}
-    <select class="form-select"  name="experience" id="experience_select" aria-placeholder="experience" required>
-      <option value="Fresher" {% if search_query.experience == 'Fresher' %}selected{% endif %}>Fresher</option>
-      <option value="1 year" {% if search_query.experience == '1 year' %}selected{% endif %}>1 year</option>
-      <option value="1-3 years" {% if search_query.experience == '1-3 years' %}selected{% endif %}>1-3 years</option>
-      <option value="3-6 years" {% if search_query.experience == '3-6 years' %}selected{% endif %}>3-6 years</option>
-      <option value="6-10 years" {% if search_query.experience == '6-10 years' %}selected{% endif %}>6-10 years</option>
-      <option value="10+ years" {% if search_query.experience == '10+ years' %}selected{% endif %}>10+ years</option>
-    </select>
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
-    <input type="text" placeholder="Enter KeyWord [company/position]" name="keyword" class="form-control" value="{{ search_query.keyword|default:'' }}" required />
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
+    <input type="text" placeholder="Enter KeyWord [company/position]" name="keyword" class="form-control" value="{{ search_query.keyword|default:'' }}"  />
     <input 
     class="form-control" 
     type="text" 
@@ -31,11 +23,10 @@
     id="city_input" 
     value="{{ search_query.location|default:'' }}" 
     autocomplete="off" 
-    required
+    
 />
 <div id="city_suggestions" class="autocomplete-items "></div>
 
-    <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/vertical-line.png" alt="vertical-line" class="align-self-center" />
     <button type="submit" class="btn btn-success" style="
     width: 44%;
 ">Search Job</button>
@@ -69,7 +60,6 @@ Showing {{jobs|length}} jobs based on your filter
         </svg>
         <div class="d-flex flex-row">
           <p>Filters&nbsp;</p>
-          <p>(1)</p>
         </div>
       </div>
       <p style="cursor: pointer;font-size: 14px;color: green;font-weight: bold;" id="clear_all" >Clear all</p>
@@ -283,7 +273,7 @@ Showing {{jobs|length}} jobs based on your filter
     {% if jobs %}
     {%for c in jobs%}
     <div class="add_pad">
-      <div class="card card_id_contain" data-job-id={{c.id}} style="border-radius: 14px;cursor: pointer;">
+      <div class="card card_id_contain" onclick="job_details_page(event)" data-job-id={{c.id}} style="border-radius: 14px;cursor: pointer;">
         <div class="card-body">
           <div class="job_cards mb-2">
             <div class="job_cards">
@@ -509,12 +499,80 @@ Showing {{jobs|length}} jobs based on your filter
     </div>
 
     <div class="profile-2 d-flex flex-column border rounded  p-4 text-center">
-      <h4>Skills</h4>
-      <!-- <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-      <h4>{{ user.phone_no }}</h4>
-      <h4>Bio: {{ user.user_bio }}</h4>
-      <h4>Email: {{ user.email }}</h4>
-      <h4>Password: {{ user.password }}</h4> -->
+      <div class="card" id="preference">
+        <div class="preference-value text-start">
+          Update your profile to make you more attractive and engaging.
+        </div>
+        <br>
+        <div class="preference-grid">
+            <div class="preference-item">
+                <div class="preference-label">Preferred Shift</div>
+                <div class="preference-value">
+                    {% if user_detail.night_shift and user_detail.day_shift %}
+                    Night Shift, Day Shift
+                {% elif user_detail.night_shift %}
+                    Night Shift
+                {% elif user_detail.day_shift %}
+                    Day Shift
+                {% endif %}
+                
+                </div>
+            </div>
+            <div class="preference-item">
+                <div class="preference-label">Preferred Workplace</div>
+                <div class="preference-value">
+                    {% if user_detail.work_from_home and user_detail.work_from_office and user_detail.field_job %}
+                    Work from Home, Work from Office, Field Job
+                {% elif user_detail.work_from_home and user_detail.work_from_office %}
+                    Work from Home, Work from Office
+                {% elif user_detail.work_from_home and user_detail.field_job %}
+                    Work from Home, Field Job
+                {% elif user_detail.work_from_office and user_detail.field_job %}
+                    Work from Office, Field Job
+                {% elif user_detail.work_from_home %}
+                    Work from Home
+                {% elif user_detail.work_from_office %}
+                    Work from Office
+                {% elif user_detail.field_job %}
+                    Field Job
+                {% endif %}
+                
+                </div>
+            </div>
+            <div class="preference-item">
+                <div class="preference-label">Preferred Employment Type</div>
+                <div class="preference-value">
+                    {% if user_detail.full_time and user_detail.part_time and user_detail.hourly %}
+                    Full Time, Part Time, Hourly
+                {% elif user_detail.full_time and user_detail.part_time %}
+                    Full Time, Part Time
+                {% elif user_detail.full_time and user_detail.hourly %}
+                    Full Time, Hourly
+                {% elif user_detail.part_time and user_detail.hourly %}
+                    Part Time, Hourly
+                {% elif user_detail.full_time %}
+                    Full Time
+                {% elif user_detail.part_time %}
+                    Part Time
+                {% elif user_detail.hourly %}
+                    Hourly
+                {% endif %}
+                
+                </div>
+            </div>
+            {% if user_detail.current_working %}
+            <div class="preference-item">
+                <div class="preference-label">Availability to work</div>
+                <div class="preference-value">{{user_detail.notice_period|replace_underscore}}</div>
+            </div>
+            {% endif %}
+
+            <div class="preference-item">
+                <div class="preference-label">Preferred location</div>
+                <div class="preference-value">{{user_detail.location}}</div>
+            </div>
+        </div>
+    </div>
     </div>
     <div class="profile-3  bg-transparent ">
       <img class="border rounded" src="/media/logos/Hatcher_Poster.png" width="100%" alt="">
@@ -535,15 +593,14 @@ Showing {{jobs|length}} jobs based on your filter
 <script src="{% static 'js/candidate_dashboard/home_func.js'%}"  type="module"></script>
 <script src="{% static 'js/candidate_dashboard/home.js'%}" type="module"></script>
 <script>
-  document.querySelectorAll('.card_id_contain').forEach(card => {
-    card.addEventListener('click', function () {
+   function job_details_page (e) {
+      const card = e.target.closest('[data-job-id]'); // Get the card element
       const jobId = card.getAttribute('data-job-id'); // Get the job ID
       if (jobId) {
         const url = "{% url 'dashboard:job_detail' 0 %}".replace('0', jobId); // Construct the URL
         window.location.href = url; // Redirect to the URL
       }
-    });
-  });
+    }
 
 
 </script>
@@ -553,7 +610,7 @@ Showing {{jobs|length}} jobs based on your filter
     const suggestionsDiv = document.getElementById('city_suggestions');
     cityInput.addEventListener('input', () => {
       const query = cityInput.value;
-      // suggestionsDiv.classList.toggle('visually-hidden')
+      suggestionsDiv.classList.remove('visually-hidden')
       if (query.length >= 1) {  // Start searching when 2+ characters are entered
         fetch(`/search_city/?term=${query}`)
           .then(response => response.json())
@@ -582,7 +639,11 @@ Showing {{jobs|length}} jobs based on your filter
         suggestionsDiv.innerHTML = '';  // Clear suggestions if query is too short
       }
     });
-
+    document.addEventListener('click', (event) => {
+          if (!cityInput.contains(event.target) && !suggestionsDiv.contains(event.target)) {
+            suggestionsDiv.classList.add('visually-hidden');
+          }
+      });
     // Style the suggestions (optional)
     suggestionsDiv.style.position = 'absolute';
     suggestionsDiv.style.border = '1px solid #ccc';
@@ -600,5 +661,4 @@ Showing {{jobs|length}} jobs based on your filter
   console.log(index)
   let id_for_current_exp = "experience_value_"+index
 </script>
-
 {% endblock javascripts %}

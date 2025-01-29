@@ -32,6 +32,8 @@ def basic_detail(request):
 
         if 'bio' in data and data['bio']:
             user_detail.bio = data['bio']
+        if 'applying_for' in data and data['applying_for']:
+            user_detail.applying_for = data['applying_for']
         if 'gender' in data and data['gender']:
             user_detail.gender = data['gender']
         if 'location' in data and data['location']:

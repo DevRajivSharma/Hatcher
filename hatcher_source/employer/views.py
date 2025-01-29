@@ -3,9 +3,12 @@ from .models import *
 from .middleware import *
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password,make_password
-
-
-
+from django.db.models import Q
+from credentials.models import user_table
+from complete_profile.models import UserDetail,userResume
+from django.template.loader import render_to_string
+from django.http import JsonResponse,HttpResponse
+from dashboard.models import *
 # Create your views here.
 
 
@@ -23,7 +26,7 @@ def employer_register(request):
         employer_instant = employer_table.objects.create(**data)
         employer_instant.save()
         # Pass the user instance to the template
-        return redirect('employer_login')
+        return redirect('employer:employer_login')
     return render(request, 'credentials/employer_register.html')
 
 
@@ -40,7 +43,7 @@ def employer_login(request):
             if check_password(password.strip(), employer.password):
                 request.session['is_emp_authenticated'] = True
                 request.session['employer_id'] = employer.id
-                return redirect('employer_dashboard')  # Redirect to dashboard after login
+                return redirect('employer:employer_dashboard')  # Redirect to dashboard after login
             else:
                 return render(request, 'credentials/employer_login.html', {'error': 'Invalid credentials'})
         except employer_table.DoesNotExist:
@@ -55,20 +58,11 @@ def employer_logout(request):
 
 @auth
 def employer_dashboard(request):
-    # Retrieve employer ID from session
+    # Fetch employer instance from the database using user_id
+    users = user_table.objects.all()
     employer_id = request.session.get('employer_id')
-    print(employer_id)
-    if employer_id:
-        # Fetch employer instance from the database using user_id
-        employer_instance = employer_table.objects.get(id=employer_id)
-        cmp  = company.objects.filter(cmp_email=employer_instance.email)
-        company_names = cmp.values_list('name', flat=True)
-        jobs = Job.objects.filter(company__name__in=company_names)
-        print('company  is ',cmp)
-        print('company name is ',company_names)
-        print(jobs)
-        return render(request, 'emp_dashboard/home.html',context={'employer':employer_instance,'posted_job':jobs,'companies':cmp})
-    return redirect('employer_login')
+    company_register = company.objects.filter(recruiter__id=employer_id)
+    return render(request, 'emp_dashboard/home.html',context={'users':users,'company_register':company_register})
 
 @company_exist
 def add_job(request):
@@ -120,7 +114,7 @@ def add_job(request):
         }
         req_skill.objects.create(**data2)
         
-        return redirect('employer_dashboard')
+        return redirect('employer:employer_dashboard')
     
     return render(request, 'emp_dashboard/add_job.html', context={'emp_cmp_name': emp_cmp_name})
 
@@ -157,5 +151,89 @@ def company_register(request):
         print(emp_table.company_exist)
         emp_table.company_exist = True
         emp_table.save()
-        return redirect('employer_dashboard')
+        return redirect('employer:employer_dashboard')
     return render(request,'emp_dashboard/company_form.html')
+
+def search_candidate(request):
+    if request.method == 'POST':
+        keyword = request.POST.get('search_keyword', '').strip()  # Get the keyword keyword from POST request
+        if keyword:
+            query = Q(
+                Q(first_name__icontains=keyword) |
+                Q(last_name__icontains=keyword) |
+                Q(details__bio__icontains=keyword) |
+                Q(details__applying_for__icontains=keyword) |
+                Q(details__gender__icontains=keyword) |
+                Q(details__location__icontains=keyword) |
+                Q(details__education_level__icontains=keyword) |
+                Q(details__diploma_degree__icontains=keyword) |
+                Q(details__iti_degree__icontains=keyword) |
+                Q(details__graduate_degree__icontains=keyword) |
+                Q(details__postgraduate_degree__icontains=keyword) |
+                Q(details__specialization__icontains=keyword) |
+                Q(details__college_name__icontains=keyword) |
+                Q(details__school_medium__icontains=keyword) |
+                Q(details__job_title__icontains=keyword) |
+                Q(details__job_role__icontains=keyword) |
+                Q(details__company_name__icontains=keyword) |
+                Q(details__industry__icontains=keyword) |
+                Q(details__notice_period__icontains=keyword) |
+                Q(details__experience__icontains=keyword) |
+                Q(details__other_languages__icontains=keyword) |
+                Q(details__skills__icontains=keyword)
+            )
+            candidates = user_table.objects.filter(query).distinct()
+            print('Here are the candidates')
+            print(candidates) 
+            return render(request, 'emp_dashboard/home.html',context={'users':candidates})
+        
+def posted_jobs(request):
+    emp_id = request.session.get('employer_id')
+    employer_instance = employer_table.objects.get(id=emp_id)
+    posted_jobs = Job.objects.filter(company__recruiter=employer_instance)
+    posted_jobs_val = posted_jobs.values(
+        'company__name', 'company__image', 'title', 'req_skill__imp_skill',
+        'req_skill__education', 'salary_maximum', 'salary_minimum', 'location',
+        'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description','current_application'
+    )
+    return render(request, 'emp_dashboard/Posted_job.html', context={ 'posted_jobs': posted_jobs_val}) 
+def applications(request):
+    emp_id = request.session.get('employer_id')
+    employer_instance = employer_table.objects.get(id=emp_id)
+    posted_jobs = Job.objects.filter(company__recruiter=employer_instance)
+    job_with_applications = posted_jobs.filter(current_application__gt=0)
+    posted_jobs = posted_jobs.filter(current_application__gt=0)
+    # posted_jobs_val = posted_jobs.values(
+    #         'company__name', 'company__image', 'title', 'req_skill__imp_skill',
+    #         'req_skill__education', 'salary_maximum', 'salary_minimum', 'location',
+    #         'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description','current_application'
+    #     )
+    posted_jobs_val = posted_jobs.values(
+            'company__name', 'company__image', 'title', 'req_skill__imp_skill',
+            'req_skill__education', 'salary_maximum', 'salary_minimum', 'location',
+            'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description','current_application'
+        )
+    job_with_applications_values = job_with_applications.values(
+            'company__name', 'company__image', 'title', 'req_skill__imp_skill',
+            'req_skill__education', 'salary_maximum', 'salary_minimum', 'location',
+            'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description','current_application'
+        )
+    # applications = Application.objects.filter(job__company__recruiter=employer_instance)
+    # applications_val = applications.values('job__company__name','job__company__image', 'job__title', 'job__location', 'job__job_type', 'job__work_type', 'job__experience', 'job__salary_maximum', 'job__salary_minimum', 'job__created_at', 'job__location', 'job__id', 'status')
+    # print(applications_val)
+    # print('applications')
+    return render(request, 'emp_dashboard/applications.html', context={ 'posted_jobs': posted_jobs_val,
+    'job_with_applications':job_with_applications_values}) 
+
+def applicants_user(request,job_id):
+    job = Job.objects.get(id=job_id)
+    applications = Application.objects.filter(job=job)
+    candidates = user_table.objects.filter(applications__in=applications)
+    return render(request, 'emp_dashboard/applicant_user.html', context={'users': candidates})
+
+def user_profile(request,id):
+    print(id)
+    user_instance = user_table.objects.get(id=id)
+    user_detail = UserDetail.objects.get(user=user_instance)
+    user_resume,created = userResume.objects.get_or_create(user = user_instance)
+    return render(request, 'emp_dashboard/candidates_profile.html', context={'user': user_instance,'user_detail' : user_detail,'user_resume':user_resume})

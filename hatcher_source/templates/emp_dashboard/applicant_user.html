@@ -1,100 +1,20 @@
 {% extends '../blocks/emp_dashboard.html' %}
+{% block title %}Home{% endblock title %}
 {% load profile_custom_filters %}
 {% block css %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/community_post.css' %}">
+<link rel="stylesheet" href="{% static 'css/job_detail.css' %}">
 <style>
-      .pencil-icon {
-        width: 16px;
-        height: 16px;
-        opacity: 0.6;
-        cursor: pointer;
-    }
-      .delete-icon {
-        width: 16px;
-        height: 16px;
-        opacity: 0.6;
-        cursor: pointer;
-    }
-
-    .pencil-icon:hover {
-        opacity: 1;
-    }
-    .delete-icon:hover {
-        opacity: 1;
-    }
-    .com_p{
-      margin: 0;
-    }
-    .cmp_img_name {
-    width: 43%;
+    .add_pad{
+    cursor: pointer;
 }
-
 </style>
 {% endblock css %}
-
 {% block content %}
-
-<div class="container   mb-3" id="search-div">
-  <form action="{% url 'employer:search_candidate' %}" id="form" method="post" class="d-flex flex-row 
-  justify-content-between" style="width: 90%;
-  max-width: 1000px;
-  margin: auto;">
-    {% csrf_token %}
-    <input type="text" placeholder="Search candidate by ..... " name="search_keyword" class="form-control"
-      style="width: 60%;" required />
-
-    <button type="submit" class="btn btn-success" " style="width:13%
-  ">Search</button>
-  </form>
-</div>
-
-<!-- Display the user's data after form submission -->
-
-<div class="main-container  d-flex flex-row  p-0 ">
-  <div class="tool_container">
-    <div class="profile-2 d-flex flex-column  border rounded justify-content-between  p-4 ">
-
-      <a href="{% url 'employer:add_job' %}"  style="width: 100%">
-        <button type="button" class="green_button" style="width: 100%;margin: 0;">
-          Publish Job
-        </button>
-      </a>
-      <hr>
-      <h5>Registered company</h5>
-      {% if company_register %}
-        {% for cmp in company_register %}
-        <p class="com_p border mb-2 bg-light d-flex justify-content-between p-2">
-         
-          <span class="cmp_img_name">
-            <img src="/media/{{cmp.image}}" width="20px" height="20px" alt="">
-            {{ cmp.name }}
-          </span> 
-          <span class="images d-flex gap-2">
-            <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            <svg class="delete-icon" data-toggle="modal" data-target="#delete_modal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </span> 
-        </p>
-        {% endfor %}
-      {% else %}
-      <p class="com_p">No Complany Registered</p>
-      {% endif %}
-      <a href="{% url 'employer:company_register' %}"  style="width: 100%">
-        <button class=" green_button"  id="my-post" style="background-color: #5c5ce9db ;
-       width: 100% ;margin: 0;">
-          Register Company
-        </button>
-      </a>
-    </div>
-    <!-- Button trigger modal -->
+<div class="main-container ">
 
 
-  </div>
-  <div class="container1">
+  <div class="container-1">
     {% if users %}
     {% for user in users %}
     <div class="add_pad mb-3">
@@ -105,7 +25,7 @@
             <div class="job_cards d-flex ">
               <img src="/media/{{user.user_profile_image}}" class="cmp_img" width="30px" height="30px"
                 alt="image {{counter}}" style="    object-fit: cover;
-                border-radius: 50%;">
+    border-radius: 50%;">
               <div class="d-flex flex-column" style="margin-left: 10px;">
                 <span style="line-height: 14px;
                     font-size: 20px;">
@@ -289,25 +209,20 @@
     </div>
     {% endif %}
   </div>
+
 </div>
 
 
-<a href="#top">
-  <img width="50" height="50" id="Up_Arrow" src="/media/logos/scroll_to_top.png" alt="page-up-button">
-</a>
 
 
-
-<!-- delete modal -->
 
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
 <script>
-  function user_profile_page(id) {
-    const url = "{% url 'employer:user_profile' 0 %}".replace('0', id);
-    window.location.href = url
-  }
-</script>
-
+    function user_profile_page(id) {
+      const url = "{% url 'employer:user_profile' 0 %}".replace('0', id);
+      window.location.href = url
+    }
+  </script>
 {% endblock javascripts %}

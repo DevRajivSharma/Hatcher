@@ -174,7 +174,7 @@ function updateJobListings(jobs) {
       jobs.forEach((job) => {
         const jobCard = `
           <div class="add_pad">
-            <div class="card" id="card_id_contain" data-job-id="${job.id}" style="border-radius: 14px; cursor: pointer;" >
+            <div class="card" id="card_id_contain" onclick="job_details_page(event)" data-job-id="${job.id}" style="border-radius: 14px; cursor: pointer;" >
               <div class="card-body">
                 <div class="job_cards mb-2">
                   <div class="job_cards">

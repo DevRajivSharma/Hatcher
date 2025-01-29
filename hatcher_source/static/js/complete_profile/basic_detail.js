@@ -442,7 +442,7 @@ function validate_basic_detail() {
 
   // Get field values
   const birthDate = document.getElementById("birth_date").value.trim();
-  const bio = document.getElementById("exampleFormControlTextarea1").value.trim();
+  const bio = document.getElementById("bio").value.trim();
   const genderMale = document.getElementById("male").checked;
   const genderFemale = document.getElementById("female").checked;
   const location = document.getElementById("location").value.trim();

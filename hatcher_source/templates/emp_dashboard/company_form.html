@@ -1,9 +1,10 @@
 {% extends '../blocks/credentials_block.html' %}
 
-{% block content %}
+{% block content %}\
+<br><br><br>
 <h1 class="text-center">Company Register</h1>
 <form class="container" method="post" enctype="multipart/form-data"
- action="{% url 'company_register' %}">
+ action="{% url 'employer:company_register' %}">
     {% csrf_token %}
     <div class="mb-3">
         <label for="fname" class="form-label">Company Name</label>

@@ -78,13 +78,22 @@
     border: 1px solid rgb(204, 204, 204);
     background-color: rgb(255, 255, 255);
     z-index: 1;
-    top: 139px;
-    right: 433px;
-    width: 242px;
-    height: 209px;
+    top: 142px;
+    right: 450px;
+    width: 404px;
+    height: fit-content;
+    max-height: 209px;
     overflow-y: auto;
 }
+/* .autocomplete-items{
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
 
+.autocomplete-items::-webkit-scrollbar {
+    display: none; 
+  } */
 .autocomplete-item{
     font-size: larger;
     padding: 5px;
@@ -137,4 +146,42 @@ left: 189px
 
 div#city_suggestions:empty {
     display: none;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#preference{
+    border: none;
+}
+.preference-grid {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.preference-item {
+    margin-bottom: 16px;
+}
+
+
+.preference-value {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+.preference-label {
+    font-size: 16px;
+    color: #333;
 }

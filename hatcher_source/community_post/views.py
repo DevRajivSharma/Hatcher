@@ -82,7 +82,7 @@ def my_post(request):
     liked_post_ids = liked_posts.values_list('id', flat=True)
 
     # Render partial HTML for the posts
-    post_html = render_to_string('partial/community.html', {
+    post_html = render_to_string('partial/community_partial.html', {
         'user': user,
         'posts': my_posts,
         'liked_post_ids': liked_post_ids,
@@ -109,7 +109,7 @@ def delete_post(request):
     liked_post_ids = liked_posts.values_list('id', flat=True)
 
     # Render partial HTML for the posts
-    post_html = render_to_string('partial/community.html', {
+    post_html = render_to_string('partial/community_partial.html', {
         'user': user,
         'posts': my_posts,
         'liked_post_ids': liked_post_ids,
