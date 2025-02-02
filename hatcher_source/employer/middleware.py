@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from .models  import *
 from django.contrib import messages
-class auth  :
+class   auth  :
     def __init__(self, get_response):
         self.get_response = get_response
 

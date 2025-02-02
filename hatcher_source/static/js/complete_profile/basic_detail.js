@@ -316,6 +316,7 @@ let currentIndex = 0; // Tracks the currently visible section
 let currentStep = 1;
 
 function next_page() {
+  alert(currentIndex)
   if (currentIndex == 0) {
     if (validate_basic_detail()){
     // if (true) {
@@ -606,8 +607,10 @@ function validateExperienc(){
 }
 
 function validateLanguage(){
-  const english = document.querySelector('#Language input[name ="english"]:checked');
+  alert('validateLanguage')
+  const english = document.querySelector('#Language input[name ="english_level"]:checked');
   isValid = true
+ console.log('input checked', english)
   if (!english) {
     isValid = false
     document.querySelector('.error_p').classList.remove('visually-hidden');

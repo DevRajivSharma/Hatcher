@@ -38,7 +38,7 @@
   width: 73%;
   font-weight: 600;
   " id="total-search-result">
-Showing {{jobs|length}} jobs based on your filter
+Showing <span id="total_jobs">{{jobs|length}}</span> jobs based on your filter
 </h4>
 
 <div class="main-container container d-flex flex-row justify-content-center p-0 ">
@@ -271,7 +271,7 @@ Showing {{jobs|length}} jobs based on your filter
 
   <div class="container2 d-flex flex-column w-60 m-2 container-part " id="job-list-container">
     {% if jobs %}
-    {%for c in jobs%}
+    {%for c in jobs|slice:":10" %}
     <div class="add_pad">
       <div class="card card_id_contain" onclick="job_details_page(event)" data-job-id={{c.id}} style="border-radius: 14px;cursor: pointer;">
         <div class="card-body">
@@ -303,6 +303,7 @@ Showing {{jobs|length}} jobs based on your filter
             <img width="19px" height="auto"
               src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Salary_icon.webp" alt="">
             
+    
             {% if c.salary_disclose %}
             <span style="color: gray;font-size: 16px;margin-left: 5px;">
               <img src="/media/logos/rupee.png" alt="" width="15" style="
@@ -312,12 +313,13 @@ Showing {{jobs|length}} jobs based on your filter
                 <img src="/media/logos/rupee.png" alt="" width="15" style="
                 margin-right: -3px;
                 margin-top: -2px;">
-                {{c.salary_maximum}} monthly
+                {{c.salary_maximum}} 
             </span>
-            {% endif %}
+            {% else %}
             <span style="color: gray;font-size: 16px;margin-left: 5px;">
               Not-Disclose
             </span>
+            {%endif%}
           </div>
           <div class="d-flex " style="margin-top: 10px;overflow: hidden;">
             <!-- <div class="info-card rounded ">{{c.title}}</div> -->
@@ -581,6 +583,17 @@ Showing {{jobs|length}} jobs based on your filter
   </div>
 </div>
 
+<div id="loading" class="text-center mb-2" style="text-align: center; display: none;">
+<button class="btn btn-primary" type="button" disabled>
+  <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+  <span class="visually-hidden" role="status">Loading...</span>
+</button>
+<button class="btn btn-primary" type="button" disabled>
+  <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+  <span role="status">Loading...</span>
+</button> 
+</div>
+
 <a href="#top">
   <img width="50" height="50" id="Up_Arrow" src="/media/logos/scroll_to_top.png"
   alt="page-up-button"  />
@@ -653,12 +666,54 @@ Showing {{jobs|length}} jobs based on your filter
 </script>
 <script>
   // Predefined experience values
-  const value = "{{ search_query.experience | default:'Fresher' }}";
-  const experienceOptions = ["Fresher", "1 year", "1-3 years", "3-6 years", "6-10 years", "10+ years"];
+  const value = "{{'Any'}}";
+  const experienceOptions = ["Fresher", "1 year", "1-3 years", "3-6 years", "6-10 years", "10+ years", "Any"];
   const slider = document.getElementById("experience_slider");
   console.log(value)
   const index = experienceOptions.indexOf(value.toString());
   console.log(index)
   let id_for_current_exp = "experience_value_"+index
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let page = 2;  // Start from page 2 since page 1 is already loaded
+    let loading = false;
+
+    window.addEventListener("scroll", function() {
+        if (loading) return;  // Prevent multiple requests
+
+        let scrollPosition = window.innerHeight + window.scrollY;
+        let documentHeight = document.body.scrollHeight;
+
+        console.log("Scroll Position:", scrollPosition, "Document Height:", documentHeight);
+
+        if (scrollPosition >= documentHeight - 500) {  // Trigger when close to the bottom
+            console.log("Fetching more data...");
+            loading = true;
+            document.getElementById("loading").style.display = "block";
+
+            fetch("{% url 'dashboard:load_jobs' %}?page=" + page)
+
+                .then(response => response.json())
+                .then(data => {
+                    if (data.jobs_html.trim() !== "") {
+                        document.getElementById("job-list-container").insertAdjacentHTML('beforeend', data.jobs_html);
+                        page++;  // Increment page only if data is loaded
+                        loading = false;  // Reset loading flag
+                    } else {
+                        console.log("No more jobs to load");
+                        document.getElementById("loading").style.display = "none";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching jobs:", error);
+                    loading = false;  // Reset loading on error
+                });
+        }
+    });
+});
+
+  </script>
+  
 {% endblock javascripts %}

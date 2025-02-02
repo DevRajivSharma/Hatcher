@@ -28,6 +28,9 @@
     }
     .cmp_img_name {
     width: 43%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 </style>
@@ -36,13 +39,15 @@
 {% block content %}
 
 <div class="container   mb-3" id="search-div">
-  <form action="{% url 'employer:search_candidate' %}" id="form" method="post" class="d-flex flex-row 
+  <form action="{% url 'employer:search_candidate' %}" id="form" method="get" class="d-flex flex-row 
   justify-content-between" style="width: 90%;
   max-width: 1000px;
   margin: auto;">
     {% csrf_token %}
-    <input type="text" placeholder="Search candidate by ..... " name="search_keyword" class="form-control"
-      style="width: 60%;" required />
+    <input type="text" placeholder="Search candidate by ....."
+     name="search_keyword" class="form-control"
+     value="{% if search_keyword %}{{ search_keyword }}{% endif %}"
+      style="width: 60%;"  />
 
     <button type="submit" class="btn btn-success" " style="width:13%
   ">Search</button>
@@ -63,25 +68,42 @@
       <hr>
       <h5>Registered company</h5>
       {% if company_register %}
-        {% for cmp in company_register %}
-        <p class="com_p border mb-2 bg-light d-flex justify-content-between p-2">
-         
-          <span class="cmp_img_name">
-            <img src="/media/{{cmp.image}}" width="20px" height="20px" alt="">
+      {% for cmp in company_register %}
+      <div class="com_p border mb-2 bg-light d-flex justify-content-between p-2">
+        <span class="cmp_img_name">
+          <img src="/media/{{cmp.image}}" class="cmp_img" width="25px" height="25px" alt="">
+          <span class="cmp_name">
             {{ cmp.name }}
-          </span> 
-          <span class="images d-flex gap-2">
+          </span>
+        </span> 
+        <span class="images d-flex gap-2">
+          <a href="{% url 'employer:edit_company' cmp.id %}" class="nav-link">
             <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            <svg class="delete-icon" data-toggle="modal" data-target="#delete_modal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            </svg> 
+          </a>
+      
+          <!-- Delete Icon with Modal Trigger -->
+          <svg class="delete-icon mt-1"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+            style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteModal">
             <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </span> 
-        </p>
-        {% endfor %}
+          </svg>
+      
+          <!-- Delete Form (Hidden Submission) -->
+          <form action="{% url 'employer:delete_company' cmp.id %}" method="post" class="delete_form">
+            {% csrf_token %}
+            
+          </form>
+        </span> 
+      </div>
+      {% endfor %}
       {% else %}
-      <p class="com_p">No Complany Registered</p>
+      <p class="com_p" style="
+        margin: 0;
+        font-size: small;
+        text-align: center;
+        color: gray;
+    ">No Complany Registered</p>
       {% endif %}
       <a href="{% url 'employer:company_register' %}"  style="width: 100%">
         <button class=" green_button"  id="my-post" style="background-color: #5c5ce9db ;
@@ -298,7 +320,27 @@
 
 
 
-<!-- delete modal -->
+
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="modal_cmp_img" src="" width="50px" height="50px" class="mb-2" alt="Company Image">
+        <p>Are you sure you want to delete <strong id="modal_cmp_name"></strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 {% block javascripts %}
@@ -309,5 +351,31 @@
     window.location.href = url
   }
 </script>
-
+<!-- JavaScript to Handle Modal -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let deleteIconList = document.querySelectorAll(".delete-icon");
+    let deleteForm;
+  
+    deleteIconList.forEach(icon => {
+      icon.addEventListener("click", function() {
+        let parentDiv = this.closest(".com_p"); // Find the closest div containing company data
+        let cmpImg = parentDiv.querySelector(".cmp_img").src; // Get image
+        let cmpName = parentDiv.querySelector(".cmp_name").innerText; // Get company name
+        deleteForm = parentDiv.querySelector(".delete_form"); // Get the closest delete form
+  
+        // Update modal content
+        document.getElementById("modal_cmp_img").src = cmpImg;
+        document.getElementById("modal_cmp_name").innerText = cmpName;
+      });
+    });
+  
+    // Handle delete confirmation
+    document.getElementById("confirmDelete").addEventListener("click", function() {
+      if (deleteForm) {
+        deleteForm.submit(); // Submit the form
+      }
+    });
+  });
+  </script>
 {% endblock javascripts %}

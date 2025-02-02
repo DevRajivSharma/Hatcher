@@ -49,7 +49,7 @@ def add_post(request):
 def edit_post(request, post_id):
     if request.method == 'POST':
         # Get the updated content from the form
-        updated_content = request.POST.get('updated_post')
+        updated_content = request.POST.get('updated_content')
         user_id = request.session.get('user_id')
         user = user_table.objects.get(id=user_id)
         user_detail = UserDetail.objects.get(user = user)
@@ -71,7 +71,9 @@ def edit_post(request, post_id):
 
         else:
             return JsonResponse({"error": "Updated content cannot be empty."}, status=400)
-
+    post = Post.objects.get(id=post_id)
+    return render(request, 'dashboard/edit_post.html', {'post': post})
+    
 def my_post(request):
     print('Inside my post')
     user_id = request.session.get('user_id')

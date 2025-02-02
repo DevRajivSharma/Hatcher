@@ -8,15 +8,18 @@
 </style>
 {% endblock css %}
 {% block content %}
-<form id="postForm" method="post" action="{% url 'community_post:add_post' %}" class="container" >
+<form id="postForm" method="post" action="{% url 'community_post:edit_post' post.id %} " class="container" >
     {% csrf_token %}
     <div class="mb-3">
-      <label for="Post_Textarea" class="form-label">Add Post</label>
-      <textarea class="form-control" id="Post_Textarea" name="new_post" rows="3"></textarea>
+      <label for="Post_Textarea" class="form-label">Edit Post</label>
+      <textarea class="form-control" id="Post_Textarea" name="updated_content" rows="3">
+        {{post.content}}
+      </textarea>
     </div>
     <div class="text-end mb-2">
       <button type="submit" class="btn btn-dark" style="width: 100px;">Post</button>
     </div>
+
 </form>
 {% endblock content %}
 {% block javascripts %}

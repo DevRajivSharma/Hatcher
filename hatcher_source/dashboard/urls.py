@@ -9,4 +9,5 @@ urlpatterns = [
     path('job_detail/<int:job_id>/', job_detail, name='job_detail'),
     path('apply_job/<int:job_id>/', apply_job, name='apply_job'),
     path('applications', applications, name='applications'),
+    path('load-jobs/', load_jobs, name='load_jobs'),
 ]

@@ -4,28 +4,24 @@
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/job_detail.css' %}">
-<style>
-    .add_pad{
-    cursor: pointer;
-}
-</style>
+
 {% endblock css %}
 {% block content %}
-<div class="main-container ">
+<div class="main-container " style="width: 50%;">
 
 
   <div class="container-1">
     {% if users %}
     {% for user in users %}
     <div class="add_pad mb-3">
-      <div class="card card_id_contain" onclick="user_profile_page('{{user.id}}')"
-        style="border-radius: 14px;cursor: pointer;">
+      <div class="card card_id_contain " 
+        style="border-radius: 14px;">
         <div class="card-body">
           <div class="job_cards mb-2 d-flex justify-content-between">
             <div class="job_cards d-flex ">
               <img src="/media/{{user.user_profile_image}}" class="cmp_img" width="30px" height="30px"
                 alt="image {{counter}}" style="    object-fit: cover;
-    border-radius: 50%;">
+               border-radius: 50%;">
               <div class="d-flex flex-column" style="margin-left: 10px;">
                 <span style="line-height: 14px;
                     font-size: 20px;">
@@ -36,28 +32,26 @@
                 </span>
               </div>
             </div>
-            <svg class="" xpmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1F8268">
-              <path
-                d="M8.355 6.316a.985.985 0 0 0 0 1.515l4.714 4.17-4.714 4.17a.985.985 0 0 0 0 1.515c.474.419 1.24.419 1.713 0l5.577-4.933a.985.985 0 0 0 0-1.515l-5.577-4.933c-.461-.408-1.239-.408-1.713.01Z">
-              </path>
-            </svg>
+            <a href="{% url 'employer:user_profile' user.id %}" target="_blank">
+              <button class="btn btn-dark">See Profile</button>
+            </a>
           </div>
           <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
             <img width="19px" height="auto"
               src="https://storage.googleapis.com/mumbai_apnatime_prod/jobs_page/Location_icon.webp" alt="">
             <span style="color: gray;font-size: 16px;margin-left: 5px;">{{user.details.location}}</span>
           </div>
-          <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
-            <img width="19px" height="auto" src="/media/logos/college.png" alt="Education">
-            <span style="color: gray;font-size: 16px;margin-left: 5px;">
+          <div class="job_cards align-items-start d-flex " style="width: 79%;;align-items: center;">
+            <img width="19px" height="auto" style="margin-top: 3px;" src="/media/logos/college.png" alt="Education">
+            <div style="color: gray;font-size: 16px;margin-left: 5px; ">
               {{user.details.college_name}} |
               {{user.details.college_start_date|formatted_start_end}} -
               {{user.details.college_end_date|formatted_start_end}}
-            </span>
+            </div>
           </div>
-          <div class="job_cards align-item-center" style="width: fit-content;align-items: center;">
-            <img width="19px" height="auto" src="/media/logos/education.png" alt="Education">
-            <span style="color: gray;font-size: 16px;margin-left: 5px;">
+          <div class="job_cards align-items-start d-flex" style="width: 79%;">
+            <img width="19px" height="auto" style="margin-top: 3px;" src="/media/logos/education.png" alt="Education">
+            <div style="color: gray;font-size: 16px;margin-left: 5px;">
               {% if user.details.student %}
               Student |
               {% else %}
@@ -72,7 +66,37 @@
               {% elif user.details.postgraduate_degree %}
               {{ user.details.postgraduate_degree }} in {{user.details.specialization}}
               {% endif %}
-            </span>
+            </div>
+          </div>
+
+          <div style="    position: absolute;
+          right: 10px;
+          bottom: 18px;">
+          {% if candidates_status|get_item:user.id == 'Pending' %}
+          <form action="{% url 'employer:reject_applicant' job.id user.id %}" method="post" style="display: inline-block;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Reject</button>
+          </form>
+
+          <form action="{% url 'employer:accept_applicant' job.id user.id %}" method="post" style="display: inline-block;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Accept</button>
+          </form>
+          {% else %}
+
+            {% if candidates_status|get_item:user.id == 'Rejected' %}
+            <div class="" style="font-size: medium;
+              font-weight: 600;color: red;">
+              {{candidates_status|get_item:user.id}}
+            </div>
+            {% else %}
+              <div class="" style="font-size: medium;
+              font-weight: 600;color: green;">
+              {{candidates_status|get_item:user.id}}
+            </div>
+            {% endif %}
+            {% endif %}
+          
           </div>
         </div>
       </div>
@@ -219,10 +243,5 @@
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
-<script>
-    function user_profile_page(id) {
-      const url = "{% url 'employer:user_profile' 0 %}".replace('0', id);
-      window.location.href = url
-    }
-  </script>
+
 {% endblock javascripts %}

@@ -1,48 +1,38 @@
 function apply_job(jobId, button) {
-  button.innerHTML = `
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  `;
-
-  const csrfToken = getCSRFToken();  // Fetch CSRF token
-
-  fetch(`http://localhost:8000/dashboard/apply_job/${jobId}/`, {
+    // Show loader and disable the button
+    button.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    `;
+    
+    // Send an AJAX request to apply for the job
+    fetch(`http://localhost:8000/dashboard/apply_job/${jobId}/`, {
       method: "POST",
       headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,  // Include CSRF token in request
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(), // Add CSRF token for Django
       },
-      credentials: "include",  // Ensures cookies are sent with the request
-  })
-  .then((response) => response.json())
-  .then((data) => {
-      if (data.status === "success") {
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          // Change button text to "Applied" and keep it disabled
           button_disable();
-      } else {
+        } else {
+          // Handle error and re-enable the button
           button.innerHTML = "Apply now";
           button.disabled = false;
           alert("Failed to apply for the job. Please try again.");
-      }
-  })
-  .catch((error) => {
-      console.error("Error:", error);
-      button.innerHTML = "Apply now";
-      button.disabled = false;
-      alert("An error occurred. Please try again.");
-  });
-}
-
-// Function to get CSRF token from cookies
-function getCSRFToken() {
-  const name = "csrftoken=";
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(name)) {
-          return cookie.substring(name.length);
-      }
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Reset the button on error
+        button.innerHTML = "Apply now";
+        button.disabled = false;
+        alert("An error occurred. Please try again.");
+      });
   }
-  return "";
-}
+
 function button_disable(){
     console.log("Button disabled");
     const apply_button = document.querySelectorAll('.apply_button');
@@ -51,6 +41,19 @@ function button_disable(){
         btn.innerHTML = "Applied";
     });
 }
+  // Function to get CSRF token from cookies
+function getCSRFToken() {
+    const name = "csrftoken=";
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name)) {
+            return cookie.substring(name.length);
+        }
+    }
+    return "";
+}
+
   const apply_div = document.querySelector('.apply_job_div');
   const stickyThreshold = 320; // The position where the sticky behavior starts
   

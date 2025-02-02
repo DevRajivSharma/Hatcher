@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'credentials',
     'dashboard',
     'community_post',
@@ -58,7 +57,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,22 +146,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost",
-    "http://127.0.0.1",
-    "http://127.0.0.1:8000",  # Add this
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-]
-
-CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to access CSRF cookie
-CSRF_COOKIE_SECURE = False  # Set to True only in production with HTTPS
-CSRF_USE_SESSIONS = False  # Ensure CSRF token is stored in a cookie
-CSRF_COOKIE_SAMESITE = "Lax"  # Required for cross-origin requests
-
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

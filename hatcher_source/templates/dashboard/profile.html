@@ -755,6 +755,25 @@
     margin-top: -4px;
 }
 </style>
+<!-- Internship modal -->
+<style>
+    .modal-header{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    #internshipForm input{
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+#internshipForm textarea{
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+</style>
 {% endblock css %}
 {% block content %}
 
@@ -769,7 +788,7 @@
             <!-- Edit icon that will be shown on hover -->
 
                 
-                <div class="edit-icon">
+                <div class="edit-icon ">
                     <svg class="profile-pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                     </svg>
@@ -780,7 +799,7 @@
         </form>
         
         <div class="profile-info">
-            <h1 class="profile-name">
+            <h1 class="profile-name modal_toggle_card" id="profile_name">
                 {{ user.first_name }} {{ user.last_name }}
                 <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -875,7 +894,7 @@
     </div>
     <div class="container2">
         <!-- Career Preferences Section -->
-        <div class="card" id="preference">
+        <div class="card modal_toggle_card" id="preference">
             <div class="section-header">
                 <h2 class="section-title">
                     Your career preferences
@@ -955,44 +974,74 @@
         </div>
 
         <!-- Education Section -->
-        <div class="card" id="education">
+        <div class="card modal_toggle_card" id="education">
             <div class="section-header">
-                <h2 class="section-title">Education</h2>
-                <a href="#" class="add-button">Add</a>
+                <h2 class="section-title">Education
+                <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+            </h2>
+            </div>
+            {% if user_detail.college_name %}
+                
+
+            <div class="education-item">
+                <h3 class="education-title">
+                    {{ user_detail.college_name }}
+
+                </h3>
+                <div class="education-subtitle">
+                    {{user_detail.college_start_date|formatted_start_end}} - {{user_detail.college_end_date|formatted_start_end}}
+                </div>
             </div>
             <div class="education-item">
                 <h3 class="education-title">
-                    B.Sc from Ramniranjan Jhunjhunwala College, Mumbai
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                    Education Level
                 </h3>
-                <div class="education-subtitle">Graduating in 2025, Full Time</div>
+                <div class="education-subtitle">
+                    {% if user_detail.student %}
+                    Student | 
+                {% else %}
+                    {{user_detail.education_level}} |
+                {% endif %}
+                {% if user_detail.diploma_degree %}
+                   {{ user_detail.diploma_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.iti_degree %} 
+                    {{ user_detail.iti_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.graduate_degree %}
+                    {{ user_detail.graduate_degree }} in {{user_detail.specialization}}
+                {% elif user_detail.postgraduate_degree %}
+                    {{ user_detail.postgraduate_degree }} in {{user_detail.specialization}}
+                {% endif %}
+                </div>
+                <div class="education-subtitle"> Passed out in {{user_detail.college_end_date|formate_year}}</div>
             </div>
+            {% else %}
             <div class="education-item">
                 <h3 class="education-title">
-                    Class XII
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                    Educaiton Level
                 </h3>
-                <div class="education-subtitle">Maharashtra, English</div>
-                <div class="education-subtitle">Scored 86%, Passed out in 2021</div>
+                <div class="education-subtitle">
+                    {% if user_detail.education_level == '10_below_10' %}
+                        Below 10th or 10th Pass
+                    {% else %}
+                    XII Pass
+                    {% endif %}
+                </div>
             </div>
+            {% endif %}
             <div class="education-item">
                 <h3 class="education-title">
-                    Class X
-                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
+                    School Medium
                 </h3>
-                <div class="education-subtitle">Maharashtra, English</div>
-                <div class="education-subtitle">Scored 74%, Passed out in 2019</div>
+                <div class="education-subtitle">
+                    {{user_detail.school_medium}}
+                </div>
             </div>
         </div>
 
         <!-- Key Skills Section -->
-        <div class="card" id="key-skills">
+        <div class="card modal_toggle_card" id="key-skills">
             <div class="section-header">
                 <h2 class="section-title">
                     Key skills
@@ -1001,10 +1050,10 @@
                     </svg>
                 </h2>
             </div>
-            {% if skills %}
-            <div class="skills-container">
-                {% for skill in skills %}
-                <span class="skill-tag">{{skill}}</span>
+            {% if user_detail.skills %}
+            <div class="suggested-skills">
+                {% for skill in user_detail.skills|get_skill_separated  %}
+                <span class="suggested-skill">{{skill}}</span>
                 {% endfor %}
             </div>
             {% else %}
@@ -1014,7 +1063,8 @@
             {% endif %}
         </div>
 
-        <div class="card" id="languages">
+        <!-- Language Section -->
+        <div class="card modal_toggle_card" id="languages">
             <div class="section-header">
                 <h2 class="section-title">
                     Language
@@ -1023,16 +1073,39 @@
                     </svg>
                 </h2>
             </div>
-            <div class="item">
+            <div class="item mb-2">
                 <div >
                     English
                 </div>
-                <div class="achievement-subtitle">Can speak, read and write</div>
+                <div class="achievement-subtitle">
+                    {% if user_detail.english_level == 'no_english' %}
+                        NO English
+                    {% elif user_detail.english_level == 'basic' %}
+                    Can understand and speak basic sentences
+                    {% elif user_detail.english_level == 'intermediate' %}
+                    Can have a conversation in English on some topic
+                    {% elif user_detail.english_level == 'advanced' %}
+                    Can do entire job in English ans speak fluently
+                    {% endif %}
+                </div>
+            </div>
+            <div class="item">
+                <div >
+                    Other Languages
+                </div>
+
+                <div class="achievement-subtitle">
+                    {% if user_detail.other_languages %}
+                    {{user_detail.other_languages}}
+                    {% else %}
+                    No other languages
+                    {% endif %}
+                </div>
             </div>
         </div>
 
         <!-- Internships Section -->
-        <div class="card" id="internships">
+        <div class="card modal_toggle_card" id="internships">
             <div class="section-header">
                 <h2 class="section-title">Internships</h2>
                 <a href="#" class="add-button" data-modal="internship">Add</a>
@@ -1043,7 +1116,7 @@
         </div>
 
         <!-- Projects Section -->
-        <!-- <div class="card" id="projects">
+        <!-- <div class="card modal_toggle_card" id="projects">
             <div class="section-header">
                 <h2 class="section-title">Projects</h2>
                 <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1064,7 +1137,7 @@
         </div> -->
 
         <!-- Profile Summary -->
-        <div class="card" id="profile-summary">
+        <div class="card modal_toggle_card" id="profile-summary">
             {% if user_detail.bio %}
             <div class="section-header">
                 <h2 class="section-title">
@@ -1092,7 +1165,7 @@
         </div>
 
 
-        <div class="card" id="employment">
+        <div class="card modal_toggle_card" id="employment">
             {% if user_detail.experience %}
             <div class="section-header">
                 <h2 class="section-title">
@@ -1136,17 +1209,16 @@
             </div>
         </div>
         <!-- Resume Section -->
-        <div class="card" id="resume">
+        <div class="card modal_toggle_card" id="resume">
             <div class="section-header">
                 <h2 class="section-title">Resume</h2>
             </div>
-            <div class="description">
+            <div class="description mb-3">
                 Your resume is the first impression you make on potential employers. Craft it carefully to secure your desired job or internship.
             </div>
             <div class="file-info">
                 <div class="file-details">
                     {% if user_resume.resume_file %}
-                    hello
                         <div>
                             <div class="file-name">{{ user_resume.resume_file.name|basename }}</div>
                             <div class="upload-date">Uploaded on {{ user_resume.updat}}</div>
@@ -1190,6 +1262,34 @@
 </div>
 
 <div class="modal-overlay" id="modalOverlay">
+
+    <!-- User First Name Input Field -->
+     <div class="modal" id="profile_nameModal">
+        <div class="modal-header">
+            <h3 class="modal-title">Profile Name</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{% url 'complete_profile:update_profile_name' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3 m-auto w-50">
+            <label for="first_name" class="form-check-label ">First Name:</label>
+            <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}" class="form-control" required>
+            </div>
+            <div class="mb-3 m-auto w-50">
+            <label for="last_name" class="form-check-label">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" value="{{ user.last_name }}" class="form-control" required>
+        </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+            </div>
+        </form>
+     </div>
+
     <!-- Career Preferences Modal -->
     <div class="modal" id="preferenceModal">
         <div class="modal-header">
@@ -1200,7 +1300,8 @@
                 </svg>
             </button>
         </div>
-        <form action="{% url 'complete_profile:edit_job_preference' %}">
+        <form action="{% url 'complete_profile:edit_job_preference' %}" method="post" >
+            {% csrf_token %}
             <div class="detail_container" id="job_prefference">
                 <div class="mb-3">
                     <label class="form-label compulsory ">Preferred Shift</label>
@@ -1266,14 +1367,15 @@
                 </svg>
             </button>
         </div>
-        <form action="">
+        <form action="{% url 'complete_profile:update_schooling_details' %}" method="post" >
+            {% csrf_token %}
         <div class="detail_container" id="Educaiton">
             <div class="mb-3" >
                 <label class="form-label compulsory " data-educating="" id="is_student_data">
                     Are you pursuing your education?
                 </label>
-                <input type="radio" name="student" value="yes" id="student_radio" style="display: none;">
-                <input type="radio" name="student" value="no" id="not_student_radio" style="display: none;">
+                <input type="radio" name="student" value="True" id="student_radio" style="display: none;">
+                <input type="radio" name="student" value="False" id="not_student_radio" style="display: none;">
                 <br>
                 <label for="student_radio"><span class="info-card rounded" id="student">Yes</span></label>
                 <label for="not_student_radio"><span class="info-card rounded" id="non_student">No</span></label>
@@ -1490,7 +1592,7 @@
             <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
             <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
         </div>       
-    </form>
+        </form>
     </div>
 
     <!-- Key Skills Modal -->
@@ -1503,60 +1605,31 @@
                 </svg>
             </button>
         </div>
-        <form action="">
+        
             <div class="skills-input-container">
                 <div class="selected-skills" id="selectedSkills">
-                    <div class="skill-tag">
-                        Pycharm
-                        <span class="remove-skill">×</span>
-                    </div>
-                    <div class="skill-tag">
-                        Django
-                        <span class="remove-skill">×</span>
-                    </div>
-                    <div class="skill-tag">
-                        Django Rest API
-                        <span class="remove-skill">×</span>
-                    </div>
-                    <div class="skill-tag">
-                        Python
-                        <span class="remove-skill">×</span>
-                    </div>
+
+                    {% if user_detail.skills %}
+                    <span id="skill_array" data-skill-array="{{user_detail.skills}}" style="display: none;"></span>
+                        {% for skill in user_detail.skills|get_skill_separated %}
+                        <div class="skill-tag">
+                            <span class="skill_tag_val">{{skill}}</span>
+                            <span class="remove-skill">×</span>
+                        </div>                           
+                        {% endfor %}
+                    {% endif %}
+
                 </div>
                 <input type="text" class="skills-input" placeholder="Enter your key skills" id="skillsInput">
             </div>
-
-            <div class="suggested-section">
-                <h3 class="suggested-title">Based on your current selection</h3>
-                <div class="suggested-skills">
-                    <button class="suggested-skill">
-                        <span class="add-icon">+</span>
-                        Python
-                    </button>
-                    <button class="suggested-skill">
-                        <span class="add-icon">+</span>
-                        Python Development
-                    </button>
-                    <button class="suggested-skill">
-                        <span class="add-icon">+</span>
-                        Python Software D...
-                    </button>
-                    <button class="suggested-skill">
-                        <span class="add-icon">+</span>
-                        Python Data
-                    </button>
-                    <button class="suggested-skill">
-                        <span class="add-icon">+</span>
-                        Python And Django...
-                    </button>
-                </div>
-            </div>
-
+            <form action="{% url 'complete_profile:update_skills_details' %}" method="post" id="skill_form">
+                {% csrf_token %}
+            <input type="text" name="skills" id="form_skil_inp" style="display: none;">
             <div class="modal-footer">
                 <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
                 <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
             </div> 
-        </form>
+            </form>
     </div>
 
     <!-- Languages Modal -->
@@ -1570,19 +1643,20 @@
                 </svg>
             </button>
         </div>
-        <form action="">
+        <form action="{% url 'complete_profile:update_language_details' %}" method="post">
+            {% csrf_token %}
         <div class="detail_container" id="Language">
             <div class="mb-3 english_div">
                 <label  class="form-label compulsory ">English</label>
                 <div class="input-group custom_radio mb-3 ">
-                    <input type="radio" name="english" id="no_english" value="no_english" style="
+                    <input type="radio" name="english_level" id="no_english" value="no_english" style="
                         margin: 0px 10px 0 10px;
                         width: 18px;
                     ">
                     <label class="form-check-label" for="no_english">No English</label>
                 </div>
                 <div class="input-group custom_radio mb-3 ">
-                    <input type="radio" name="english" id="basic" value="basic" style="
+                    <input type="radio" name="english_level" id="basic" value="basic" style="
                         margin: 0px 10px 0 10px;
                         width: 18px;
                     ">
@@ -1591,7 +1665,7 @@
                     </label>
                 </div>
                 <div class="input-group custom_radio mb-3 ">
-                    <input type="radio" name="english" id="intermediate" value="intermediate" style="
+                    <input type="radio" name="english_level" id="intermediate" value="intermediate" style="
                         margin: 0px 10px 0 10px;
                         width: 18px;
                     ">
@@ -1600,7 +1674,7 @@
                     </label>
                 </div>
                 <div class="input-group custom_radio  ">
-                    <input type="radio" name="english" id="advanced" value="advanced" style="
+                    <input type="radio" name="english_level" id="advanced" value="advanced" style="
                         margin: 0px 10px 0 10px;
                         width: 18px;
                     ">
@@ -1613,7 +1687,7 @@
                 Add other language you can speak (Optional) 
             </label>
             <div id="lang_collection" >
-                <input type="text" name="other_language" id="other_lang_inp" value="" style="display: none;">
+                <input type="text" name="other_languages" id="other_lang_inp" style="display: none;">
             </div>
             <p class="error" id="cmp_frm_err_4"></p>
         </div>
@@ -1626,7 +1700,44 @@
 
     <!-- Internships Modal -->
     <div class="modal" id="internshipsModal">
-        <!-- Similar structure as Career Preferences Modal -->
+       
+        <div class="modal-header">
+            <h3 class="modal-title">Internship Details</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{% url 'complete_profile:update_internship_details' %}" method="post" id="internshipForm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="internship_title" class="form-label ">Internship Title</label>
+                <input type="text" name="job_title"  id="internship_title" required>
+            </div>
+            <div class="mb-3">
+                <label for="company_name" class="form-label ">Company Name</label>
+                <input type="text" name="company_name"  id="company_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label ">Explain what you do in few fords</label>
+                <textarea name="description"  rows="2" required></textarea>
+            </div>
+            <div class="d-flex justify-content-between  mb-3">
+                <div class="">
+                    <label for="start_date_intern" class="form-label ">Start Date</label>
+                    <input type="text" name="start_date" placeholder="Choose Date" id="start_date_intern" required>
+                </div>
+                <div class="">
+                    <label for="end_date_intern" class="form-label ">End Date</label>
+                    <input type="text" name="end_date" placeholder="Choose Date" id="end_date_intern" required>
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+        </div> 
+    </form>
     </div>
 
     <!-- Projects Modal -->
@@ -1660,7 +1771,7 @@
 
 <script>
 const header = document.querySelector('.main_container_header');
-const stickyThreshold = 360; // The position where the sticky behavior starts
+const stickyThreshold = 270; // The position where the sticky behavior starts
 
 window.addEventListener('scroll', () => {
     if (window.scrollY >= stickyThreshold) {
@@ -1681,6 +1792,7 @@ window.addEventListener('scroll', () => {
     const saveButtons = document.querySelectorAll('.modal-button-primary');
 
     function openModal(modalId) {
+        console.log('Opening modal', modalId);
         modalOverlay.style.display = 'block';
         document.getElementById(modalId).style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -1695,7 +1807,7 @@ window.addEventListener('scroll', () => {
     editButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            const modalId = e.target.closest('.card').id + 'Modal';
+            const modalId = e.target.closest('.modal_toggle_card').id + 'Modal';
             openModal(modalId);
         });
     });
@@ -1719,6 +1831,7 @@ window.addEventListener('scroll', () => {
         button.addEventListener('click', () => {
             const modalId = button.closest('.modal').id;
             const formId = modalId.replace('Modal', 'Form');
+            console.log(formId);
             const form = document.getElementById(formId);
             if (form) {
                 const formData = new FormData(form);
@@ -1835,11 +1948,16 @@ schoolingDetails.forEach((span) => {
     const skillsInput = document.getElementById('skillsInput');
     const selectedSkillsContainer = document.getElementById('selectedSkills');
 
+    let selectedSkills = [];
     // Store selected skills
-    let selectedSkills = ['Pycharm', 'Django', 'Django Rest API', 'Python'];
-
-
-
+    try {
+        selectedSkills = document.getElementById('skill_array').getAttribute('data-skill-array') ;
+        selectedSkills = selectedSkills.split(',') ;
+    }
+    catch(error){
+       alert("Error",error)
+    }
+    // alert(selectedSkills)
     // Handle adding new skills
     skillsInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && skillsInput.value.trim()) {
@@ -1857,9 +1975,11 @@ schoolingDetails.forEach((span) => {
         const skillTag = document.createElement('div');
         skillTag.className = 'skill-tag';
         skillTag.innerHTML = `
-            ${skill}
+        <span class="skill_tag_val">${skill}</span>
+            
             <span class="remove-skill">×</span>
         `;
+        console.log(skillTag)
         selectedSkillsContainer.appendChild(skillTag);
 
         // Add remove event listener
@@ -1879,16 +1999,6 @@ schoolingDetails.forEach((span) => {
             const skillTag = button.parentElement;
             const skill = skillTag.textContent.trim().slice(0, -1); // Remove × symbol
             removeSkill(skillTag, skill);
-        });
-    });
-
-    // Add event listeners for suggested skills
-    document.querySelectorAll('.suggested-skill').forEach(button => {
-        button.addEventListener('click', () => {
-            const skill = button.textContent.trim().slice(1); // Remove + symbol
-            if (!selectedSkills.includes(skill)) {
-                addSkill(skill);
-            }
         });
     });
 
@@ -1921,32 +2031,68 @@ languages.forEach(lan => {
 })
 
 const lan_div = document.querySelectorAll('.lan-div')
-const other_lan_div = document.getElementById('other_lan_div')
-const other_lang_inp = document.getElementById('other_lang_inp')
-lan_div.forEach((lan, index) => {
-  lan.addEventListener('click', function () {
+let other_lang_inp = document.getElementById('other_lang_inp')
+// let other_lang_inp_value = other_lang_inp.value
 
-    current_lan = other_lan_div.getAttribute('data-other-lang')
-    if (!current_lan == '') {
-      current_lan = current_lan + ','
+lan_div.forEach((lan) => {
+  lan.addEventListener('click', function () {
+    let other_lang_inp = document.getElementById('other_lang_inp');
+    let other_lang_inp_value = other_lang_inp.value; // Get current input value
+    let selectedLang = lan.querySelector('span').innerText;
+
+    let langArray = other_lang_inp_value ? other_lang_inp_value.split(',') : [];
+
+    if (langArray.includes(selectedLang)) {
+      // If already selected, remove it
+      langArray = langArray.filter(lang => lang !== selectedLang);
+    } else {
+      // Otherwise, add it
+      langArray.push(selectedLang);
     }
-    other_lan_div.setAttribute('data-other-lang', current_lan + lan.querySelector('span').innerHTML)
-    curren_val = other_lang_inp.value
-    if (!curren_val == '') {
-      curren_val = curren_val + ','
-    }
-    other_lang_inp.value = curren_val + lan.querySelector('span').innerHTML
+
+    // Update input value
+    other_lang_inp.value = langArray.join(',');
+
+    // Toggle classes and icon color
     lan.classList.toggle('lang-info');
     lan.classList.toggle('active-lang-info');
-    const svg = lan.querySelector('svg')
-    svg.classList.toggle('rotate_svg')
+
+    const svg = lan.querySelector('svg');
+    svg.classList.toggle('rotate_svg');
+
     const path = lan.querySelector('svg path');
     const currentFill = path.getAttribute('fill');
     const newFill = currentFill === 'black' ? '#003C96' : 'black';
     path.setAttribute('fill', newFill);
-  })
-})
+  });
+});
+
  </script>
+
+<script>
+document.querySelector('#skill_form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default submission for debugging
+    
+    const skill_tag_val = document.querySelectorAll('.skill_tag_val');
+    const form_skil_inp = document.querySelector('#form_skil_inp');
+
+    // Clear previous values before adding new ones
+    form_skil_inp.value = '';
+
+    skill_tag_val.forEach((skill,index) => {
+        if (index == 0){
+            form_skil_inp.value += skill.textContent.trim(); 
+        }
+        else{
+              form_skil_inp.value += ',' + skill.textContent.trim() ; 
+        }
+    });
+    // Submit the form after processing
+    this.submit();
+});
+
+</script>
+
  <script>
     const change_profile_img_form = document.getElementById('change_profile_img_form')
     const profile_image_inp = document.getElementById('profile_image_inp')
@@ -1954,4 +2100,14 @@ lan_div.forEach((lan, index) => {
         change_profile_img_form.submit()
     })
  </script>
+
+ <!-- Internship modal -->
+  <script>
+$('#start_date_intern  ').datepicker({
+  format: "yyyy-mm-dd"
+});
+$('#end_date_intern  ').datepicker({
+  format: "yyyy-mm-dd"
+});
+  </script>
 {% endblock javascripts %}

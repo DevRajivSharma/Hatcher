@@ -1,11 +1,10 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 class check_session :
     def __init__(self,get_response):
          self.get_response = get_response
     def __call__(self,request):
         if  request.session.get('user_id') :
-            print('Inside MiddleWare')
             return redirect('dashboard:home')
-        response = self.get_response(request)
-        return response
+        else :
+            return self.get_response(request)
         

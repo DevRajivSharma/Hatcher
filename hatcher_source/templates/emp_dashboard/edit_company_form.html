@@ -1,0 +1,50 @@
+{% extends '../blocks/emp_dashboard.html' %}
+{% load profile_custom_filters %}
+{% block css %}
+{% load static %}
+{% endblock css %}
+
+{% block content %}
+
+<br>
+<h3 class="text-center mb-3">Company Register</h3>
+
+<div>
+<form class=" border p-3 rounded" method="post" enctype="multipart/form-data"
+ action="{% url 'employer:edit_company' cmp.id %}" style="width: 50%; margin: auto;">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="fname" class="form-label">Company Name</label>
+        <input   name = 'name' type="text" class="form-control"  value="{{cmp.name}}"  id="fname" aria-describedby="emailHelp" required>
+      </div>
+      <div class="mb-3">
+        <label for="age" class="form-label">Employees</label>
+        <input  name="employees" type="number" value="{{cmp.total_staff}}" class="form-control" id="age" required>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Describe Compnay in few words</label>
+        <textarea name="bio" class="form-control"  id="exampleFormControlTextarea1" rows="3">{{cmp.description}}</textarea>
+      </div>
+      <div  requiredclass="mb-3">
+        <label for="formFile" class="form-label">Picture</label>
+        <input  name="image" value="{% if cmp.image %}{{cmp.image}}{% endif %} " class="form-control" type="file" id="formFile">
+      </div>
+    <div class="mb-3">
+       <label for="exampleInputEmail1" class="form-label">City</label>
+      <input  name="address" type="text" value="{{cmp.city}}" class="form-control" id="exampleInputEmail1" required>
+    </div>
+    <div class="mb-3">
+      <div class="text-end">
+        <button requiredon type="submit" class="btn btn-dark">Submit</button>
+      </div>
+</form>
+</div>
+
+
+
+
+{% endblock content %}
+{% block javascripts %}
+{% load static %}
+
+{% endblock javascripts %}

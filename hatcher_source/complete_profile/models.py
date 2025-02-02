@@ -32,7 +32,7 @@ class UserDetail(models.Model):
     work_start_date = models.DateField(null=True, blank=True)
     work_end_date = models.DateField(null=True, blank=True)
     experience = models.TextField(null=True, blank=True)
-    english = models.BooleanField(default=False)
+    english_level = models.CharField(max_length=255, null=True, blank=True)
     other_languages = models.TextField(null=True, blank=True)  # You might want to save this as a comma-separated list
     day_shift = models.BooleanField(default=False)
     night_shift = models.BooleanField(default=False)
@@ -71,3 +71,15 @@ class userResume(models.Model):
     updated_at = models.DateTimeField(auto_now=True,null=True) 
     def __str__(self):
         return f"{self.user}'s Resume"
+    
+class internship(models.Model):
+    user = models.ForeignKey(user_table, on_delete=models.CASCADE, related_name='internships')
+    company_name = models.CharField(max_length=255)
+    job_title = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)  # Set once when the object is created
+    updated_at = models.DateTimeField(auto_now=True)  # Update every time the object is saved
+    def __str__(self):
+        return f"{self.user}'s Internship at {self.company_name}"

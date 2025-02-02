@@ -15,7 +15,13 @@ def formatted_birth_date(value):
 @register.filter(name='formatted_start_end')
 def formatted_start_end(value):
     if isinstance(value, date):
-        return value.strftime("%Y-%m-%d")  # Formats the date as 'YYYY-MM-DD'
+        return value.strftime("%d/%m/%Y")  # Formats the date as 'YYYY-MM-DD'
+    return value
+
+@register.filter(name='formate_year')
+def formate_year(value):
+    if isinstance(value, date):
+        return value.strftime("%Y")  # Formats the date as 'YYYY-MM-DD'
     return value
 
 @register.filter(name='replace_underscore')
@@ -27,3 +33,13 @@ def replace_underscore(value):
 @register.filter
 def basename(value):
     return os.path.basename(value)
+
+@register.filter
+def get_item(dictionary, key):
+    """Custom filter to get an item from a dictionary."""
+    return dictionary.get(key)
+
+@register.filter
+def get_skill_separated(skill_str):
+    """Custom filter to get a list of skills separated by comma."""
+    return skill_str.split(',') if skill_str else []

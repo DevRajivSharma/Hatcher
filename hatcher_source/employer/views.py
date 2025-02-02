@@ -39,8 +39,9 @@ def employer_login(request):
             employer = employer_table.objects.get(email=email.strip())
             # Check if the provided password matches the hashed password in the database
             print(employer.password)
-            
+            print(password.strip(), employer.password)
             if check_password(password.strip(), employer.password):
+                print('Employer authenticated')
                 request.session['is_emp_authenticated'] = True
                 request.session['employer_id'] = employer.id
                 return redirect('employer:employer_dashboard')  # Redirect to dashboard after login
@@ -85,7 +86,7 @@ def add_job(request):
         salary_disclose = form.get('salary_disclose') == 'disclose'
         salary_minimum = form.get('salary_minimum') if salary_disclose else None
         salary_maximum = form.get('salary_maximum') if salary_disclose else None
-
+        print(form.get('job_type'))
         data = {
             'company': cmp,
             'job_type': form.get('job_type'),
@@ -155,8 +156,10 @@ def company_register(request):
     return render(request,'emp_dashboard/company_form.html')
 
 def search_candidate(request):
-    if request.method == 'POST':
-        keyword = request.POST.get('search_keyword', '').strip()  # Get the keyword keyword from POST request
+    if request.method == 'GET':
+        employer_id = request.session.get('employer_id')
+        keyword = request.GET.get('search_keyword', '').strip()  # Get the keyword keyword from POST request
+        request.session['search_keyword'] = keyword
         if keyword:
             query = Q(
                 Q(first_name__icontains=keyword) |
@@ -184,8 +187,12 @@ def search_candidate(request):
             )
             candidates = user_table.objects.filter(query).distinct()
             print('Here are the candidates')
-            print(candidates) 
-            return render(request, 'emp_dashboard/home.html',context={'users':candidates})
+            company_register = company.objects.filter(recruiter__id=employer_id)
+            return render(request, 'emp_dashboard/home.html',context={'users':candidates,'company_register':company_register,'search_keyword':keyword})
+        else:
+            candidates = user_table.objects.all()
+            company_register = company.objects.filter(recruiter__id=employer_id)
+            return render(request, 'emp_dashboard/home.html',context={'users':candidates,'company_register':company_register})
         
 def posted_jobs(request):
     emp_id = request.session.get('employer_id')
@@ -197,6 +204,7 @@ def posted_jobs(request):
         'job_type', 'created_at', 'location', 'id', 'work_type', 'experience', 'description','current_application'
     )
     return render(request, 'emp_dashboard/Posted_job.html', context={ 'posted_jobs': posted_jobs_val}) 
+@auth
 def applications(request):
     emp_id = request.session.get('employer_id')
     employer_instance = employer_table.objects.get(id=emp_id)
@@ -225,11 +233,20 @@ def applications(request):
     return render(request, 'emp_dashboard/applications.html', context={ 'posted_jobs': posted_jobs_val,
     'job_with_applications':job_with_applications_values}) 
 
-def applicants_user(request,job_id):
+def applicants_user(request, job_id):
     job = Job.objects.get(id=job_id)
     applications = Application.objects.filter(job=job)
     candidates = user_table.objects.filter(applications__in=applications)
-    return render(request, 'emp_dashboard/applicant_user.html', context={'users': candidates})
+
+    # Prepare a dictionary to store the application statuses for each candidate
+    candidates_status = {
+        candidate.id: Application.objects.filter(user=candidate, job=job).first().status
+        for candidate in candidates
+    }
+
+    return render(request, 'emp_dashboard/applicant_user.html', context={'users': candidates, 'candidates_status': candidates_status, 'job': job})
+
+
 
 def user_profile(request,id):
     print(id)
@@ -237,3 +254,43 @@ def user_profile(request,id):
     user_detail = UserDetail.objects.get(user=user_instance)
     user_resume,created = userResume.objects.get_or_create(user = user_instance)
     return render(request, 'emp_dashboard/candidates_profile.html', context={'user': user_instance,'user_detail' : user_detail,'user_resume':user_resume})
+
+def accept_applicant(request, job_id, user_id):
+    if request.method == 'POST':
+        job = Job.objects.get(id=job_id)
+        user = user_table.objects.get(id=user_id)
+        application = Application.objects.filter(job=job, user=user).first()
+        application.status = 'Accepted'
+        application.save()
+        return redirect('employer:applicants_user', job_id=job_id)
+
+def reject_applicant(request, job_id, user_id):
+    if request.method == 'POST':
+        job = Job.objects.get(id=job_id)
+        user = user_table.objects.get(id=user_id)
+        application = Application.objects.filter(job=job, user=user).first()
+        application.status = 'Rejected'
+        application.save()
+        return redirect('employer:applicants_user', job_id=job_id)
+    
+def edit_company(request, cmp_id):
+    company_instance = company.objects.get(id=cmp_id)
+    if request.method == 'POST':
+        form = request.POST
+        image = request.FILES.get('image')
+        company_instance.name = form.get('name')
+        company_instance.description = form.get('bio')
+        company_instance.total_staff = form.get('employees')
+        company_instance.city = form.get('address')
+
+        if image:  # Only update image if a new one is provided
+            company_instance.image = image
+
+        company_instance.save()  # Save the changes to the database
+        return redirect('employer:employer_dashboard')
+    return render(request,'emp_dashboard/edit_company_form.html', context={'cmp': company_instance})
+
+def delete_company(request, cmp_id):
+    company_instance = company.objects.get(id=cmp_id)
+    company_instance.delete()
+    return redirect('employer:employer_dashboard')

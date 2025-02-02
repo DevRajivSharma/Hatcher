@@ -14,3 +14,4 @@ def custom_timesince(value):
     time_diff = timesince(value, now)
     time_units = time_diff.split(', ')
     return time_units[0] + ' ago'
+

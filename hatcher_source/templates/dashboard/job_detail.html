@@ -5,9 +5,10 @@
 <link rel="stylesheet" href="{% static 'css/job_detail.css' %}">
 {% endblock css %}
 {% block content %}
+
 <div class=" mb-3 d-flex align-items-center " style="height: 90px;" id="search-div">
   <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="margin:auto; width: 70%;gap: 10px;">
-    {{ csrftoken }}
+    
     <input type="text" placeholder="Enter KeyWord [company/position]" name="keyword" class="form-control" value="{{ search_query.keyword|default:'' }}"  />
     <input 
     class="form-control" 
@@ -135,5 +136,63 @@
 {% block javascripts %}
 {% load static %}
 <script src="{% static 'js/candidate_dashboard/job_detail.js'%}"></script>
+{% csrf_token %}
+<script>
+function apply_job(jobId, button) {
+    // Show loader and disable the button
+    button.innerHTML = `
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    `;
+    
+    // Send an AJAX request to apply for the job
+    fetch("{% url 'dashboard:apply_job' job_id=0 %}".replace('0', jobId), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(), // Add CSRF token for Django
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          // Change button text to "Applied" and keep it disabled
+          button_disable();
+        } else {
+          // Handle error and re-enable the button
+          button.innerHTML = "Apply now";
+          button.disabled = false;
+          alert("Failed to apply for the job. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Reset the button on error
+        button.innerHTML = "Apply now";
+        button.disabled = false;
+        alert("An error occurred. Please try again.");
+      });
+  }
+
+function button_disable(){
+    console.log("Button disabled");
+    const apply_button = document.querySelectorAll('.apply_button');
+    apply_button.forEach(btn => {
+        btn.disabled = true;
+        btn.innerHTML = "Applied";
+    });
+}
+  // Function to get CSRF token from cookies
+function getCSRFToken() {
+    const name = "csrftoken=";
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name)) {
+            return cookie.substring(name.length);
+        }
+    }
+    return "";
+}
+</script>
 
 {% endblock javascripts %}

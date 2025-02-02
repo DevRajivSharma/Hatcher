@@ -1,10 +1,11 @@
-{% extends '../blocks/credentials_block.html' %}
+{% extends '../blocks/emp_dashboard.html' %}
 
 {% block content %}\
 <br><br><br>
-<h1 class="text-center">Company Register</h1>
-<form class="container" method="post" enctype="multipart/form-data"
- action="{% url 'employer:company_register' %}">
+<h3 class="text-center mb-3">Company Register</h3>
+<div>
+<form class=" border p-3 rounded" method="post" enctype="multipart/form-data"
+ action="{% url 'employer:company_register' %}" style="width: 50%; margin: auto;">
     {% csrf_token %}
     <div class="mb-3">
         <label for="fname" class="form-label">Company Name</label>
@@ -12,7 +13,7 @@
       </div>
       <div class="mb-3">
         <label for="age" class="form-label">Employees</label>
-        <input  name="employees" type="number" class="form-control" id="age" required>
+        <input  name="employees" type="number" class="form-control"  id="age" required>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
@@ -27,7 +28,10 @@
       <input  name="address" type="text" class="form-control" id="exampleInputEmail1" required>
     </div>
     <div class="mb-3">
-    <button requiredon type="submit" class="btn btn-primary">Submit</button>
+      <div class="text-end">
+        <button requiredon type="submit" class="btn btn-dark">Submit</button>
+      </div>
   </form>
+</div>
 {% endblock content %}
 

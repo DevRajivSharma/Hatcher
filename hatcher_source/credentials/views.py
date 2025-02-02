@@ -30,6 +30,7 @@ def register(request):
             render(request, 'credentials/register.html', {'error': 'Invalid credentials'})
     return render(request, 'credentials/register.html',)
 
+@check_session
 def login(request):
     if request.method == "POST":
         email = request.POST.get('Email')
@@ -40,7 +41,8 @@ def login(request):
             print(user) # Set session flag
             request.session['is_authenticated'] = True 
             request.session['user_id'] = user.id        # Store user ID in session (optional)
-            print(user.id)
+            # print(user.id)
+            request.session.set_expiry(604800)   
             return redirect('dashboard:home')  # Redirect to dashboard after login
         except user_table.DoesNotExist:
             return render(request, 'credentials/login.html', {'error': 'Invalid credentials'})

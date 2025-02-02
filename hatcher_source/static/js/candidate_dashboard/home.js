@@ -31,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } 
   const spans = document.querySelectorAll(".exp_val");
     function updateExperienceLabel(value) {
+      if (value != 6){
         spans.forEach((span, index) => {
+
             if (index == value) {
                 id_for_current_exp = "experience_value_"+index
                 span.classList.remove("visually-hidden"); // Show the selected span
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+  }
 
   slider.addEventListener("input", function () {
       updateExperienceLabel(this.value);
