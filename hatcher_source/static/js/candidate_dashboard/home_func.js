@@ -214,11 +214,7 @@ function updateJobListings(jobs) {
 
 function updateAllFilter(all_filter) {
   let exp_next;
-  if (all_filter.experience !== 'Fresher') {
-    exp_next = all_filter.experience === '1' ? 'year' : 'years';
-  } else {
-    exp_next = '';
-  }
+
 
   let filter_card = '';
 
@@ -226,7 +222,7 @@ function updateAllFilter(all_filter) {
   if (all_filter.experience && all_filter.experience !== 'Any') {
     filter_card += `
         <div class="applied-filter">
-          <span style="margin-right: 6px;margin-left: 3px;">${all_filter.experience} ${exp_next}</span>
+          <span style="margin-right: 6px;margin-left: 3px;">${all_filter.experience}</span>
           <svg class="filter-svg" data-radio-id="experience_slider" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
             <path fill="#003C96" d="M13.097 2.912a.806.806 0 00-1.141 0L8 6.86 4.044 2.904a.806.806 0 10-1.14 1.14L6.858 8l-3.956 3.956a.806.806 0 101.141 1.141L8 9.141l3.956 3.956a.806.806 0 101.14-1.14L9.142 8l3.956-3.956a.81.81 0 000-1.132z"></path>
           </svg>

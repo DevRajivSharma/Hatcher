@@ -12,6 +12,8 @@ def basic_detail(request):
     user_detail, created = UserDetail.objects.get_or_create(user=user)
     if request.method == 'POST':
         data = request.POST
+        print('Data is here')
+        print(data)
         user_detail = UserDetail.objects.get(user=user)
 
         # Parse and update boolean fields
@@ -85,6 +87,17 @@ def basic_detail(request):
                 user_detail.work_start_date = datetime.strptime(data['work_start_date'], '%Y-%m-%d').date()
             except ValueError:
                 print("Invalid work start date format.")
+
+        if 'work_end_date' in data and data['work_end_date']:
+            try:
+                user_detail.work_end_date = datetime.strptime(data['work_end_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work end date format.")
+            
+        if 'total_experience' in data and data['total_experience']:
+            user_detail.total_experience = data['total_experience']
+
+
         if 'college_start_date' in data and data['college_start_date']:
             try:
                 user_detail.college_start_date = datetime.strptime(data['college_start_date'], '%Y-%m-%d').date()
@@ -95,13 +108,6 @@ def basic_detail(request):
                 user_detail.college_end_date = datetime.strptime(data['college_end_date'], '%Y-%m-%d').date()
             except ValueError:
                 print("Invalid work start date format.")
-        if 'work_end_date' in data and data['work_end_date']:
-            try:
-                user_detail.work_end_date = datetime.strptime(data['work_end_date'], '%Y-%m-%d').date()
-            except ValueError:
-                print("Invalid work end date format.")
-        if 'experience' in data and data['experience']:
-            user_detail.experience = data['experience']
 
         if 'other_language' in data and data['other_language']:
             user_detail.other_languages = data['other_language']
@@ -257,14 +263,72 @@ def update_internship_details(request):
         user = user_table.objects.get(id=user_id)
         data = request.POST
         fields = {
-            'user' : user,
             'company_name': data['company_name'],
             'job_title':data['job_title'],
             'start_date': data['start_date'],
             'end_date': data['end_date'],
             'description': data['description']
         }
-        user_internship = internship.objects.get_or_create(**fields)
+        user_internship,created = internship.objects.get_or_create(user=user)
+        for key, value in fields.items():
+            setattr(user_internship, key, value)
         user_internship.save()
+        return redirect('dashboard:profile')
+    return redirect('dashboard:profile')
+
+def update_bio_details(request):
+    if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        user = user_table.objects.get(id=user_id)
+        user_detail = UserDetail.objects.get(user=user)
+        data = request.POST
+        setattr(user_detail, 'bio' , data['bio'])
+        user_detail.save()
+        return redirect('dashboard:profile')
+    return redirect('dashboard:profile')
+
+def update_employment_details(request):
+    if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        user = user_table.objects.get(id=user_id)
+        user_detail = UserDetail.objects.get(user=user)
+        data = request.POST
+        print('Inside update employment details ')
+        print(data)
+        user_detail.work_experience = False
+        if 'work_experience' in data and data['work_experience']:
+            user_detail.work_experience = data['work_experience']
+        if 'jobTitle' in data and data['jobTitle']:
+            user_detail.job_title = data['jobTitle']
+        if 'jobRole' in data and data['jobRole']:
+            user_detail.job_role = data['jobRole']
+        if 'companyName' in data and data['companyName']:
+            user_detail.company_name = data['companyName']
+        if 'industry' in data and data['industry']:
+            user_detail.industry = data['industry']
+        if 'notice_period' in data and data['notice_period']:
+            user_detail.notice_period = data['notice_period']
+        if 'salary' in data and data['salary']:
+            try:
+                user_detail.salary = int(data['salary'].replace(",", ""))
+            except ValueError:
+                print("Invalid salary format.")
+        if 'work_start_date' in data and data['work_start_date']:
+            try:
+                user_detail.work_start_date = datetime.strptime(data['work_start_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work start date format.")
+
+        if 'work_end_date' in data and data['work_end_date']:
+            try:
+                user_detail.work_end_date = datetime.strptime(data['work_end_date'], '%Y-%m-%d').date()
+            except ValueError:
+                print("Invalid work end date format.")
+            
+        if 'total_experience' in data and data['total_experience']:
+            user_detail.total_experience = data['total_experience']
+
+
+        user_detail.save()
         return redirect('dashboard:profile')
     return redirect('dashboard:profile')

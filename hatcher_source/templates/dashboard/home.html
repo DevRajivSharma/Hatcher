@@ -1,11 +1,11 @@
 {% extends '../blocks/dashboard_block.html' %}
 {% block title %}Home{% endblock title %}
 {% load profile_custom_filters %}
+{% load custom_filters %}
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/home_responive.css' %}">
-{% load custom_filters %}
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
@@ -686,7 +686,6 @@ Showing <span id="total_jobs">{{jobs|length}}</span> jobs based on your filter
         let scrollPosition = window.innerHeight + window.scrollY;
         let documentHeight = document.body.scrollHeight;
 
-        console.log("Scroll Position:", scrollPosition, "Document Height:", documentHeight);
 
         if (scrollPosition >= documentHeight - 500) {  // Trigger when close to the bottom
             console.log("Fetching more data...");

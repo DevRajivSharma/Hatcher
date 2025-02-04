@@ -147,12 +147,13 @@ def post_filter(request):
     user_id = request.session.get('user_id')
     if request.method == "POST":
         user = user_table.objects.get(id=user_id)
-        post_by_user = Post.objects.filter(user__id = user_id)
-        post_user_liked = Post.objects.filter()
         search_keyword = request.POST.get('search_keyword')
         liked_posts =  Post.objects.filter(likes__user=user).all()
         liked_post_ids = liked_posts.values_list('id', flat=True)  
+        post = Post.objects.all()
         if search_keyword:
             post_by_search_keyword= Post.objects.filter(content__icontains = search_keyword) | Post.objects.filter(user__first_name__icontains = search_keyword) | Post.objects.filter(user__last_name__icontains = search_keyword)
-            return render(request, 'dashboard/community_post.html', {'user':user, 'posts': post_by_search_keyword, 'liked_post_ids': liked_post_ids})
+            return render(request, 'dashboard/community_post.html', {'user':user, 'posts': post_by_search_keyword, 'liked_post_ids': liked_post_ids,'search_keyword':search_keyword})
+        else:
+            return render(request, 'dashboard/community_post.html', {'user':user, 'posts': post, 'liked_post_ids': liked_post_ids})
         

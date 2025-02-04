@@ -21,7 +21,7 @@ class UserDetail(models.Model):
     college_start_date = models.DateField(null=True, blank=True)
     college_end_date = models.DateField(null=True, blank=True)
     school_medium = models.CharField(max_length=255, null=True, blank=True)
-    work_experience = models.IntegerField(null=True, blank=True)
+    work_experience = models.BooleanField(null=True, blank=True)
     job_title = models.CharField(max_length=255, null=True, blank=True)
     job_role = models.CharField(max_length=255, null=True, blank=True)
     company_name = models.CharField(max_length=255, null=True, blank=True)
@@ -31,7 +31,7 @@ class UserDetail(models.Model):
     salary = models.IntegerField(null=True, blank=True)
     work_start_date = models.DateField(null=True, blank=True)
     work_end_date = models.DateField(null=True, blank=True)
-    experience = models.TextField(null=True, blank=True)
+    total_experience = models.IntegerField(null=True, blank=True)
     english_level = models.CharField(max_length=255, null=True, blank=True)
     other_languages = models.TextField(null=True, blank=True)  # You might want to save this as a comma-separated list
     day_shift = models.BooleanField(default=False)
@@ -74,11 +74,11 @@ class userResume(models.Model):
     
 class internship(models.Model):
     user = models.ForeignKey(user_table, on_delete=models.CASCADE, related_name='internships')
-    company_name = models.CharField(max_length=255)
-    job_title = models.CharField(max_length=255)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    description = models.TextField()
+    company_name = models.CharField(max_length=255, null=True)
+    job_title = models.CharField(max_length=255, null=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)  # Set once when the object is created
     updated_at = models.DateTimeField(auto_now=True)  # Update every time the object is saved
     def __str__(self):

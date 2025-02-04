@@ -1,6 +1,6 @@
 {% extends '../blocks/dashboard_block.html' %}
 {% load profile_custom_filters %}
-{% block title %}Home{% endblock title %}
+{% block title %}Profile{% endblock title %}
 {% block css %}
 {% load static %}
 
@@ -572,10 +572,6 @@
         color: #333;
     }
 
-    .modal-button-primary {
-        background-color: #4285f4;
-        color: white;
-    }
 
     .checkbox_div{
     padding: 9px;
@@ -767,7 +763,7 @@
     border: 1px solid #ccc;
     padding: 5px;
 }
-#internshipForm textarea{
+ textarea{
     width: 100%;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -1106,6 +1102,31 @@
 
         <!-- Internships Section -->
         <div class="card modal_toggle_card" id="internships">
+            
+            {% if user_internship.job_title %}
+            <div class="section-header">
+                <h2 class="section-title">Internships
+                    <svg class="pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </h2>
+            </div>
+            <div class="item mb-2">
+                <div >
+                    {{ user_internship.company_name }}
+                </div>
+                <div class="achievement-subtitle mb-2">
+                    {{ user_internship.start_date|formatted_start_end }} - {{ user_internship.end_date|formatted_start_end }}
+                </div>
+                <div >
+                    {{ user_internship.job_title }}
+                </div>
+                <div class="achievement-subtitle">
+                    {{ user_internship.description }}
+                </div>
+            </div>
+            {% else %}
+
             <div class="section-header">
                 <h2 class="section-title">Internships</h2>
                 <a href="#" class="add-button" data-modal="internship">Add</a>
@@ -1113,6 +1134,7 @@
             <div class="description">
                 Talk about the company you interned at, what projects you undertook and what special skills you learned
             </div>
+            {% endif %}
         </div>
 
         <!-- Projects Section -->
@@ -1136,7 +1158,9 @@
             {% endif %}
         </div> -->
 
+
         <!-- Profile Summary -->
+        
         <div class="card modal_toggle_card" id="profile-summary">
             {% if user_detail.bio %}
             <div class="section-header">
@@ -1164,9 +1188,9 @@
             </div>
         </div>
 
-
+        <!-- Experince Section -->  
         <div class="card modal_toggle_card" id="employment">
-            {% if user_detail.experience %}
+            {% if user_detail.work_experience %}
             <div class="section-header">
                 <h2 class="section-title">
                     Employment
@@ -1201,8 +1225,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                {% if user_detail.experience %}
-                My total work experience is  {{user_detail.experience}} year
+                {% if user_detail.total_experience %}
+                My total work experience is  {{user_detail.total_experience}} years
                 {% else %}
                 Fresher
                 {% endif %}
@@ -1284,7 +1308,7 @@
             <input type="text" name="last_name" id="last_name" value="{{ user.last_name }}" class="form-control" required>
         </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
                 <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
             </div>
         </form>
@@ -1351,7 +1375,7 @@
                 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
                 <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
             </div>
         </form>
@@ -1589,7 +1613,7 @@
             <p class="error" id="cmp_frm_err_2"></p>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
             <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
         </div>       
         </form>
@@ -1626,7 +1650,7 @@
                 {% csrf_token %}
             <input type="text" name="skills" id="form_skil_inp" style="display: none;">
             <div class="modal-footer">
-                <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+                <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
                 <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
             </div> 
             </form>
@@ -1692,7 +1716,7 @@
             <p class="error" id="cmp_frm_err_4"></p>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
             <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
         </div> 
     </form>
@@ -1734,7 +1758,7 @@
                 </div>
             </div>
         <div class="modal-footer">
-            <button class="btn btn-secondary" id="laterButton">I'll add this later</button>
+            <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
             <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
         </div> 
     </form>
@@ -1747,7 +1771,26 @@
 
     <!-- Profile Summary Modal -->
     <div class="modal" id="profile-summaryModal">
-        <!-- Similar structure as Career Preferences Modal -->
+        <div class="modal-header">
+            <h3 class="modal-title">Profile Summary</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{% url 'complete_profile:update_bio_details' %}" method="post" id="internshipForm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="description" class="form-label ">Write Short Description </label>
+                <textarea name="bio"  rows="2" required></textarea>
+            </div>
+            
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
+            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+        </div> 
+        </form>
     </div>
 
     <!-- Competitive Exams Modal -->
@@ -1757,13 +1800,280 @@
 
     <!-- Employment Modal -->
     <div class="modal" id="employmentModal">
-        <!-- Similar structure as Career Preferences Modal -->
+        <div class="modal-header">
+            <h3 class="modal-title">Internship Details</h3>
+            <button class="modal-close" id="closeModal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <form action="{% url 'complete_profile:update_employment_details' %}" method="post" id="experience_form">
+            {% csrf_token %}
+            <div class="detail_container" id="Experience">
+                <div class="mb-3">
+                    <label class="form-label compulsory" data-experience="" id="is_experience">
+                        Do you have work experience?
+                    </label>
+                    <br>
+                    <!-- Hidden Inputs and Labels -->
+                    <input type="radio" name="work_experience" value="True" id="have_experience_radio" style="display: none;">
+                    <label for="have_experience_radio">
+                        <span class="info-card rounded" id="have_experience">Yes</span>
+                    </label>
+                
+                    <input type="radio" name="work_experience" value="False" id="no_experience_radio" style="display: none;">
+                    <label for="no_experience_radio">
+                        <span class="info-card rounded" id="no_experience">No</span>
+                    </label>
+                </div>
+                
+                <div class="visually-hidden" id="experience_div">
+                    <div class="d-flex ">
+                    <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                        <label class="form-label compulsory" for="jobTitle">Job Title:</label>
+                        <br>
+                        <input type="text" id="jobTitle" name="jobTitle" required style="width:100%"
+                        placeholder="e.g., Software Engineer">
+                    </div>
+                    <div class="mb-3" style="width: 220px;">
+                    <label for="jobRole" class="form-label compulsory">Job Role:</label>
+                    <br>
+                    <input type="text"  id="jobRole" name="jobRole" required style="width:100%"
+                    placeholder="e.g., Full Stack Developer"> 
+                    </div>
+                    </div>
+                    <div class="d-flex">
+                    <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                        <label for="companyName" class="form-label compulsory">Company Name:</label>
+                        <br>
+                        <input type="text" id="companyName" name="companyName" required style="width:100%"
+                        placeholder="e.g., Google">
+                    </div>
+                    <div class="mb-3" style="width: 220px;">
+                        <label for="industry" class="form-label compulsory">Industry:</label>
+                        <br>
+                        <input type="text" id="industry" name="industry" required style="width:100%"
+                        placeholder="e.g., Technology">
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label compulsory" data-current_working="" id="is_working">
+                            Are you currently working?
+                        </label>
+                        <br>
+                        <!-- Hidden Inputs and Labels -->
+                        <input type="radio" name="current_working" value="working" id="working_radio" style="display: none;">
+                        <label for="working_radio">
+                            <span class="info-card rounded" id="working">Yes</span>
+                        </label>
+                    
+                        <input type="radio" name="current_working" value="not_working" id="not_working_radio" style="display: none;">
+                        <label for="not_working_radio">
+                            <span class="info-card rounded" id="not_working">No</span>
+                        </label>
+                    </div>
+                    
+                    <div class="mb-3 visually-hidden " id="notice_period">
+                        <label class="form-label compulsory " id="notice_period_is"
+                            data-notice-period="">Notice Period</label>
+                        <br>
+                    
+                        <input type="radio" class="visually-hidden" name="notice_period" value="no_notice_period" id="no_notice_period_radio">
+                        <label for="no_notice_period_radio">
+                            <span class="info-card rounded notice_periods" id="no_notice_period">Instant</span>
+                        </label>
+                    
+                        <input type="radio" class="visually-hidden" name="notice_period" value="less_than_15_day" id="less_than_15_day_radio">
+                        <label for="less_than_15_day_radio">
+                            <span class="info-card rounded notice_periods" id="less_than_15_day">15 Days or less</span>
+                        </label>
+                    
+                        <input type="radio" class="visually-hidden" name="notice_period" value="1_month" id="1_month_radio">
+                        <label for="1_month_radio">
+                            <span class="info-card rounded notice_periods" id="1_month">1 Month</span>
+                        </label>
+                    
+                        <input type="radio" class="visually-hidden" name="notice_period" value="2_months" id="2_months_radio">
+                        <label for="2_months_radio">
+                            <span class="info-card rounded notice_periods" id="2_months">2 Months</span>
+                        </label>
+                    
+                        <input type="radio" class="visually-hidden" name="notice_period" value="3_or_more_months" id="3_or_more_months_radio">
+                        <label for="3_or_more_months_radio">
+                            <span class="info-card rounded notice_periods" id="3_or_more_months">3 Months or more</span>
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label compulsory" id="current_salary" >
+                            Currenty Salary(Monthly)
+                        </label>
+                        <br>
+                        <input 
+                        type="text" 
+                        id="numberInput" 
+                        name="salary" 
+                        placeholder="Amount" 
+                        oninput="this.value = formatNumber(this.value)" 
+                        style="display: block;">
+                        <p
+                        style="font-size: small;
+                        background: #78deff45;
+                        color: #0f91bc;
+                        padding: 7px;
+                        margin-top: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"  height="15" viewBox="0,0,256,256"
+                            style="margin-right: 5px;
+                            margin-top: -2px;">
+                                <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                                </svg>
+                            Salary information is prvate, we use it only to show relevant jobs
+                        </p>
+                    </div>
+                    <div class="d-flex">
+                    <div class="mb-3" style="width: 220px; margin-right:10px ;">
+                        <label class="form-label compulsory">Start Date</label>
+                        <input type="text" name="work_start_date" id="exp_start_date" placeholder="Choose date">
+                    </div>
+                    <div class="mb-3" id="not_working_date_div" style="width: 220px;">
+                        <label class="form-label compulsory">End Date</label>
+                        <input type="text" name="work_end_date" id="exp_end_date" placeholder="Choose date">
+                    </div>
+                    <div class="mb-3" style="width: 220px;">
+                        <label class="form-label compulsory" for="total_experience_year">Total Experience (Years)</label>
+                        <input 
+                        type="text" 
+                        id="total_experience_year" 
+                        name="total_experience" 
+                        placeholder="Years" 
+                        maxlength="2" 
+                        oninput="this.value = Math.min(35, this.value.replace(/[^0-9]/g, ''))" 
+                    >
+                    
+                    
+                    </div>
+                    </div>
+                </div>
+                <p class="error" id="cmp_frm_err_3"></p>
+            </div>
+            <p style="
+            font-size: small;
+            background: #ffdfdf;
+            color: red;
+            padding: 7px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            " 
+            class="visually-hidden error_p">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+                margin-top: -2px;">
+                    <g fill="red" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                    </svg>
+                Answer all the questions in this form.
+            </p>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" id="laterButton"  >I'll add this later</button>
+                <button type="button" class="btn btn-primary" id="experince_save_button">Save</button>
+            </div> 
+        </form>
     </div>
 
-    <!-- Academic Achievements Modal -->
+    <!-- Resume Modal -->
     <div class="modal" id="academic-achievementsModal">
-        <!-- Similar structure as Career Preferences Modal -->
+        <div class="container" style="width: fit-content;
+        margin: auto;">
+            <div class="card ">
+                <div class="card-body  d-flex flex-column align-items-center ">
+                <h5 class="">Upload your resume!</h5>
+                <p class="">Receive 2x job offers after uploading</p>
+                <p style="font-size: small;
+                background: #78deff45;
+                color: #0f91bc;
+                padding: 0 7px;
+                width: fit-content;
+                border: 1px solid #8080805c;
+                border-radius: 3px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+                    margin-top: -2px;">
+                        <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                        </svg>
+                        Takes less than a min to upload
+                </p>
+                <img src="/media/logos/folder_icon.png" id="icon" alt="Folder Icon" > 
+
+                <p style="margin-bottom: 0;" id="type_define" >Upload .pdf or .docx file only</p>
+                <p style="font-size: small;
+                background: #b1ecae45;
+                color: #32a601;
+                padding: 0 7px;
+                font-weight: 600;
+                width: fit-content;
+                border: 1px solid #8080805c;
+                border-radius: 3px;"
+                class="visually-hidden"
+                id="file_type_desc">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+                    margin-top: -2px;">
+                        <g fill="#0f91bc" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                        </svg>
+                        
+                </p>
+                <p style="font-size: small;
+                background: #ffecec;
+                color: #ff0000bd;
+                padding: 0 7px;
+                width: fit-content;
+                border: 1px solid #8080805c;
+                border-radius: 3px;
+                margin-top: 8px;"
+                id="fileInfo">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="15" viewBox="0,0,256,256" style="margin-right: 5px;
+                    margin-top: -2px;">
+                        <g fill="#ff0000bd" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.511,0 -10,4.489 -10,10c0,5.511 4.489,10 10,10c5.511,0 10,-4.489 10,-10c0,-5.511 -4.489,-10 -10,-10zM12,4c4.43012,0 8,3.56988 8,8c0,4.43012 -3.56988,8 -8,8c-4.43012,0 -8,-3.56988 -8,-8c0,-4.43012 3.56988,-8 8,-8zM11,7v2h2v-2zM11,11v6h2v-6z"></path></g></g>
+                        </svg>
+                        (Max file size: 5 MB)
+                </p>
+
+                <ul style="list-style-type:none">
+                    <li class="text-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                        <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+                        </svg>
+                    Unlock jobs from top companies faster</li>
+                    <li class=""> 
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                        <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+                        </svg>
+                        Get direct calls from top HRs</li>
+                    <li class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+                        <g fill-opacity="0.83922" fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12zM21.707,12.707l-7.56,7.56c-0.188,0.188 -0.442,0.293 -0.707,0.293c-0.265,0 -0.52,-0.105 -0.707,-0.293l-3.453,-3.453c-0.391,-0.391 -0.391,-1.023 0,-1.414c0.391,-0.391 1.023,-0.391 1.414,0l2.746,2.746l6.853,-6.853c0.391,-0.391 1.023,-0.391 1.414,0c0.391,0.391 0.391,1.023 0,1.414z"></path></g></g>
+                        </svg>
+                    Get jobs specifically suited for your role and experience level</li>
+                </ul>
+
+                <form action="{% url 'complete_profile:resume' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="button">
+                    <a href="{% url 'complete_profile:skip' %}">
+                    <button type="button" class="green_button" style="background-color: white;
+                    color: green;
+                    border: 1px solid green;">Skip</button></a>
+                    
+                    <input type="file" name="resume" id="resume" class="visually-hidden" accept=".pdf,.docx" required>
+                    <label for="resume" id="resume_label" class="green_button">Select</label>
+                    <button type="submit" id="submit" class="green_button visually-hidden"
+                    style="background: #0083f7;"
+                    >Submit</button>
+                    </div>
+                </form>
+            
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 {% endblock content %}
 {% block javascripts %}
@@ -1788,9 +2098,7 @@ window.addEventListener('scroll', () => {
     const modalOverlay = document.getElementById('modalOverlay');
     const modals = document.querySelectorAll('.modal');
     const editButtons = document.querySelectorAll('.pencil-icon, .add-button');
-    const closeButtons = document.querySelectorAll('.modal-close, .modal-button-secondary');
-    const saveButtons = document.querySelectorAll('.modal-button-primary');
-
+    const closeButtons = document.querySelectorAll('.modal-close, #laterButton');
     function openModal(modalId) {
         console.log('Opening modal', modalId);
         modalOverlay.style.display = 'block';
@@ -1827,21 +2135,7 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    saveButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.closest('.modal').id;
-            const formId = modalId.replace('Modal', 'Form');
-            console.log(formId);
-            const form = document.getElementById(formId);
-            if (form) {
-                const formData = new FormData(form);
-                // Here you would typically send the form data to the server
-                console.log('Saving data for', modalId, Object.fromEntries(formData));
-            }
-            closeModal(modalId);
-        });
-    });
-
+ 
     // Add keyboard support for modals
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -1955,7 +2249,7 @@ schoolingDetails.forEach((span) => {
         selectedSkills = selectedSkills.split(',') ;
     }
     catch(error){
-       alert("Error",error)
+    //    alert("Error",error)
     }
     // alert(selectedSkills)
     // Handle adding new skills
@@ -2109,5 +2403,184 @@ $('#start_date_intern  ').datepicker({
 $('#end_date_intern  ').datepicker({
   format: "yyyy-mm-dd"
 });
+  </script>
+
+  <!-- Experience Modal -->
+<script>
+$('#exp_start_date  ').datepicker({
+  format: "yyyy-mm-dd"
+});
+$('#exp_end_date ').datepicker({
+  format: "yyyy-mm-dd"
+});
+const have_experience = document.getElementById('have_experience')
+const no_experience = document.getElementById('no_experience')
+const experience_div = document.getElementById('experience_div')
+const is_experience = document.getElementById('is_experience')
+
+have_experience.addEventListener('click', () => {
+  have_experience.classList.remove('info-card')
+  have_experience.classList.add('active-info-card')
+  no_experience.classList.remove('active-info-card')
+  no_experience.classList.add('info-card')
+  is_experience.setAttribute('data-experience', 'Yes')
+  experience_div.classList.remove('visually-hidden')
+})
+no_experience.addEventListener('click', () => {
+  no_experience.classList.remove('info-card')
+  no_experience.classList.add('active-info-card')
+  have_experience.classList.remove('active-info-card')
+  have_experience.classList.add('info-card')
+  is_experience.setAttribute('data-experience', 'No')
+  experience_div.classList.add('visually-hidden')
+})
+
+const working = document.getElementById('working')
+const not_working = document.getElementById('not_working')
+const notice_period = document.getElementById('notice_period')
+const notice_period_is = document.getElementById('notice_period_is')
+const is_working = document.getElementById('is_working')
+const notice_periods = document.querySelectorAll('.notice_periods')
+
+working.addEventListener('click', () => {
+  working.classList.remove('info-card')
+  working.classList.add('active-info-card')
+  not_working.classList.remove('active-info-card')
+  not_working.classList.add('info-card')
+  is_working.setAttribute('data-current_working', 'Yes')
+  notice_period.classList.remove('visually-hidden')
+})
+not_working.addEventListener('click', () => {
+  not_working.classList.remove('info-card')
+  not_working.classList.add('active-info-card')
+  working.classList.remove('active-info-card')
+  working.classList.add('info-card')
+  is_working.setAttribute('data-current_working', 'No')
+  notice_period.classList.add('visually-hidden')
+})
+
+notice_periods.forEach((span) => {
+  span.addEventListener('click', function () {
+
+    notice_period_is.setAttribute('data-notice-period', span.innerHTML)
+    // Update the label with the selected education
+    education_depend_label.setAttribute('data-higest-educaiton', span.innerHTML);
+    console.log(span.innerHTML);
+
+    // Remove 'active-info-card' class from all spans and add 'info-card' back
+    notice_periods.forEach(s => {
+      s.classList.remove('active-info-card');
+      s.classList.add('info-card');
+    });
+
+    // Add 'active-info-card' class to the clicked span and remove 'info-card'
+    this.classList.remove('info-card');
+    this.classList.add('active-info-card');
+
+  })
+})
+   </script>
+<!-- Experince Validation Function -->
+<script>
+    function validateExperienc(){
+  isValid = true
+  const experience = document.querySelector('#Experience input[name ="work_experience"]:checked');
+  const current_working = document.querySelector('#Experience input[name ="current_working"]:checked');
+  const notice_period = document.querySelector('#notice_period input[name ="notice_period"]:checked');
+  const error_p = document.querySelector('.error_p');
+  const jobTitle = document.getElementById('jobTitle');
+  const jobRole = document.getElementById('jobRole');
+  const companyName = document.getElementById('companyName');
+  const industry = document.getElementById('industry');
+  const salary = document.getElementById('numberInput');
+  const exp_start_date = document.getElementById('exp_start_date');
+  const exp_end_date = document.getElementById('exp_end_date');
+  const total_experience_year = document.getElementById('total_experience_year');
+  if (!experience) {
+    isValid = false
+    error_p.classList.remove('visually-hidden');
+    return isValid
+  }
+  if (experience.value === "have_experience"){
+      if (jobTitle.value === "" || jobRole.value ==="" || companyName.value === "" || industry.value === "") {
+        isValid = false;
+        error_p.classList.remove('visually-hidden');
+        return isValid
+      }
+      if (current_working.value === "working"){
+        if (!notice_period){
+          isValid = false
+          error_p.classList.remove('visually-hidden');
+          return isValid
+        }
+      }
+      if (salary.value === "" || exp_start_date.value === "" || exp_end_date.value === "" || total_experience_year.value === "") {
+        isValid = false
+        error_p.classList.remove('visually-hidden');
+        return isValid
+      }
+
+
+  }
+  error_p.classList.add('visually-hidden')
+  return isValid;
+
+}
+
+const experince_save_button = document.getElementById('experince_save_button')
+const experience_form = document.getElementById('experience_form')
+
+experince_save_button.addEventListener('click',function(){
+    if(validateExperienc()){
+        experience_form.submit()
+        }
+})
+
+experience_form.addEventListener('submit',function(event){
+    alert('Insider')
+    event.preventDefault();
+
+    const isValid = validateExperienceForm()
+    if (isValid) {
+        experience_form.submit()
+    }
+})
+
+</script>
+
+<!-- Resume modal  -->
+<script>
+    const fileInput = document.getElementById("resume");
+    const fileInfo = document.getElementById("fileInfo");
+    const file_type_desc = document.getElementById("file_type_desc");
+    const resume_label = document.getElementById("resume_label");
+    const submit = document.getElementById("submit");
+    const type_define = document.getElementById("type_define");
+  
+    fileInput.addEventListener("change", function () {
+      if (this.files && this.files.length > 0) {
+        const file = this.files[0];
+        const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+  
+        if (file.size > maxSize) {
+          fileInfo.textContent = "Error: File size exceeds 5 MB. Please select a smaller file.";
+          fileInput.value = ""; // Clear the input
+          resume_label.innerText = 'Select';
+          submit.classList.add('visually-hidden');
+        } else {
+          type_define.classList.add('visually-hidden')
+          fileInfo.classList.add('visually-hidden')
+          file_type_desc.textContent = `${file.name}`;
+          file_type_desc.classList.remove('visually-hidden');
+          resume_label.innerText = 'Replace';
+          submit.classList.remove('visually-hidden');
+        }
+      } else {
+        fileInfo.textContent = "(Max file size: 5 MB)";
+        file_type_desc.classList.remove('visually-hidden');
+        resume_label.innerText = 'Select';
+        submit.classList.add('visually-hidden');
+      }
+    });
   </script>
 {% endblock javascripts %}

@@ -100,7 +100,10 @@ def job_search(request):
                 Q(title__icontains=k) |
                 Q(description__icontains=k) |
                 Q(company__name__icontains=k) |
-                Q(company__description__icontains=k)
+                Q(company__description__icontains=k)|
+                Q(job_type__icontains=k)|
+                Q(work_type__icontains=k)|
+                Q(perks__icontains=k)
             )
     if location:
         query &= Q(location__icontains=location) | Q(company__city__icontains=location) |  Q(description__icontains=location)
@@ -118,7 +121,7 @@ def job_search(request):
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})
 
 def job_search_ajax(request):
-    time.sleep(0.5)
+    time.sleep(5)
     if request.method == "GET":
         search_query = request.session.get('search_query', {})
         keyword = search_query.get('keyword', '')
@@ -277,5 +280,6 @@ def profile(request):
 # print('user_id in profile', user_id)
     user_instance = user_table.objects.get(id=user_id)
     user_detail = UserDetail.objects.get(user=user_instance)
+    user_internship,created = internship.objects.get_or_create(user=user_instance)
     user_resume,created = userResume.objects.get_or_create(user = user_instance)
-    return render(request, 'dashboard/profile.html', context={'user': user_instance,'user_detail' : user_detail,'user_resume':user_resume})
+    return render(request, 'dashboard/profile.html', context={'user': user_instance,'user_detail' : user_detail,'user_resume':user_resume,'user_internship':user_internship})

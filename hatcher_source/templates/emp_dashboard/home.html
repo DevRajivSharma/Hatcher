@@ -1,4 +1,5 @@
 {% extends '../blocks/emp_dashboard.html' %}
+{% block title %}Home {% endblock title %}
 {% load profile_custom_filters %}
 {% block css %}
 {% load static %}
@@ -27,7 +28,6 @@
       margin: 0;
     }
     .cmp_img_name {
-    width: 43%;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -67,6 +67,7 @@
       </a>
       <hr>
       <h5>Registered company</h5>
+      <div class="list_cmp  overflow-auto" style="height: 200px;">
       {% if company_register %}
       {% for cmp in company_register %}
       <div class="com_p border mb-2 bg-light d-flex justify-content-between p-2">
@@ -97,6 +98,7 @@
         </span> 
       </div>
       {% endfor %}
+
       {% else %}
       <p class="com_p" style="
         margin: 0;
@@ -105,6 +107,7 @@
         color: gray;
     ">No Complany Registered</p>
       {% endif %}
+    </div>
       <a href="{% url 'employer:company_register' %}"  style="width: 100%">
         <button class=" green_button"  id="my-post" style="background-color: #5c5ce9db ;
        width: 100% ;margin: 0;">
@@ -377,5 +380,13 @@
       }
     });
   });
+  </script>
+  <script>
+    const cmp_name = document.querySelectorAll('.cmp_name');
+    cmp_name.forEach((name) => {
+      if (name.innerText.length > 15) {
+        name.innerText = name.innerText.slice(0, 15) + '...';
+      }
+    });
   </script>
 {% endblock javascripts %}

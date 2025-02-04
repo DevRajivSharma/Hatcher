@@ -13,4 +13,6 @@ urlpatterns = [
     path('update_language_details', update_language_details, name='update_language_details'),
     path('update_skills_details', update_skills_details, name='update_skills_details'),
     path('update_internship_details', update_internship_details, name='update_internship_details'),
+    path('update_bio_details', update_bio_details, name='update_bio_details'),
+    path('update_employment_details', update_employment_details, name='update_employment_details'),
 ]

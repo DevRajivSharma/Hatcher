@@ -309,12 +309,12 @@
                     </label>
                     <br>
                     <!-- Hidden Inputs and Labels -->
-                    <input type="radio" name="work_experience" value="have_experience" id="have_experience_radio" style="display: none;">
+                    <input type="radio" name="work_experience" value="True" id="have_experience_radio" style="display: none;">
                     <label for="have_experience_radio">
                         <span class="info-card rounded" id="have_experience">Yes</span>
                     </label>
                 
-                    <input type="radio" name="work_experience" value=0 id="no_experience_radio" style="display: none;">
+                    <input type="radio" name="work_experience" value="False" id="no_experience_radio" style="display: none;">
                     <label for="no_experience_radio">
                         <span class="info-card rounded" id="no_experience">No</span>
                     </label>
@@ -437,7 +437,7 @@
                         <input 
                         type="text" 
                         id="total_experience_year" 
-                        name="experience" 
+                        name="total_experience" 
                         placeholder="Years" 
                         maxlength="2" 
                         oninput="this.value = Math.min(35, this.value.replace(/[^0-9]/g, ''))" 

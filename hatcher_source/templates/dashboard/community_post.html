@@ -18,9 +18,9 @@
     style="width: 94%;
     margin: auto;">
      {% csrf_token %} 
-    <input type="text" placeholder="Search any ......" name="search_keyword" class="form-control"
+    <input type="text" placeholder="Search any ......" name="search_keyword" value="{{search_keyword}}" class="form-control"
     style="width: 60%;"
-    required />
+     />
     
       <button type="submit" class="btn btn-success" style="
       width:13%
@@ -29,9 +29,17 @@
 </div>
 
 <!-- Display the user's data after form submission -->
+<h4 class="container" style="
+  width: 67%;
+  font-weight: 600;
+  margin-top: 63px;
+  " id="total-search-result">
+Showing <span id="total_jobs">{{posts|length}}</span> Posts based on your filter
+</h4>
+
 
 <div class="main-container  d-flex flex-row  p-0 ">
-<div class="tool_container">
+<div class="tool_container" style="margin: 0;">
   <div class="profile-detail d-flex flex-column border   p-4 text-center">
     <img src="/media/{{user.user_profile_image}}" alt="Profile Image" class="m-auto" style="border-radius: 50%;
     height: 80px;
@@ -58,7 +66,7 @@
     </a>
   </div>
 </div>
-<div class="container1">
+<div class="container1" style="margin-top:0 ;">
   {% if posts %}
   {% for post in posts %}
   <div class="card mb-3" >
