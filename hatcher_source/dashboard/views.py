@@ -121,7 +121,7 @@ def job_search(request):
     # return redirect('home',context =  {'user': user_instance,'company':jobs_val})
 
 def job_search_ajax(request):
-    time.sleep(5)
+    time.sleep(0.5)
     if request.method == "GET":
         search_query = request.session.get('search_query', {})
         keyword = search_query.get('keyword', '')

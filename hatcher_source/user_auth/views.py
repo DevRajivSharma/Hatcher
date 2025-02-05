@@ -83,11 +83,14 @@ def email_auth(request):
         # Send email with OTP
         subject = 'Email Verification'
         message = f'Your  OTP for verification is: {otp} \n Dont Share with any one'
+
         try:
+            print(subject, message, settings.DEFAULT_FROM_EMAIL, [recipient_email])
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [recipient_email])
             print('Otp send to ',recipient_email)
             return JsonResponse({"message": "OTP sent successfully", "status": "success"})
         except Exception as e:
+            print(e)
             return JsonResponse({"message": "Failed to send OTP", "status": "error"}, status=500)
     else:
         return JsonResponse({"message": "Invalid request method", "status": "error"}, status=405)

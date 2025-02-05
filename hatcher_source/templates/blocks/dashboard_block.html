@@ -26,15 +26,10 @@
   <div id="top"></div>
   <nav class="navbar navbar-expand-lg " id="nav-section">
     <div class="container-fluid">
-      <button class="navbar-toggler" style="border: none;" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa-solid fa-bars" style="color: #B197FC;"></i>
-      </button>
-      <div class="collapse navbar-collapse d-flex flex-row justify-content-between" id="navbarNav">
+      <div class="collapse w-100  d-flex flex-row justify-content-between" id="navbarNav">
         <div class="d-flex flex-row ">
           <a class="navbar-brand" id="reload">
             <img src="/media/logos/hatcher.png" class="d-inline-block align-text-top hatcher-logo" alt="Hatcher">
-
           </a>
           <ul class="navbar-nav text-center">
             <li class="nav-item">
@@ -59,7 +54,7 @@
           <a href="{% url 'community_post:post_list' %}"><button class="btn btn-primary">Community</button></a>
         </div> -->
 
-        <div style="/* width: 110px; */border: 1px solid #e5d9d9;padding: 5px;border-radius: 34px;/* height: 50px; */margin-right: 59px;" id="toggle_profile_box" class="d-flex flex-row align-items-center">
+        <div style="/* width: 110px; */border: 1px solid #e5d9d9;padding: 5px;border-radius: 34px;margin: 5px 59px;" id="toggle_profile_box" class="d-flex flex-row align-items-center">
           <img src="{{ user.user_profile_image.url }}" alt="Profile Image" style="border-radius: 50%;
           height: 35px;
           width: 35px;
@@ -191,6 +186,40 @@
       <span class="mentions">123 Hatcher Lane, Startup City</span>
     </div>
   </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-items">
+        <a class="nav-item active" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a class="nav-item" data-page="applications">
+            <i class="fas fa-briefcase"></i>
+            <span>Applications</span>
+        </a>
+        <a class="nav-item" data-page="community">
+            <i class="fas fa-users"></i>
+            <span>Community</span>
+        </a>
+        <a class="nav-item" data-page="profile" >
+          <div style="
+          position: relative;
+          top: -5px;
+          border: 1px solid;
+          border-radius: 50%;
+          padding: 3px;">
+            <img src="{{ user.user_profile_image.url }}" alt="Profile Image" style="border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            object-fit: cover;
+            background: #857d7d3b;">
+            </div>
+            <span style="
+            position: relative;
+            top: -5px;">Profile</span>
+        </a>
+    </div>
+</nav>
 
 
   <script src="{% static 'js/candidate_dashboard/dashboard.js' %}"></script>

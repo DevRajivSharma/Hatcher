@@ -5,14 +5,156 @@
 {% block css %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
-<link rel="stylesheet" href="{% static 'css/home_responive.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/home_responive.css' %}"> -->
+<style>
+  /* Mobile Navigation */
+  @media (max-width: 768px) {
+
+
+    /* Hide desktop profile section */
+    #toggle_profile_box {
+      display: none !important;
+    }
+
+    /* Main Container Layout */
+    .main-container {
+      flex-direction: column !important;
+      padding: 0 !important;
+      margin-bottom: 60px !important; /* Space for bottom nav */
+    }
+
+    /* Search Section */
+
+
+    /* Filter Section */
+    .container1 {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100vh;
+      width: 80% !important;
+      background: white;
+      z-index: 1001;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .container1.show-filter {
+      left: 0;
+    }
+
+    /* Filter Toggle Button */
+    .filter-toggle {
+      position: fixed;
+      bottom: 70px;
+      left: 20px;
+      z-index: 1000;
+      background: #B197FC;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Job Listings */
+    .container2 {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 10px !important;
+    }
+
+    /* Hide Right Sidebar on Mobile */
+    .container3 {
+      display: none !important;
+    }
+
+    /* Adjust card styles */
+    .card {
+      margin-bottom: 10px;
+    }
+
+    .info-card {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+
+    /* Footer Adjustments */
+    .footer_mentions {
+      flex-direction: column;
+      padding: 1rem;
+      margin-bottom: 60px;
+    }
+
+    .footer_content {
+      width: 100% !important;
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+<style>
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+
+        .nav-item.active {
+            color: #4CAF50;
+        }
+
+        .nav-item:hover {
+            color: #4CAF50;
+        }
+
+        /* Icons */
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+        .search_form_home{
+          margin:auto; 
+          width: 70%;
+          gap: 10px;
+        }
+        #total-search-result{
+          width: 73%;
+          font-weight: 600;
+        }
+</style>
 {% endblock css %}
 {% block content %}
 <!-- Display the user's data after form submission -->
 
 
 <div class=" mb-3 d-flex align-items-center " style="height: 90px;" id="search-div">
-  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row " style="margin:auto; width: 70%;gap: 10px;">
+  <form action="{% url 'dashboard:job_search' %}" id="form" method="get" class="d-flex flex-row search_form_home" >
     {{ csrftoken }}
     <input type="text" placeholder="Enter KeyWord [company/position]" name="keyword" class="form-control" value="{{ search_query.keyword|default:'' }}"  />
     <input 
@@ -29,15 +171,12 @@
 
     <button type="submit" class="btn btn-success" style="
     width: 44%;
-">Search Job</button>
+">Search</button>
   </form>
 </div>
 
 
-<h4 class="container" style="
-  width: 73%;
-  font-weight: 600;
-  " id="total-search-result">
+<h4 class="container"  id="total-search-result">
 Showing <span id="total_jobs">{{jobs|length}}</span> jobs based on your filter
 </h4>
 
@@ -602,7 +741,28 @@ Showing <span id="total_jobs">{{jobs|length}}</span> jobs based on your filter
 {% endblock content %}
 {% block javascripts %}
 {% load static %}
-<script>console.log("{{jobs}}")</script>
+<button class="filter-toggle d-md-none">
+  <i class="fas fa-filter"></i>
+</button>
+
+<script>
+  // Add JavaScript for filter toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterToggle = document.querySelector('.filter-toggle');
+    const filterContainer = document.querySelector('.container1');
+    
+    filterToggle.addEventListener('click', function() {
+      filterContainer.classList.toggle('show-filter');
+    });
+
+    // Close filter when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!filterContainer.contains(e.target) && !filterToggle.contains(e.target)) {
+        filterContainer.classList.remove('show-filter');
+      }
+    });
+  });
+</script>
 <script src="{% static 'js/candidate_dashboard/home_func.js'%}"  type="module"></script>
 <script src="{% static 'js/candidate_dashboard/home.js'%}" type="module"></script>
 <script>

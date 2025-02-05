@@ -58,11 +58,10 @@ body{
     padding: 20px 50px;
     width: 75%;
 }
-
-#Up_Arrow{
+#Up_Arrow {
     position: fixed;
-    bottom: 40px;
-    right: 50px;
+    bottom: 73px;
+    right: 24px;
     transition: 0.1s;
 }
 #Up_Arrow:hover{
@@ -156,4 +155,28 @@ body{
     100% {
         opacity: 1;
     }
+}
+.bottom-nav{
+    display: none;
+}
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+@media (max-width: 768px) {
+    .navbar-nav{
+        display: none !important;
+    }
+
+  .bottom-nav{
+    display: block !important;
+  }
 }
