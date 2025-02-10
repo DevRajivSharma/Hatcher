@@ -143,8 +143,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','3a3f-45-115-185-115.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1','https://3a3f-45-115-185-115.ngrok-free.app']
 
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [

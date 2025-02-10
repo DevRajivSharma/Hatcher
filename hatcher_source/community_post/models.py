@@ -24,14 +24,14 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.email} likes Post {self.post.id}"
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    user = models.ForeignKey(user_table, on_delete=models.CASCADE)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+#     user = models.ForeignKey(user_table, on_delete=models.CASCADE)
+#     content = models.TextField()
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Comment by {self.user.email} on {self.post.id}"
+#     def __str__(self):
+#         return f"Comment by {self.user.email} on {self.post.id}"
 @receiver(post_save,sender=Like)
 def increment_total_likes(sender, instance, created, **kwargs):
     if created:
